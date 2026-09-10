@@ -27,8 +27,6 @@ class PreferenceGeneralViewController: NSViewController {
     
     @IBOutlet weak var loadHomonymLrcButton: NSButton!
     
-    @IBOutlet weak var languagePopUp: NSPopUpButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,21 +53,6 @@ class PreferenceGeneralViewController: NSViewController {
             userPathMenuItem.toolTip = url.path
         } else {
             userPathMenuItem.isHidden = true
-        }
-        
-        let localizedLan: [String] = localizations.map { lan in
-            if let idx = lan.firstIndex(of: "-") {
-                let script = lan[idx...].dropFirst()
-                return Locale(identifier: lan).localizedString(forScriptCode: String(script))!
-            } else {
-                return Locale(identifier: lan).localizedString(forLanguageCode: lan)!
-            }
-        }
-        languagePopUp.addItems(withTitles: localizedLan)
-        
-        if let lan = defaults[.selectedLanguage],
-            let idx = localizations.firstIndex(of: lan) {
-            languagePopUp.selectItem(at: idx + 2)
         }
     }
     
@@ -102,22 +85,6 @@ class PreferenceGeneralViewController: NSViewController {
             }
         }
     }
-    @IBAction func chooseLanguageAction(_ sender: NSPopUpButton) {
-        let selectedIdx = sender.indexOfSelectedItem
-        if selectedIdx == 0 {
-            defaults.remove(.selectedLanguage)
-            defaults.remove(.appleLanguages)
-        } else {
-            let lan = localizations[selectedIdx - 2]
-            defaults[.selectedLanguage] = lan
-            defaults[.appleLanguages] = [lan]
-        }
-    }
-    
-    @IBAction func helpTranslateAction(_ sender: NSButton) {
-        NSWorkspace.shared.open(crowdinProjectURL)
-    }
-    
     @IBAction func preferredPlayerAction(_ sender: NSButton) {
         defaults[.preferredPlayerIndex] = sender.tag
         
@@ -138,5 +105,3 @@ class PreferenceGeneralViewController: NSViewController {
         }
     }
 }
-
-private let localizations = Bundle.main.localizations.filter { $0 != "Base" }.sorted()

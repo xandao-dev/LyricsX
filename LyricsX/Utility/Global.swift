@@ -21,8 +21,6 @@ let lyricsXGroupIdentifier = "3665V726AE.group.ddddxxx.LyricsX"
 let lyricsXHelperIdentifier = "ddddxxx.LyricsXHelper"
 let lyricsXErrorDomain = "ddddxxx.LyricsX"
 
-let crowdinProjectURL = URL(string: "https://crowdin.com/project/lyricsx")!
-
 let defaults = UserDefaults.standard
 let groupDefaults = UserDefaults(suiteName: lyricsXGroupIdentifier)!
 let defaultNC = NotificationCenter.default
@@ -80,8 +78,6 @@ extension UserDefaults.DefaultsKeys {
     static let lyricsSavingPathPopUpIndex = Key<Int>("LyricsSavingPathPopUpIndex")
     static let lyricsCustomSavingPathBookmark = Key<Data?>("LyricsCustomSavingPathBookmark")
     static let loadLyricsBesideTrack = Key<Bool>("LoadLyricsBesideTrack")
-    
-    static let selectedLanguage = Key<String?>("SelectedLanguage")
     
     static let strictSearchEnabled = Key<Bool>("StrictSearchEnabled")
     static let preferBilingualLyrics = Key<Bool>("PreferBilingualLyrics")
@@ -146,8 +142,6 @@ extension UserDefaults.DefaultsKeys {
     static let isInMASReview = Key<Bool?>("isInMASReview")
     
     static let launchHelperTime = Key<Date?>("launchHelperTime")
-    
-    static let appleLanguages = Key<[String]>("AppleLanguages")
 }
 
 extension CGFloat: DefaultConstructible {}

@@ -65,11 +65,11 @@
             <objects>
                 <viewController title="General" id="d5d-dC-DK4" userLabel="General" customClass="PreferenceGeneralViewController" customModule="LyricsX" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Ium-Ya-ZzT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="478"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="431"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <box title="Preferred music player" translatesAutoresizingMaskIntoConstraints="NO" id="JYR-Ed-Tax">
-                                <rect key="frame" x="17" y="342" width="566" height="112"/>
+                                <rect key="frame" x="17" y="295" width="566" height="112"/>
                                 <view key="contentView" id="r1e-Ln-LSb">
                                     <rect key="frame" x="3" y="3" width="560" height="94"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -302,7 +302,7 @@
                                 </view>
                             </box>
                             <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="mfr-Al-Vu9">
-                                <rect key="frame" x="234" y="313" width="246" height="18"/>
+                                <rect key="frame" x="234" y="266" width="246" height="18"/>
                                 <buttonCell key="cell" type="check" title="Auto launch &amp; quit with music player" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="v63-4a-fPw">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -317,7 +317,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="you-yu-77c">
-                                <rect key="frame" x="105" y="280" width="117" height="16"/>
+                                <rect key="frame" x="105" y="233" width="117" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Lyrics saving path:" id="0M7-ao-0jb">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -325,7 +325,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ydZ-SE-AM3">
-                                <rect key="frame" x="233" y="274" width="167" height="25"/>
+                                <rect key="frame" x="233" y="227" width="167" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="2c0-ba-y6d"/>
                                 </constraints>
@@ -400,7 +400,7 @@
                                 </connections>
                             </popUpButton>
                             <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uiE-OU-NWP">
-                                <rect key="frame" x="234" y="253" width="197" height="18"/>
+                                <rect key="frame" x="234" y="206" width="197" height="18"/>
                                 <buttonCell key="cell" type="check" title="Load lyrics beside music file" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="EDv-ax-0hI">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -414,7 +414,7 @@
                                 </connections>
                             </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="HqA-iJ-lec">
-                                <rect key="frame" x="406" y="279" width="21" height="18"/>
+                                <rect key="frame" x="406" y="232" width="21" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="21" id="NcW-r5-bQr"/>
                                     <constraint firstAttribute="height" constant="18" id="hHA-Y3-yS5"/>
@@ -476,56 +476,14 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zpw-kR-OfG">
-                                <rect key="frame" x="233" y="214" width="127" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="B0W-dB-GPu"/>
-                                </constraints>
-                                <popUpButtonCell key="cell" type="push" title="Auto" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="N08-TS-lqw" id="KeB-VY-rPx">
-                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="d8b-a5-Ghf">
-                                        <items>
-                                            <menuItem title="Auto" state="on" id="N08-TS-lqw">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem isSeparatorItem="YES" id="pjH-7q-Jvo"/>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                                <connections>
-                                    <action selector="chooseLanguageAction:" target="d5d-dC-DK4" id="5kJ-ha-gD6"/>
-                                </connections>
-                            </popUpButton>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UXR-cB-aCr">
-                                <rect key="frame" x="41" y="220" width="181" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Language (Requires Restart):" id="WfA-pe-S5D">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5rg-ki-Dg5">
-                                <rect key="frame" x="236" y="198" width="137" height="16"/>
-                                <buttonCell key="cell" type="bevel" title="Help translate LyricsX" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="oiH-T7-agJ">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <color key="contentTintColor" name="linkColor" catalog="System" colorSpace="catalog"/>
-                                <connections>
-                                    <action selector="helpTranslateAction:" target="d5d-dC-DK4" id="cmZ-j9-Tn3"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="uoA-YU-YZk" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="leading" id="0XK-XW-bY2"/>
                             <constraint firstItem="2Yv-tb-pyE" firstAttribute="leading" secondItem="tAC-g5-B2n" secondAttribute="leading" constant="18" id="2WD-V5-gCa"/>
                             <constraint firstItem="UQR-mH-y4R" firstAttribute="top" secondItem="xmp-V1-Dn6" secondAttribute="bottom" constant="16" id="3bx-9G-RDz"/>
-                            <constraint firstItem="zpw-kR-OfG" firstAttribute="leading" secondItem="UXR-cB-aCr" secondAttribute="trailing" constant="16" id="5Pz-gx-8E2"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ydZ-SE-AM3" secondAttribute="trailing" constant="40" id="5qc-4a-zut"/>
                             <constraint firstItem="ydZ-SE-AM3" firstAttribute="leading" secondItem="mfr-Al-Vu9" secondAttribute="leading" id="6h0-9j-Gv7"/>
                             <constraint firstAttribute="trailing" secondItem="UQR-mH-y4R" secondAttribute="trailing" constant="20" id="AqF-h8-heh"/>
-                            <constraint firstItem="5rg-ki-Dg5" firstAttribute="leading" secondItem="zpw-kR-OfG" secondAttribute="leading" id="D7N-hH-zSV"/>
                             <constraint firstItem="uoA-YU-YZk" firstAttribute="centerY" secondItem="wpE-cM-ds1" secondAttribute="centerY" id="DAB-hw-Kr5"/>
                             <constraint firstItem="uiE-OU-NWP" firstAttribute="top" secondItem="ydZ-SE-AM3" secondAttribute="bottom" constant="8" id="FC2-c7-SOn"/>
                             <constraint firstItem="xmp-V1-Dn6" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="leading" id="Fwu-8p-Lsf"/>
@@ -543,10 +501,8 @@
                             <constraint firstItem="xmp-V1-Dn6" firstAttribute="centerY" secondItem="g0L-A1-o0L" secondAttribute="centerY" id="aTz-f7-vjT"/>
                             <constraint firstItem="HqA-iJ-lec" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="trailing" constant="10" id="aan-F0-PIg"/>
                             <constraint firstItem="mfr-Al-Vu9" firstAttribute="top" secondItem="JYR-Ed-Tax" secondAttribute="bottom" constant="16" id="ahR-Ta-P3Z"/>
-                            <constraint firstItem="xmp-V1-Dn6" firstAttribute="top" secondItem="5rg-ki-Dg5" secondAttribute="bottom" constant="8" id="bDY-BS-EKC"/>
+                            <constraint firstItem="xmp-V1-Dn6" firstAttribute="top" secondItem="uiE-OU-NWP" secondAttribute="bottom" constant="16" id="bDY-BS-EKC"/>
                             <constraint firstItem="tAC-g5-B2n" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="leading" id="bNO-xe-6OV"/>
-                            <constraint firstItem="zpw-kR-OfG" firstAttribute="top" secondItem="uiE-OU-NWP" secondAttribute="bottom" constant="16" id="cVF-bt-bkV"/>
-                            <constraint firstItem="zpw-kR-OfG" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="leading" id="dft-fH-krO"/>
                             <constraint firstItem="tAC-g5-B2n" firstAttribute="top" secondItem="UQR-mH-y4R" secondAttribute="bottom" constant="16" id="fAG-gP-mk9"/>
                             <constraint firstItem="JYR-Ed-Tax" firstAttribute="top" secondItem="Ium-Ya-ZzT" secondAttribute="top" constant="24" id="h5j-IZ-Xgi"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uoA-YU-YZk" secondAttribute="trailing" constant="20" id="hlA-Kz-PVC"/>
@@ -555,20 +511,16 @@
                             <constraint firstItem="UQR-mH-y4R" firstAttribute="leading" secondItem="Ium-Ya-ZzT" secondAttribute="leading" constant="20" id="mJn-RT-EXL"/>
                             <constraint firstItem="HqA-iJ-lec" firstAttribute="centerY" secondItem="ydZ-SE-AM3" secondAttribute="centerY" id="q8t-Qe-yJh"/>
                             <constraint firstItem="wwb-0H-xk7" firstAttribute="top" secondItem="2Yv-tb-pyE" secondAttribute="bottom" constant="16" id="t3Y-Bz-Iiy"/>
-                            <constraint firstItem="5rg-ki-Dg5" firstAttribute="top" secondItem="zpw-kR-OfG" secondAttribute="bottom" constant="4" id="thJ-ak-uGd"/>
                             <constraint firstItem="wwb-0H-xk7" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="leading" id="u0h-UR-jmK"/>
                             <constraint firstItem="xmp-V1-Dn6" firstAttribute="leading" secondItem="g0L-A1-o0L" secondAttribute="trailing" constant="16" id="uVx-oL-nu9"/>
                             <constraint firstItem="wpE-cM-ds1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ium-Ya-ZzT" secondAttribute="leading" constant="20" id="vED-yu-Qv5"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2Yv-tb-pyE" secondAttribute="trailing" constant="20" id="vdO-Q4-Dp8"/>
                             <constraint firstAttribute="trailing" secondItem="JYR-Ed-Tax" secondAttribute="trailing" constant="20" id="xXs-qV-Iz7"/>
-                            <constraint firstItem="UXR-cB-aCr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ium-Ya-ZzT" secondAttribute="leading" constant="24" id="yTz-22-2Qt"/>
                             <constraint firstItem="ydZ-SE-AM3" firstAttribute="top" secondItem="mfr-Al-Vu9" secondAttribute="bottom" constant="16" id="z0E-ny-nlG"/>
-                            <constraint firstItem="zpw-kR-OfG" firstAttribute="centerY" secondItem="UXR-cB-aCr" secondAttribute="centerY" id="zp1-yQ-Pqk"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="autoLaunchButton" destination="mfr-Al-Vu9" id="Nwf-Mq-nSa"/>
-                        <outlet property="languagePopUp" destination="zpw-kR-OfG" id="8LA-gt-F35"/>
                         <outlet property="loadHomonymLrcButton" destination="uiE-OU-NWP" id="7XP-6g-pVL"/>
                         <outlet property="preferAudirvana" destination="9Pq-VD-9xN" id="Trl-UP-HaB"/>
                         <outlet property="preferAuto" destination="GAh-L4-fgK" id="QSc-xP-6L7"/>
