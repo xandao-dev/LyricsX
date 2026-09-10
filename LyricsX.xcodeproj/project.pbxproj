@@ -697,7 +697,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ddddxxx.LyricsX;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.xandao.LyricsX;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
@@ -720,7 +720,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ddddxxx.LyricsX;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.xandao.LyricsX;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
@@ -738,7 +738,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ddddxxx.LyricsXHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.xandao.LyricsXHelper;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -756,7 +756,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ddddxxx.LyricsXHelper;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.xandao.LyricsXHelper;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;

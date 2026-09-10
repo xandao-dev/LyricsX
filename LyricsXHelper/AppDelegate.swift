@@ -74,7 +74,7 @@ let playerBundleIdentifiers = [
     ["com.swinsian.Swinsian"],
 ]
 
-let groupDefaults = UserDefaults(suiteName: "3665V726AE.group.ddddxxx.LyricsX")!
+let groupDefaults = UserDefaults(suiteName: "group.dev.xandao.LyricsX")!
 
 // Preference
 let preferredPlayerIndex = "PreferredPlayerIndex"

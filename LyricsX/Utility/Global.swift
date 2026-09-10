@@ -13,11 +13,9 @@ import MusicPlayer
 
 let fontNameFallbackCountMax = 1
 
-// NOTE: to build your own product, you need to replace the team identifier to yours
-// and do the same thing in LyricsXHelper
-let lyricsXGroupIdentifier = "3665V726AE.group.ddddxxx.LyricsX"
-let lyricsXHelperIdentifier = "ddddxxx.LyricsXHelper"
-let lyricsXErrorDomain = "ddddxxx.LyricsX"
+let lyricsXGroupIdentifier = "group.dev.xandao.LyricsX"
+let lyricsXHelperIdentifier = "dev.xandao.LyricsXHelper"
+let lyricsXErrorDomain = "dev.xandao.LyricsX"
 
 let defaults = UserDefaults.standard
 let groupDefaults = UserDefaults(suiteName: lyricsXGroupIdentifier)!
