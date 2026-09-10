@@ -16,7 +16,6 @@ let package = Package(
             name: "MusicPlayer",
             dependencies: [
                 "LXMusicPlayer",
-                "MediaRemotePrivate",
             ],
             cSettings: [
                 .define("TARGET_OS_MAC", to: "1"),
@@ -27,11 +26,6 @@ let package = Package(
                 .define("TARGET_OS_MAC", to: "1"),
                 .headerSearchPath("private"),
                 .headerSearchPath("BridgingHeader"),
-            ]),
-        .target(
-            name: "MediaRemotePrivate",
-            cSettings: [
-                .define("TARGET_OS_MAC", to: "1"),
             ]),
     ],
     swiftLanguageModes: [.v6]

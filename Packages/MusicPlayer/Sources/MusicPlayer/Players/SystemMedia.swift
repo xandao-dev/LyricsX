@@ -7,161 +7,198 @@
 //  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //
 
-#if os(macOS) || os(iOS)
+#if os(macOS)
 
-import Foundation
-import MediaRemotePrivate
+import AppKit
 import Combine
 
 extension MusicPlayers {
-    
+
+    /// Now Playing through mediaremote-adapter. Since macOS 15.4 MediaRemote gives third-party
+    /// processes an empty answer but still answers Apple's own, so /usr/bin/perl loads
+    /// MediaRemoteAdapter.framework from the app bundle and streams the state as JSON lines.
+    /// The app embeds that framework without linking it.
     public final class SystemMedia: ObservableObject, @unchecked Sendable {
-        
+
+        private static let adapter: [String]? = {
+            guard let framework = Bundle.main.privateFrameworksURL?.appendingPathComponent("MediaRemoteAdapter.framework"),
+                  let script = Bundle(url: framework)?.url(forResource: "mediaremote-adapter", withExtension: "pl") else {
+                return nil
+            }
+            return [script.path, framework.path]
+        }()
+
         public static var available: Bool {
-            return MRMediaRemoteAvailable()
+            return adapter != nil
         }
-        
+
         @Published public private(set) var currentTrack: MusicTrack?
         @Published public private(set) var playbackState: PlaybackState = .stopped
-        
-        private var systemPlaybackState: SystemPlaybackState?
-        
+
+        private var stream: Process?
+        private var buffer = Data()
+        private var terminationObserver: NSObjectProtocol?
+
         public init?() {
             guard Self.available else { return nil }
-            MRRegisterForNowPlayingNotifications(DispatchQueue.playerUpdate)
-            
-            let nc = NotificationCenter.default
-            nc.addObserver(forName: .mediaRemoteNowPlayingApplicationPlaybackStateDidChange, object: nil, queue: nil) { [weak self] n in
-                self?.mediaRemoteNowPlayingApplicationPlaybackStateDidChange(n: n)
+            // Nothing else stops perl when the app quits, until its next write fails.
+            terminationObserver = NotificationCenter.default.addObserver(forName: NSApplication.willTerminateNotification, object: nil, queue: nil) { [weak self] _ in
+                self?.stopStream()
             }
-            nc.addObserver(forName: .mediaRemoteNowPlayingInfoDidChange, object: nil, queue: nil) { [weak self] n in
-                self?.mediaRemoteNowPlayingInfoDidChange(n: n)
-            }
-            
-            MRGetNowPlayingApplicationIsPlaying(DispatchQueue.playerUpdate) { [weak self] isPlaying in
-                self?.systemPlaybackState = isPlaying ? .playing : .paused
-                self?.updatePlayerState()
-            }
+            startStream()
         }
-        
+
         deinit {
-            MRUnregisterForNowPlayingNotifications()
+            if let terminationObserver = terminationObserver {
+                NotificationCenter.default.removeObserver(terminationObserver)
+            }
+            stopStream()
         }
-        
-        private func getNowPlayingInfoCallback(_ infoDict: CFDictionary?) {
-            guard let infoDict = infoDict as NSDictionary? else {
-                playbackState = .stopped
-                currentTrack = nil
-                return
-            }
-            let info = MRNowPlayingInfo(dict: infoDict)
-            let newState: PlaybackState
-            switch systemPlaybackState {
-            case .playing:
-                newState = info.startTime.map(PlaybackState.playing) ?? .stopped
-            case .paused:
-                newState = info._elapsedTime.map(PlaybackState.paused) ?? .stopped
-            default:
-                newState = .stopped
-            }
-            if !playbackState.approximateEqual(to: newState) {
-                playbackState = newState
-            }
-            
-            let newTrack = info.track
-            if newTrack?.id != currentTrack?.id {
-                currentTrack = newTrack
-            }
+
+        private static func adapterProcess(_ arguments: [String]) -> Process {
+            let process = Process()
+            process.executableURL = URL(fileURLWithPath: "/usr/bin/perl")
+            process.arguments = adapter! + arguments
+            return process
         }
-        
-        private func mediaRemoteNowPlayingApplicationPlaybackStateDidChange(n: Notification) {
-            guard let info = n.userInfo as! [String: Any]? else {
-                playbackState = .stopped
-                currentTrack = nil
-                return
+
+        private func send(_ arguments: String...) {
+            try? Self.adapterProcess(arguments).run()
+        }
+
+        private func startStream() {
+            let process = Self.adapterProcess(["stream", "--no-diff", "--no-artwork", "--micros"])
+            let pipe = Pipe()
+            process.standardOutput = pipe
+            pipe.fileHandleForReading.readabilityHandler = { [weak self] handle in
+                let data = handle.availableData
+                if data.isEmpty {
+                    handle.readabilityHandler = nil
+                }
+                DispatchQueue.main.async { self?.receive(data) }
             }
-            
-            systemPlaybackState = (info["kMRMediaRemotePlaybackStateUserInfoKey"] as? Int).flatMap(SystemPlaybackState.init)
-            if systemPlaybackState == .playing || systemPlaybackState == .paused {
-                updatePlayerState()
-            } else {
-                playbackState = .stopped
-                currentTrack = nil
+            process.terminationHandler = { [weak self] process in
+                DispatchQueue.main.async { self?.streamTerminated(process) }
+            }
+            buffer = Data()
+            do {
+                try process.run()
+                stream = process
+            } catch {
+                pipe.fileHandleForReading.readabilityHandler = nil
             }
         }
-        
-        private func mediaRemoteNowPlayingInfoDidChange(n: Notification) {
-            // TODO: extract track info from notification
-            updatePlayerState()
+
+        private func stopStream() {
+            stream?.terminationHandler = nil
+            stream?.terminate()
+            stream = nil
+        }
+
+        private func streamTerminated(_ process: Process) {
+            guard process === stream else { return }
+            stream = nil
+            update(with: [:])
+            // A non-zero exit is the adapter giving up, and its README asks not to rerun it
+            // then. A signal means perl was killed, so start over.
+            if process.terminationReason == .uncaughtSignal {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                    self?.startStream()
+                }
+            }
+        }
+
+        private func receive(_ data: Data) {
+            buffer.append(data)
+            var lines = buffer.split(separator: UInt8(ascii: "\n"), omittingEmptySubsequences: false)
+            buffer = Data(lines.removeLast())
+            for line in lines {
+                guard let message = try? JSONSerialization.jsonObject(with: line) as? [String: Any],
+                      let payload = message["payload"] as? [String: Any] else {
+                    continue
+                }
+                update(with: payload)
+            }
+        }
+
+        private func update(with info: [String: Any]) {
+            let track = (info["title"] as? String).map { title -> MusicTrack in
+                let album = info["album"] as? String
+                let duration = (info["durationMicros"] as? Double).map { $0 / 1_000_000 }
+                // The id the MediaRemote version used, so saved "wrong lyrics" track ids still match.
+                let id = (info["uniqueIdentifier"] as? Int)?.description
+                    ?? "NowPlaying-\(title)-\(album ?? "")-\(duration.map(Int.init) ?? 0)"
+                return MusicTrack(id: id, title: title, album: album, artist: info["artist"] as? String, duration: duration)
+            }
+            var state = PlaybackState.stopped
+            if track != nil, let elapsed = (info["elapsedTimeMicros"] as? Double).map({ $0 / 1_000_000 }) {
+                if info["playing"] as? Bool == true {
+                    // elapsedTime was measured at timestamp, which can be several seconds ago.
+                    let timestamp = (info["timestampEpochMicros"] as? Double).map { Date(timeIntervalSince1970: $0 / 1_000_000) }
+                    state = .playing(start: (timestamp ?? Date()).addingTimeInterval(-elapsed))
+                } else {
+                    state = .paused(time: elapsed)
+                }
+            }
+            if !playbackState.approximateEqual(to: state) {
+                playbackState = state
+            }
+            if track?.id != currentTrack?.id {
+                currentTrack = track
+            }
         }
     }
 }
 
 extension MusicPlayers.SystemMedia: MusicPlayerProtocol {
-    
+
     public var currentTrackWillChange: AnyPublisher<MusicTrack?, Never> {
         return $currentTrack.eraseToAnyPublisher()
     }
-    
+
     public var playbackStateWillChange: AnyPublisher<PlaybackState, Never> {
         return $playbackState.eraseToAnyPublisher()
     }
-    
+
     public var name: MusicPlayerName? {
         return nil
     }
-    
+
     public var playbackTime: TimeInterval {
         get {
             return playbackState.time
         }
         set {
-            MRSetElapsedTime(newValue)
+            send("seek", String(Int(max(newValue, 0) * 1_000_000)))
             playbackState = playbackState.withTime(newValue)
         }
     }
-    
+
+    // Command ids from the adapter's README (kMRPlay = 0 and so on).
+
     public func resume() {
-        _ = MRSendCommand(.play, nil)
+        send("send", "0")
     }
-    
+
     public func pause() {
-        _ = MRSendCommand(.pause, nil)
+        send("send", "1")
     }
-    
+
     public func playPause() {
-        _ = MRSendCommand(.togglePlayPause, nil)
+        send("send", "2")
     }
-    
+
     public func skipToNextItem() {
-        _ = MRSendCommand(.nextTrack, nil)
+        send("send", "4")
     }
-    
+
     public func skipToPreviousItem() {
-        _ = MRSendCommand(.previousTrack, nil)
+        send("send", "5")
     }
-    
+
     public func updatePlayerState() {
-        MRGetNowPlayingInfo(DispatchQueue.playerUpdate) { [weak self] info in
-            self?.getNowPlayingInfoCallback(info)
-        }
+        // The stream already reports every change.
     }
-}
-
-private extension MusicPlayers.SystemMedia {
-    
-    enum SystemPlaybackState: Int {
-        case terminated = 0
-        case playing = 1
-        case paused = 2
-        case stopped = 3
-    }
-}
-
-private extension Notification.Name {
-    
-    static let mediaRemoteNowPlayingInfoDidChange = Notification.Name("kMRMediaRemoteNowPlayingInfoDidChangeNotification")
-    static let mediaRemoteNowPlayingApplicationPlaybackStateDidChange = Notification.Name("kMRMediaRemoteNowPlayingApplicationPlaybackStateDidChangeNotification")
 }
 
 #endif

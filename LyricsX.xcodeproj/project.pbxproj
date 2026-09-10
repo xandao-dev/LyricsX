@@ -64,7 +64,35 @@
 		BBE8FC751F6BEA6200122AFA /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE8FC741F6BEA6200122AFA /* Then.swift */; };
 		E91F76EB21211B8D00755698 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91F76EA21211B8D00755698 /* PreferenceViewController.swift */; };
 		E9EBDA2521115A150019FDF9 /* Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EBDA2421115A150019FDF9 /* Observation.swift */; };
+		6E57B6C02AA29CE1945B6B73 /* env.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9ECFEFE61577426A4FA0AB /* env.m */; };
+		5B730B8B55AD5F04780E51E6 /* get.m in Sources */ = {isa = PBXBuildFile; fileRef = F0115D54C5FEEDB08EC31961 /* get.m */; };
+		B485F2C48CC524DA771E84B9 /* globals.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DB7E3759CFE928AB9EEB71 /* globals.m */; };
+		BE586FFB83D1A752A19523E8 /* keys.m in Sources */ = {isa = PBXBuildFile; fileRef = 148504DB63D5FC2D8525F816 /* keys.m */; };
+		1B5DC2DBFD51E7CB3071A455 /* now_playing.m in Sources */ = {isa = PBXBuildFile; fileRef = 6376393B491232483E64527D /* now_playing.m */; };
+		03FC5178463EA8796150F3CC /* repeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 0803A31F183E436AE4C5B76D /* repeat.m */; };
+		17A8B2A7E116303B592A36A6 /* seek.m in Sources */ = {isa = PBXBuildFile; fileRef = 209BDFCEE6E119AD4B05D8E8 /* seek.m */; };
+		A8B94F77F70A2DE5D8AE1C50 /* send.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FCD49B496E720309FFA16A3 /* send.m */; };
+		11A9BF97B904BD687F0A60E1 /* shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = E19F3E30CF611EDCDDA7EA5B /* shuffle.m */; };
+		58487931610B45D53CBA5F36 /* speed.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DDFA115E956AD69B169A992 /* speed.m */; };
+		6CAE32815015D31979E3AB43 /* stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A171B7E82621D6CFD94543F /* stream.m */; };
+		EC494839F1BCC1F14C970EAB /* test.m in Sources */ = {isa = PBXBuildFile; fileRef = 4115AC98ACC5BAF721A975A5 /* test.m */; };
+		06650F0455DB7B27A76BDCA8 /* MediaRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 684B35AB6A7947B2FF06E2A9 /* MediaRemote.m */; };
+		CB748C0F1EFAD42C32085135 /* Debounce.m in Sources */ = {isa = PBXBuildFile; fileRef = 256894A2AA7FD31B46C4B69C /* Debounce.m */; };
+		8ADB2C2ED8F8CEB78F1A9C94 /* helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 365A75CF362E39CB60D7B038 /* helpers.m */; };
+		BD558F52C8D9188DE00EE088 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = D905ED930A8682E86DADE5FA /* LICENSE */; };
+		C719D161396A55EBA7EE6E25 /* mediaremote-adapter.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1D49A1DD0C2E40F5FE67DD6 /* mediaremote-adapter.pl */; };
+		250BC4BE0ABB467679146307 /* MediaRemoteAdapter.framework in Embed MediaRemoteAdapter */ = {isa = PBXBuildFile; fileRef = F385DAC38DEB5B06C2AD69BD /* MediaRemoteAdapter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E371955AE31BC4B5F045800E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BB4141A21E458BA800A51775 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E98D7EB84FFBCE6406B77EC6;
+			remoteInfo = MediaRemoteAdapter;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		BB60F3111E889FC000BA1FD2 /* Copy Helper */ = {
@@ -76,6 +104,17 @@
 				BB60F3121E889FCD00BA1FD2 /* LyricsXHelper.app in Copy Helper */,
 			);
 			name = "Copy Helper";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCE7E4146ACA245B794DA853 /* Embed MediaRemoteAdapter */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				250BC4BE0ABB467679146307 /* MediaRemoteAdapter.framework in Embed MediaRemoteAdapter */,
+			);
+			name = "Embed MediaRemoteAdapter";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -124,6 +163,34 @@
 		BBE8FC741F6BEA6200122AFA /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		E91F76EA21211B8D00755698 /* PreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
 		E9EBDA2421115A150019FDF9 /* Observation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observation.swift; sourceTree = "<group>"; };
+		37AF7E54C76AB379F162F3F3 /* env.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = env.h; sourceTree = "<group>"; };
+		7A9ECFEFE61577426A4FA0AB /* env.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = env.m; sourceTree = "<group>"; };
+		EE1124F3E8FC60A5993A70E3 /* get.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = get.h; sourceTree = "<group>"; };
+		F0115D54C5FEEDB08EC31961 /* get.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = get.m; sourceTree = "<group>"; };
+		4A6B3920A69C825DFA527007 /* globals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = globals.h; sourceTree = "<group>"; };
+		D3DB7E3759CFE928AB9EEB71 /* globals.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = globals.m; sourceTree = "<group>"; };
+		13310FDB63BC9914807E31A1 /* keys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = keys.h; sourceTree = "<group>"; };
+		148504DB63D5FC2D8525F816 /* keys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = keys.m; sourceTree = "<group>"; };
+		FF3E08AE46E24A26CDA5169E /* now_playing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = now_playing.h; sourceTree = "<group>"; };
+		6376393B491232483E64527D /* now_playing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = now_playing.m; sourceTree = "<group>"; };
+		0803A31F183E436AE4C5B76D /* repeat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = repeat.m; sourceTree = "<group>"; };
+		209BDFCEE6E119AD4B05D8E8 /* seek.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = seek.m; sourceTree = "<group>"; };
+		0FCD49B496E720309FFA16A3 /* send.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = send.m; sourceTree = "<group>"; };
+		E19F3E30CF611EDCDDA7EA5B /* shuffle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = shuffle.m; sourceTree = "<group>"; };
+		7DDFA115E956AD69B169A992 /* speed.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = speed.m; sourceTree = "<group>"; };
+		1A171B7E82621D6CFD94543F /* stream.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = stream.m; sourceTree = "<group>"; };
+		4115AC98ACC5BAF721A975A5 /* test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = test.m; sourceTree = "<group>"; };
+		08BCB6192D43C5100EAAE28B /* MediaRemoteAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaRemoteAdapter.h; sourceTree = "<group>"; };
+		A94D99B1B0CBE37B067F0DCB /* MediaRemote.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaRemote.h; sourceTree = "<group>"; };
+		684B35AB6A7947B2FF06E2A9 /* MediaRemote.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaRemote.m; sourceTree = "<group>"; };
+		E4453D7A6D23404B01783A8E /* NowPlayingTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NowPlayingTest.h; sourceTree = "<group>"; };
+		FB47A44D2A8CBF2067960B3D /* Debounce.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Debounce.h; sourceTree = "<group>"; };
+		256894A2AA7FD31B46C4B69C /* Debounce.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Debounce.m; sourceTree = "<group>"; };
+		40178301C0F7C55EA1267B93 /* helpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = helpers.h; sourceTree = "<group>"; };
+		365A75CF362E39CB60D7B038 /* helpers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = helpers.m; sourceTree = "<group>"; };
+		D905ED930A8682E86DADE5FA /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		E1D49A1DD0C2E40F5FE67DD6 /* mediaremote-adapter.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = "mediaremote-adapter.pl"; sourceTree = "<group>"; };
+		F385DAC38DEB5B06C2AD69BD /* MediaRemoteAdapter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MediaRemoteAdapter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +207,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		BB60F2FE1E889A1B00BA1FD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C641AAA50722A85F2BF0939A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -166,6 +240,7 @@
 			children = (
 				BB4141AC1E458BA800A51775 /* LyricsX */,
 				BB60F3021E889A1B00BA1FD2 /* LyricsXHelper */,
+				131DA48BDAB6B5F300CFA79B /* MediaRemoteAdapter */,
 				BB4141AB1E458BA800A51775 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -175,6 +250,7 @@
 			children = (
 				BB4141AA1E458BA800A51775 /* LyricsX.app */,
 				BB60F3011E889A1B00BA1FD2 /* LyricsXHelper.app */,
+				F385DAC38DEB5B06C2AD69BD /* MediaRemoteAdapter.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -278,6 +354,80 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		131DA48BDAB6B5F300CFA79B /* MediaRemoteAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				7B1AEFB0CE1DC7F98D0253B9 /* adapter */,
+				F5D977B4D6F88D9515951549 /* include */,
+				4E5DBDE093C901C5614F7758 /* private */,
+				48C06F53884AC8857B15BA96 /* test */,
+				9592190B65904D897EF08F7C /* utility */,
+				D905ED930A8682E86DADE5FA /* LICENSE */,
+				E1D49A1DD0C2E40F5FE67DD6 /* mediaremote-adapter.pl */,
+			);
+			path = MediaRemoteAdapter;
+			sourceTree = "<group>";
+		};
+		7B1AEFB0CE1DC7F98D0253B9 /* adapter */ = {
+			isa = PBXGroup;
+			children = (
+				37AF7E54C76AB379F162F3F3 /* env.h */,
+				7A9ECFEFE61577426A4FA0AB /* env.m */,
+				EE1124F3E8FC60A5993A70E3 /* get.h */,
+				F0115D54C5FEEDB08EC31961 /* get.m */,
+				4A6B3920A69C825DFA527007 /* globals.h */,
+				D3DB7E3759CFE928AB9EEB71 /* globals.m */,
+				13310FDB63BC9914807E31A1 /* keys.h */,
+				148504DB63D5FC2D8525F816 /* keys.m */,
+				FF3E08AE46E24A26CDA5169E /* now_playing.h */,
+				6376393B491232483E64527D /* now_playing.m */,
+				0803A31F183E436AE4C5B76D /* repeat.m */,
+				209BDFCEE6E119AD4B05D8E8 /* seek.m */,
+				0FCD49B496E720309FFA16A3 /* send.m */,
+				E19F3E30CF611EDCDDA7EA5B /* shuffle.m */,
+				7DDFA115E956AD69B169A992 /* speed.m */,
+				1A171B7E82621D6CFD94543F /* stream.m */,
+				4115AC98ACC5BAF721A975A5 /* test.m */,
+			);
+			path = adapter;
+			sourceTree = "<group>";
+		};
+		F5D977B4D6F88D9515951549 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				08BCB6192D43C5100EAAE28B /* MediaRemoteAdapter.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		4E5DBDE093C901C5614F7758 /* private */ = {
+			isa = PBXGroup;
+			children = (
+				A94D99B1B0CBE37B067F0DCB /* MediaRemote.h */,
+				684B35AB6A7947B2FF06E2A9 /* MediaRemote.m */,
+			);
+			path = private;
+			sourceTree = "<group>";
+		};
+		48C06F53884AC8857B15BA96 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				E4453D7A6D23404B01783A8E /* NowPlayingTest.h */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		9592190B65904D897EF08F7C /* utility */ = {
+			isa = PBXGroup;
+			children = (
+				FB47A44D2A8CBF2067960B3D /* Debounce.h */,
+				256894A2AA7FD31B46C4B69C /* Debounce.m */,
+				40178301C0F7C55EA1267B93 /* helpers.h */,
+				365A75CF362E39CB60D7B038 /* helpers.m */,
+			);
+			path = utility;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -289,12 +439,14 @@
 				BB4141A61E458BA800A51775 /* Sources */,
 				BB4141A71E458BA800A51775 /* Frameworks */,
 				BB4141A81E458BA800A51775 /* Resources */,
+				BCE7E4146ACA245B794DA853 /* Embed MediaRemoteAdapter */,
 				BB60F3111E889FC000BA1FD2 /* Copy Helper */,
 				BBC1D5811E4AFE64008869EC /* Bump Build */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7529D933D1EDA6DEB0673830 /* PBXTargetDependency */,
 			);
 			name = LyricsX;
 			packageProductDependencies = (
@@ -324,6 +476,23 @@
 			productName = LyricsXHelper;
 			productReference = BB60F3011E889A1B00BA1FD2 /* LyricsXHelper.app */;
 			productType = "com.apple.product-type.application";
+		};
+		E98D7EB84FFBCE6406B77EC6 /* MediaRemoteAdapter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B502946567ADD724897F498 /* Build configuration list for PBXNativeTarget "MediaRemoteAdapter" */;
+			buildPhases = (
+				5C5A11CD5FAADFE6E1555D95 /* Sources */,
+				C641AAA50722A85F2BF0939A /* Frameworks */,
+				B0483DF6396B974DFA9FF72B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MediaRemoteAdapter;
+			productName = MediaRemoteAdapter;
+			productReference = F385DAC38DEB5B06C2AD69BD /* MediaRemoteAdapter.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -396,6 +565,7 @@
 			targets = (
 				BB4141A91E458BA800A51775 /* LyricsX */,
 				BB60F3001E889A1B00BA1FD2 /* LyricsXHelper */,
+				E98D7EB84FFBCE6406B77EC6 /* MediaRemoteAdapter */,
 				BB30651020878608008A9AC8 /* SwiftLint */,
 			);
 		};
@@ -420,6 +590,15 @@
 			files = (
 				BB60F3061E889A1B00BA1FD2 /* Assets.xcassets in Resources */,
 				BB60F3091E889A1B00BA1FD2 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0483DF6396B974DFA9FF72B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD558F52C8D9188DE00EE088 /* LICENSE in Resources */,
+				C719D161396A55EBA7EE6E25 /* mediaremote-adapter.pl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,7 +697,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5C5A11CD5FAADFE6E1555D95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E57B6C02AA29CE1945B6B73 /* env.m in Sources */,
+				5B730B8B55AD5F04780E51E6 /* get.m in Sources */,
+				B485F2C48CC524DA771E84B9 /* globals.m in Sources */,
+				BE586FFB83D1A752A19523E8 /* keys.m in Sources */,
+				1B5DC2DBFD51E7CB3071A455 /* now_playing.m in Sources */,
+				03FC5178463EA8796150F3CC /* repeat.m in Sources */,
+				17A8B2A7E116303B592A36A6 /* seek.m in Sources */,
+				A8B94F77F70A2DE5D8AE1C50 /* send.m in Sources */,
+				11A9BF97B904BD687F0A60E1 /* shuffle.m in Sources */,
+				58487931610B45D53CBA5F36 /* speed.m in Sources */,
+				6CAE32815015D31979E3AB43 /* stream.m in Sources */,
+				EC494839F1BCC1F14C970EAB /* test.m in Sources */,
+				06650F0455DB7B27A76BDCA8 /* MediaRemote.m in Sources */,
+				CB748C0F1EFAD42C32085135 /* Debounce.m in Sources */,
+				8ADB2C2ED8F8CEB78F1A9C94 /* helpers.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7529D933D1EDA6DEB0673830 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E98D7EB84FFBCE6406B77EC6 /* MediaRemoteAdapter */;
+			targetProxy = E371955AE31BC4B5F045800E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BB4141B31E458BA900A51775 /* Main.storyboard */ = {
@@ -761,6 +970,34 @@
 			};
 			name = Release;
 		};
+		5F76E03FBA048AC79DD81D2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/MediaRemoteAdapter",
+					"$(SRCROOT)/MediaRemoteAdapter/include",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vandenbe.MediaRemoteAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		493A48DB120D5D3E6BB9CCF7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/MediaRemoteAdapter",
+					"$(SRCROOT)/MediaRemoteAdapter/include",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.vandenbe.MediaRemoteAdapter;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -796,6 +1033,15 @@
 			buildConfigurations = (
 				BB60F30C1E889A1C00BA1FD2 /* Debug */,
 				BB60F30D1E889A1C00BA1FD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B502946567ADD724897F498 /* Build configuration list for PBXNativeTarget "MediaRemoteAdapter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5F76E03FBA048AC79DD81D2A /* Debug */,
+				493A48DB120D5D3E6BB9CCF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
