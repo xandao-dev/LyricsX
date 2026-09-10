@@ -10,7 +10,7 @@
 import Cocoa
 import ScriptingBridge
 
-@NSApplicationMain
+@main
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     var musicPlayers: [SBApplication] = []

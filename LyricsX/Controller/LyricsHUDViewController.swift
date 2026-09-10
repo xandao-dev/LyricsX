@@ -31,9 +31,14 @@ class LyricsHUDViewController: NSViewController, NSWindowDelegate, ScrollLyricsV
     
     private var cancelBag = Set<AnyCancellable>()
     
-    override func awakeFromNib() {
+    nonisolated override func awakeFromNib() {
         super.awakeFromNib()
-        
+        MainActor.assumeIsolated {
+            self.finishAwakeFromNib()
+        }
+    }
+    
+    private func finishAwakeFromNib() {
         view.window?.do {
             $0.titlebarAppearsTransparent = true
             $0.titleVisibility = .hidden
@@ -73,7 +78,7 @@ class LyricsHUDViewController: NSViewController, NSWindowDelegate, ScrollLyricsV
         
         observeNotification(name: NSScrollView.willStartLiveScrollNotification,
                             object: lyricsScrollView,
-                            queue: .main) { [unowned self] _ in self.isTracking = false }
+                            queue: .main) { [unowned self] in self.isTracking = false }
     }
     
     override func viewWillAppear() {

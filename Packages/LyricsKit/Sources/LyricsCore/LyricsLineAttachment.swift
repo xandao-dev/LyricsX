@@ -23,7 +23,7 @@ extension LyricsLine {
             self.content = attachments
         }
         
-        public struct Tag: RawRepresentable, Equatable, Hashable {
+        public struct Tag: RawRepresentable, Equatable, Hashable, Sendable {
             
             public var rawValue: String
             

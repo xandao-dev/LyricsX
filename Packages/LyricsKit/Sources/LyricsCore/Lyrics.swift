@@ -89,7 +89,7 @@ final public class Lyrics: LosslessStringConvertible {
         return components.joined(separator: "\n")
     }
     
-    public struct IDTagKey: RawRepresentable, Hashable {
+    public struct IDTagKey: RawRepresentable, Hashable, Sendable {
         
         public var rawValue: String
         
@@ -118,7 +118,7 @@ final public class Lyrics: LosslessStringConvertible {
             self.data = data
         }
         
-        public struct Key: RawRepresentable, Hashable {
+        public struct Key: RawRepresentable, Hashable, Sendable {
             
             public var rawValue: String
             

@@ -10,7 +10,7 @@
 import AppKit
 import GenericID
 
-private class NotificationObservationToken {
+nonisolated private class NotificationObservationToken {
     
     var center: NotificationCenter?
     var token: NSObjectProtocol?
@@ -57,15 +57,17 @@ extension NSObject {
                              name: NSNotification.Name,
                              object: Any? = nil,
                              queue: OperationQueue? = nil,
-                             using: @escaping (Notification) -> Void) {
-        let token = center.addObserver(forName: name, object: object, queue: queue, using: using)
+                             using: @escaping @MainActor () -> Void) {
+        let token = center.addObserver(forName: name, object: object, queue: queue) { _ in
+            MainActor.assumeIsolated { using() }
+        }
         autoDestruction.add(NotificationObservationToken(center: center, token: token))
     }
     
     func observeObject<Target: NSObject, Value>(_ object: Target,
                                                 keyPath: KeyPath<Target, Value>,
                                                 options: NSKeyValueObservingOptions,
-                                                changeHandler: @escaping (NSObject, NSKeyValueObservedChange<Value>) -> Void) {
+                                                changeHandler: @escaping @Sendable (NSObject, NSKeyValueObservedChange<Value>) -> Void) {
         let token = object.observe(keyPath, options: options, changeHandler: changeHandler)
         autoDestruction.add(token)
     }

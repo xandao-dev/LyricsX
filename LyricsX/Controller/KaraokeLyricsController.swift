@@ -46,15 +46,15 @@ class KaraokeLyricsWindowController: NSWindowController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.lyricsView.displayLrc("")
             AppController.shared.$currentLyrics
-                .receive(on: DispatchQueue.lyricsDisplay)
+                .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in self?.handleLyricsDisplay() }
                 .store(in: &self.cancelBag)
             AppController.shared.$currentLineIndex
-                .receive(on: DispatchQueue.lyricsDisplay)
+                .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in self?.handleLyricsDisplay() }
                 .store(in: &self.cancelBag)
             selectedPlayer.playbackStateWillChange
-                .receive(on: DispatchQueue.lyricsDisplay)
+                .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in self?.handleLyricsDisplay() }
                 .store(in: &self.cancelBag)
             defaults.publisher(for: [.preferBilingualLyrics, .desktopLyricsOneLineMode])
@@ -96,10 +96,10 @@ class KaraokeLyricsWindowController: NSWindowController {
             self.lyricsView.font = defaults.desktopLyricsFont
         }
         
-        observeNotification(name: NSApplication.didChangeScreenParametersNotification, queue: .main) { [unowned self] _ in
+        observeNotification(name: NSApplication.didChangeScreenParametersNotification, queue: .main) { [unowned self] in
             self.updateWindowFrame(animate: true)
         }
-        observeNotification(center: workspaceNC, name: NSWorkspace.activeSpaceDidChangeNotification, queue: .main) { [unowned self] _ in
+        observeNotification(center: workspaceNC, name: NSWorkspace.activeSpaceDidChangeNotification, queue: .main) { [unowned self] in
             self.updateWindowFrame(animate: true)
         }
     }
@@ -117,9 +117,7 @@ class KaraokeLyricsWindowController: NSWindowController {
             !defaults[.disableLyricsWhenPaused] || selectedPlayer.playbackState.isPlaying,
             let lyrics = AppController.shared.currentLyrics,
             let index = AppController.shared.currentLineIndex else {
-                DispatchQueue.main.async {
-                    self.lyricsView.displayLrc("", secondLine: "")
-                }
+                lyricsView.displayLrc("", secondLine: "")
                 return
         }
         
@@ -153,17 +151,15 @@ class KaraokeLyricsWindowController: NSWindowController {
             }
         }
         
-        DispatchQueue.main.async {
-            self.lyricsView.displayLrc(firstLine, secondLine: secondLine)
-            if let upperTextField = self.lyricsView.displayLine1,
-                let timetag = lrc.attachments.timetag {
-                let position = selectedPlayer.playbackTime
-                let timeDelay = AppController.shared.currentLyrics?.adjustedTimeDelay ?? 0
-                let progress = timetag.tags.map { ($0.time + lrc.position - timeDelay - position, $0.index) }
-                upperTextField.setProgressAnimation(color: self.lyricsView.progressColor, progress: progress)
-                if !selectedPlayer.playbackState.isPlaying {
-                    upperTextField.pauseProgressAnimation()
-                }
+        lyricsView.displayLrc(firstLine, secondLine: secondLine)
+        if let upperTextField = lyricsView.displayLine1,
+            let timetag = lrc.attachments.timetag {
+            let position = selectedPlayer.playbackTime
+            let timeDelay = AppController.shared.currentLyrics?.adjustedTimeDelay ?? 0
+            let progress = timetag.tags.map { ($0.time + lrc.position - timeDelay - position, $0.index) }
+            upperTextField.setProgressAnimation(color: lyricsView.progressColor, progress: progress)
+            if !selectedPlayer.playbackState.isPlaying {
+                upperTextField.pauseProgressAnimation()
             }
         }
     }

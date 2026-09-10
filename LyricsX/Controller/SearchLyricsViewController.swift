@@ -81,7 +81,7 @@ class SearchLyricsViewController: NSViewController, NSTableViewDelegate, NSTable
         let req = LyricsSearchRequest(searchTerm: .info(title: searchTitle, artist: searchArtist), duration: duration, limit: 8)
         searchRequest = req
         searchCanceller = lyricsManager.lyricsPublisher(request: req)
-            .timeout(.seconds(10), scheduler: DispatchQueue.lyricsDisplay)
+            .timeout(.seconds(10), scheduler: DispatchQueue.main)
             .sink(receiveCompletion: { [unowned self] _ in
                 DispatchQueue.main.async {
                     self.progressIndicator.stopAnimation(nil)
@@ -222,7 +222,9 @@ class SearchLyricsViewController: NSViewController, NSTableViewDelegate, NSTable
             view.needsLayout = true
             view.layoutSubtreeIfNeeded()
         }, completionHandler: {
-            self.normalConstraint.isActive = true
+            MainActor.assumeIsolated {
+                self.normalConstraint.isActive = true
+            }
         })
     }
     
@@ -246,8 +248,8 @@ class SearchLyricsViewController: NSViewController, NSTableViewDelegate, NSTable
             guard let image = NSImage(contentsOf: url) else {
                 return
             }
-            self.imageCache.setObject(image, forKey: url as NSURL)
             DispatchQueue.main.async {
+                self.imageCache.setObject(image, forKey: url as NSURL)
                 self.updateImage()
             }
         }

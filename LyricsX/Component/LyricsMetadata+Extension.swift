@@ -11,11 +11,11 @@ import Foundation
 import LyricsCore
 
 extension Lyrics.Metadata.Key {
-    static var localURL = Lyrics.Metadata.Key("localURL")
-    static var title = Lyrics.Metadata.Key("title")
-    static var artist = Lyrics.Metadata.Key("artist")
-    static var needsPersist = Lyrics.Metadata.Key("needsPersist")
-    static var language = Lyrics.Metadata.Key("language")
+    static let localURL = Lyrics.Metadata.Key("localURL")
+    static let title = Lyrics.Metadata.Key("title")
+    static let artist = Lyrics.Metadata.Key("artist")
+    static let needsPersist = Lyrics.Metadata.Key("needsPersist")
+    static let language = Lyrics.Metadata.Key("language")
 }
 
 extension Lyrics.Metadata {

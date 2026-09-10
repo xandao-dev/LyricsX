@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern bool MRIsMediaRemoteLoaded;
 
+NS_INLINE bool MRMediaRemoteAvailable(void) {
+    return MRIsMediaRemoteLoaded;
+}
+
 typedef NS_ENUM(NSInteger, MRCommand) {
     /*
      * Use nil for userInfo.
@@ -55,6 +59,37 @@ SLDeclareFunction(MRMediaRemoteGetNowPlayingApplicationIsPlaying, void, dispatch
 
 SLDeclareFunction(MRMediaRemoteRegisterForNowPlayingNotifications, void, dispatch_queue_t);
 SLDeclareFunction(MRMediaRemoteUnregisterForNowPlayingNotifications, void);
+
+// Swift 6 cannot treat the dlsym function-pointer globals as concurrency-safe.
+// Call through these inlines instead of the `*_` storage symbols.
+NS_INLINE Boolean MRSendCommand(MRCommand command, id _Nullable userInfo) {
+    return SLStorage(MRMediaRemoteSendCommand) ? SLStorage(MRMediaRemoteSendCommand)(command, userInfo) : false;
+}
+NS_INLINE void MRSetElapsedTime(double time) {
+    if (SLStorage(MRMediaRemoteSetElapsedTime)) {
+        SLStorage(MRMediaRemoteSetElapsedTime)(time);
+    }
+}
+NS_INLINE void MRGetNowPlayingInfo(dispatch_queue_t queue, void(^callback)(_Nullable CFDictionaryRef)) {
+    if (SLStorage(MRMediaRemoteGetNowPlayingInfo)) {
+        SLStorage(MRMediaRemoteGetNowPlayingInfo)(queue, callback);
+    }
+}
+NS_INLINE void MRGetNowPlayingApplicationIsPlaying(dispatch_queue_t queue, void(^callback)(Boolean)) {
+    if (SLStorage(MRMediaRemoteGetNowPlayingApplicationIsPlaying)) {
+        SLStorage(MRMediaRemoteGetNowPlayingApplicationIsPlaying)(queue, callback);
+    }
+}
+NS_INLINE void MRRegisterForNowPlayingNotifications(dispatch_queue_t queue) {
+    if (SLStorage(MRMediaRemoteRegisterForNowPlayingNotifications)) {
+        SLStorage(MRMediaRemoteRegisterForNowPlayingNotifications)(queue);
+    }
+}
+NS_INLINE void MRUnregisterForNowPlayingNotifications(void) {
+    if (SLStorage(MRMediaRemoteUnregisterForNowPlayingNotifications)) {
+        SLStorage(MRMediaRemoteUnregisterForNowPlayingNotifications)();
+    }
+}
 
 NS_ASSUME_NONNULL_END
 

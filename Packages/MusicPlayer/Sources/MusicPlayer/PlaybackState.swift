@@ -9,7 +9,7 @@
 
 import Foundation
 
-public enum PlaybackState: Equatable, Hashable {
+public enum PlaybackState: Equatable, Hashable, Sendable {
     
     case stopped
     case playing(start: Date)

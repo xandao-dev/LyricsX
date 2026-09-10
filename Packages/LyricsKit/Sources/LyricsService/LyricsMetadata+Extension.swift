@@ -11,14 +11,14 @@ import Foundation
 import LyricsCore
 
 extension Lyrics.Metadata.Key {
-    public static var request       = Lyrics.Metadata.Key("request")
-    public static var remoteURL     = Lyrics.Metadata.Key("remoteURL")
-    public static var artworkURL    = Lyrics.Metadata.Key("artworkURL")
-    public static var service       = Lyrics.Metadata.Key("service")
-    public static var serviceToken  = Lyrics.Metadata.Key("serviceToken")
-    static var quality              = Lyrics.Metadata.Key("quality")
+    public static let request       = Lyrics.Metadata.Key("request")
+    public static let remoteURL     = Lyrics.Metadata.Key("remoteURL")
+    public static let artworkURL    = Lyrics.Metadata.Key("artworkURL")
+    public static let service       = Lyrics.Metadata.Key("service")
+    public static let serviceToken  = Lyrics.Metadata.Key("serviceToken")
+    static let quality              = Lyrics.Metadata.Key("quality")
     
-    static var searchIndex          = Lyrics.Metadata.Key("searchIndex")
+    static let searchIndex          = Lyrics.Metadata.Key("searchIndex")
 }
 
 extension Lyrics.Metadata {

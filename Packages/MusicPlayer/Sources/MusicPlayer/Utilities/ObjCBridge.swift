@@ -91,7 +91,7 @@ extension MusicPlayerName {
         }
     }
     
-    static var scriptingPlayerNames: [MusicPlayerName] = [.appleMusic, .spotify, .vox, .audirvana, .swinsian]
+    static let scriptingPlayerNames: [MusicPlayerName] = [.appleMusic, .spotify, .vox, .audirvana, .swinsian]
 }
 
 #endif

@@ -8,9 +8,13 @@
 //
 
 import Foundation
-@_implementationOnly import Regex
+internal import Regex
 
-private let timeTagRegex = Regex(#"\[([-+]?\d+):(\d+(?:\.\d+)?)\]"#)
+private func rx(_ pattern: String, options: NSRegularExpression.Options = []) -> Regex {
+    try! Regex(pattern, options: options)
+}
+
+nonisolated(unsafe) private let timeTagRegex = rx(#"\[([-+]?\d+):(\d+(?:\.\d+)?)\]"#)
 func resolveTimeTag(_ str: String) -> [TimeInterval] {
     let matchs = timeTagRegex.matches(in: str)
     return matchs.map { match in
@@ -20,20 +24,20 @@ func resolveTimeTag(_ str: String) -> [TimeInterval] {
     }
 }
 
-let id3TagRegex = Regex(#"^(?!\[[+-]?\d+:\d+(?:\.\d+)?\])\[(.+?):(.+)\]$"#, options: .anchorsMatchLines)
+nonisolated(unsafe) let id3TagRegex = rx(#"^(?!\[[+-]?\d+:\d+(?:\.\d+)?\])\[(.+?):(.+)\]$"#, options: .anchorsMatchLines)
 
-let krcLineRegex = Regex(#"^\[(\d+),(\d+)\](.*)"#, options: .anchorsMatchLines)
+nonisolated(unsafe) let krcLineRegex = rx(#"^\[(\d+),(\d+)\](.*)"#, options: .anchorsMatchLines)
 
-let netEaseInlineTagRegex = Regex(#"\(0,(\d+)\)([^(]+)(\(0,1\) )?"#)
+nonisolated(unsafe) let netEaseInlineTagRegex = rx(#"\(0,(\d+)\)([^(]+)(\(0,1\) )?"#)
 
-let kugouInlineTagRegex = Regex(#"<(\d+),(\d+),0>([^<]*)"#)
+nonisolated(unsafe) let kugouInlineTagRegex = rx(#"<(\d+),(\d+),0>([^<]*)"#)
 
-let ttpodXtrcLineRegex = Regex(
+nonisolated(unsafe) let ttpodXtrcLineRegex = rx(
     #"^((?:\[[+-]?\d+:\d+(?:\.\d+)?\])+)(?:((?:<\d+>[^<\r\n]+)+)|(.*))$(?:[\r\n]+\[x\-trans\](.*))?"#,
     options: .anchorsMatchLines)
 
-let ttpodXtrcInlineTagRegex = Regex(#"<(\d+)>([^<\r\n]*)"#)
+nonisolated(unsafe) let ttpodXtrcInlineTagRegex = rx(#"<(\d+)>([^<\r\n]*)"#)
 
-let syairSearchResultRegex = Regex(#"<div class="title"><a href="([^"]+)">"#)
+nonisolated(unsafe) let syairSearchResultRegex = rx(#"<div class="title"><a href="([^"]+)">"#)
 
-let syairLyricsContentRegex = Regex(#"<div class="entry">(.+?)<div"#, options: .dotMatchesLineSeparators)
+nonisolated(unsafe) let syairLyricsContentRegex = rx(#"<div class="entry">(.+?)<div"#, options: .dotMatchesLineSeparators)

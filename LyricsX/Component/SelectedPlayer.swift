@@ -28,8 +28,14 @@ extension MusicPlayers {
             }
         }
         
-        override init() {
+        nonisolated override init() {
             super.init()
+            MainActor.assumeIsolated {
+                self.finishInit()
+            }
+        }
+        
+        private func finishInit() {
             selectPlayer()
             scheduleManualUpdate()
             defaultsObservation = defaults.observe(keys: [.preferredPlayerIndex, .useSystemWideNowPlaying]) { [weak self] in
@@ -62,7 +68,7 @@ extension MusicPlayers {
         func scheduleManualUpdate() {
             scheduleCanceller?.cancel()
             guard manualUpdateInterval > 0 else { return }
-            let q = DispatchQueue.global()
+            let q = DispatchQueue.main
             let i: DispatchQueue.SchedulerTimeType.Stride = .seconds(manualUpdateInterval)
             scheduleCanceller = q.schedule(after: q.now.advanced(by: i), interval: i, tolerance: i * 0.1, options: nil) { [unowned self] in
                 self.designatedPlayer?.updatePlayerState()

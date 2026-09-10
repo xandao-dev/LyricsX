@@ -7,7 +7,7 @@
 //  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 //
 
-public enum MusicPlayerName: String {
+public enum MusicPlayerName: String, Sendable {
     
     case appleMusic = "Music"
     case spotify    = "Spotify"

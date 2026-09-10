@@ -2,3 +2,4 @@ Product
 Carthage/
 Packages/**/.build
 Packages/**/.swiftpm
+xcuserdata/

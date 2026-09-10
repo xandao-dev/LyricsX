@@ -17,9 +17,20 @@ class TouchBarLyricsController: TouchBarSystemModalController {
     
     static var shared: TouchBarLyricsController?
     
-    private var lyricsItem = TouchBarLyricsItem(identifier: .lyrics)
+    private var lyricsItem: TouchBarLyricsItem!
     
-    override func touchBarDidLoad() {
+    nonisolated override init() {
+        super.init()
+    }
+    
+    nonisolated override func touchBarDidLoad() {
+        MainActor.assumeIsolated {
+            self.applyTouchBarDidLoad()
+        }
+    }
+    
+    private func applyTouchBarDidLoad() {
+        lyricsItem = TouchBarLyricsItem(identifier: .lyrics)
         touchBar?.defaultItemIdentifiers = [.currentArtwork, .fixedSpaceSmall, .playbackControl, .fixedSpaceSmall, .lyrics, .flexibleSpace, .otherItemsProxy]
         touchBar?.customizationIdentifier = .main
         touchBar?.customizationAllowedItemIdentifiers = [.currentArtwork, .playbackControl, .lyrics, .fixedSpaceSmall, .fixedSpaceLarge, .flexibleSpace, .otherItemsProxy]
@@ -29,7 +40,7 @@ class TouchBarLyricsController: TouchBarSystemModalController {
         
         lyricsItem.bind(\.progressColor, withUnmatchedDefaultName: .desktopLyricsProgressColor)
         
-        observeNotification(name: NSApplication.willBecomeActiveNotification) { [weak self] _ in
+        observeNotification(name: NSApplication.willBecomeActiveNotification) { [weak self] in
             guard let self = self else { return }
             self.removeFromControlStrip()
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200)) {
@@ -37,7 +48,7 @@ class TouchBarLyricsController: TouchBarSystemModalController {
             }
         }
         
-        observeNotification(name: NSApplication.didResignActiveNotification) { [weak self] _ in
+        observeNotification(name: NSApplication.didResignActiveNotification) { [weak self] in
             guard let self = self else { return }
             NSApp.touchBar = nil
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {

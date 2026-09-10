@@ -52,11 +52,11 @@ class AppController: NSObject {
     private override init() {
         super.init()
         selectedPlayer.currentTrackWillChange
-            .receive(on: DispatchQueue.lyricsDisplay)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in self?.currentTrackChanged() }
             .store(in: &cancelBag)
         selectedPlayer.playbackStateWillChange
-            .receive(on: DispatchQueue.lyricsDisplay)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in self?.scheduleCurrentLineCheck() }
             .store(in: &cancelBag)
         
@@ -84,7 +84,7 @@ class AppController: NSObject {
         }
         if let next = next, playbackState.isPlaying {
             let dt = lyrics.lines[next].position - playbackTime - lyrics.adjustedTimeDelay
-            let q = DispatchQueue.lyricsDisplay
+            let q = DispatchQueue.main
             currentLineCheckSchedule = q.schedule(after: q.now.advanced(by: .seconds(dt)), interval: .seconds(42), tolerance: .milliseconds(20)) { [unowned self] in
                 self.scheduleCurrentLineCheck()
             }
@@ -116,7 +116,7 @@ class AppController: NSObject {
             return content
         }.joined(separator: "\n")
         // swiftlint:disable:next force_try
-        let regex = Regex(#"\n{3,}"#)
+        let regex = try! Regex(#"\n{3,}"#)
         let replaced = content.replacingMatches(of: regex, with: "\n\n")
         sbTrack.setValue(replaced, forKey: "lyrics")
     }
@@ -201,7 +201,7 @@ class AppController: NSObject {
         let req = LyricsSearchRequest(searchTerm: .info(title: title, artist: artist), duration: duration, limit: 5)
         searchRequest = req
         searchCanceller = lyricsManager.lyricsPublisher(request: req)
-            .timeout(.seconds(10), scheduler: DispatchQueue.lyricsDisplay)
+            .timeout(.seconds(10), scheduler: DispatchQueue.main)
             .sink(receiveCompletion: { [unowned self] _ in
                 if defaults[.writeToiTunesAutomatically] {
                     self.writeToiTunes(overwrite: true)

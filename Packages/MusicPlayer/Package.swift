@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version: 6.0
 
 import PackageDescription
 
@@ -17,7 +17,8 @@ let package = Package(
             dependencies: [
                 "LXMusicPlayer",
                 "MediaRemotePrivate",
-            ], cSettings: [
+            ],
+            cSettings: [
                 .define("TARGET_OS_MAC", to: "1"),
             ]),
         .target(
@@ -32,5 +33,6 @@ let package = Package(
             cSettings: [
                 .define("TARGET_OS_MAC", to: "1"),
             ]),
-    ]
+    ],
+    swiftLanguageModes: [.v6]
 )

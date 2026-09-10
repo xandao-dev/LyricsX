@@ -10,7 +10,7 @@
 #if canImport(Darwin)
 
 import Foundation
-@_implementationOnly import SwiftCF
+internal import SwiftCF
 
 extension Lyrics {
     

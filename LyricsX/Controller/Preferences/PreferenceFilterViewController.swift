@@ -41,7 +41,7 @@ class PreferenceFilterViewController: NSViewController {
 }
 
 @objc(FilterKey)
-class FilterKey: NSObject, NSCoding {
+nonisolated class FilterKey: NSObject, NSCoding {
     
     @objc var keyword = "keyword"
     

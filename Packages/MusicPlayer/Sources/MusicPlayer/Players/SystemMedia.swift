@@ -15,10 +15,10 @@ import Combine
 
 extension MusicPlayers {
     
-    public final class SystemMedia: ObservableObject {
+    public final class SystemMedia: ObservableObject, @unchecked Sendable {
         
         public static var available: Bool {
-            return MRIsMediaRemoteLoaded
+            return MRMediaRemoteAvailable()
         }
         
         @Published public private(set) var currentTrack: MusicTrack?
@@ -28,7 +28,7 @@ extension MusicPlayers {
         
         public init?() {
             guard Self.available else { return nil }
-            MRMediaRemoteRegisterForNowPlayingNotifications_?(DispatchQueue.playerUpdate)
+            MRRegisterForNowPlayingNotifications(DispatchQueue.playerUpdate)
             
             let nc = NotificationCenter.default
             nc.addObserver(forName: .mediaRemoteNowPlayingApplicationPlaybackStateDidChange, object: nil, queue: nil) { [weak self] n in
@@ -38,14 +38,14 @@ extension MusicPlayers {
                 self?.mediaRemoteNowPlayingInfoDidChange(n: n)
             }
             
-            MRMediaRemoteGetNowPlayingApplicationIsPlaying_?(DispatchQueue.playerUpdate) { [weak self] isPlaying in
-                self?.systemPlaybackState = isPlaying.boolValue ? .playing : .paused
+            MRGetNowPlayingApplicationIsPlaying(DispatchQueue.playerUpdate) { [weak self] isPlaying in
+                self?.systemPlaybackState = isPlaying ? .playing : .paused
                 self?.updatePlayerState()
             }
         }
         
         deinit {
-            MRMediaRemoteUnregisterForNowPlayingNotifications_?()
+            MRUnregisterForNowPlayingNotifications()
         }
         
         private func getNowPlayingInfoCallback(_ infoDict: CFDictionary?) {
@@ -116,33 +116,33 @@ extension MusicPlayers.SystemMedia: MusicPlayerProtocol {
             return playbackState.time
         }
         set {
-            MRMediaRemoteSetElapsedTime_?(newValue)
+            MRSetElapsedTime(newValue)
             playbackState = playbackState.withTime(newValue)
         }
     }
     
     public func resume() {
-        _ = MRMediaRemoteSendCommand_?(.play, nil)
+        _ = MRSendCommand(.play, nil)
     }
     
     public func pause() {
-        _ = MRMediaRemoteSendCommand_?(.pause, nil)
+        _ = MRSendCommand(.pause, nil)
     }
     
     public func playPause() {
-        _ = MRMediaRemoteSendCommand_?(.togglePlayPause, nil)
+        _ = MRSendCommand(.togglePlayPause, nil)
     }
     
     public func skipToNextItem() {
-        _ = MRMediaRemoteSendCommand_?(.nextTrack, nil)
+        _ = MRSendCommand(.nextTrack, nil)
     }
     
     public func skipToPreviousItem() {
-        _ = MRMediaRemoteSendCommand_?(.previousTrack, nil)
+        _ = MRSendCommand(.previousTrack, nil)
     }
     
     public func updatePlayerState() {
-        MRMediaRemoteGetNowPlayingInfo_?(DispatchQueue.playerUpdate) { [weak self] info in
+        MRGetNowPlayingInfo(DispatchQueue.playerUpdate) { [weak self] info in
             self?.getNowPlayingInfoCallback(info)
         }
     }

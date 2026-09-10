@@ -49,7 +49,7 @@ class FontSelectTextField: NSTextField, NSWindowDelegate {
         }
     }
     
-    deinit {
+    isolated deinit {
         let fontManger = NSFontManager.shared
         if fontManger.target === self {
             fontManger.target = nil
