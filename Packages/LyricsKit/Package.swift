@@ -13,20 +13,15 @@ let package = Package(
             targets: ["LyricsCore", "LyricsService"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/ddddxxx/Regex", from: "1.0.1"),
         .package(url: "https://github.com/1024jp/GzipSwift", from: "5.0.0"),
     ],
     targets: [
         .target(
-            name: "LyricsCore",
-            dependencies: [
-                .product(name: "Regex", package: "Regex"),
-            ]),
+            name: "LyricsCore"),
         .target(
             name: "LyricsService",
             dependencies: [
                 "LyricsCore",
-                .product(name: "Regex", package: "Regex"),
                 .product(name: "Gzip", package: "GzipSwift"),
             ]),
         .testTarget(

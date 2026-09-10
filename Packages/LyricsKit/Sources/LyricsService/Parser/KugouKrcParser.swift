@@ -15,11 +15,10 @@ extension Lyrics {
     convenience init?(kugouKrcContent content: String) {
         var idTags: [IDTagKey: String] = [:]
         var languageHeader: KugouKrcHeaderFieldLanguage?
-        id3TagRegex.matches(in: content).forEach { match in
-            guard let key = match[1]?.content.trimmingCharacters(in: .whitespaces),
-                let value = match[2]?.content.trimmingCharacters(in: .whitespaces),
-                !key.isEmpty,
-                !value.isEmpty else {
+        content.matches(of: id3TagRegex).forEach { match in
+            let key = match.output.1.trimmingCharacters(in: .whitespaces)
+            let value = match.output.2.trimmingCharacters(in: .whitespaces)
+            guard !key.isEmpty, !value.isEmpty else {
                     return
             }
             if key == "language" {
@@ -32,20 +31,20 @@ extension Lyrics {
             }
         }
         
-        var lines: [LyricsLine] = krcLineRegex.matches(in: content).map { match in
-            let timeTagStr = match[1]!.content
+        var lines: [LyricsLine] = content.matches(of: krcLineRegex).map { match in
+            let timeTagStr = match.output.1
             let timeTag = TimeInterval(timeTagStr)! / 1000
             
-            let durationStr = match[2]!.content
+            let durationStr = match.output.2
             let duration = TimeInterval(durationStr)! / 1000
             
             var lineContent = ""
             var attachment = LyricsLine.Attachments.InlineTimeTag(tags: [.init(index: 0, time: 0)], duration: duration)
-            kugouInlineTagRegex.matches(in: content, range: match[3]!.range).forEach { m in
-                let t1 = Int(m[1]!.content)!
-                let t2 = Int(m[2]!.content)!
+            match.output.3.matches(of: kugouInlineTagRegex).forEach { m in
+                let t1 = Int(m.output.1)!
+                let t2 = Int(m.output.2)!
                 let t = TimeInterval(t1 + t2) / 1000
-                let fragment = m[3]!.content
+                let fragment = m.output.3
                 let prevCount = lineContent.count
                 lineContent += fragment
                 if lineContent.count > prevCount {

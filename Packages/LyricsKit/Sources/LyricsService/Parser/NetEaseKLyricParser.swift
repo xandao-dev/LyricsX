@@ -14,30 +14,29 @@ extension Lyrics {
     
     convenience init?(netEaseKLyricContent content: String) {
         var idTags: [IDTagKey: String] = [:]
-        id3TagRegex.matches(in: content).forEach { match in
-            if let key = match[1]?.content.trimmingCharacters(in: .whitespaces),
-                let value = match[2]?.content.trimmingCharacters(in: .whitespaces),
-                !key.isEmpty,
-                !value.isEmpty {
+        content.matches(of: id3TagRegex).forEach { match in
+            let key = match.output.1.trimmingCharacters(in: .whitespaces)
+            let value = match.output.2.trimmingCharacters(in: .whitespaces)
+            if !key.isEmpty, !value.isEmpty {
                 idTags[.init(key)] = value
             }
         }
         
-        let lines: [LyricsLine] = krcLineRegex.matches(in: content).map { match in
-            let timeTagStr = match[1]!.content
+        let lines: [LyricsLine] = content.matches(of: krcLineRegex).map { match in
+            let timeTagStr = match.output.1
             let timeTag = TimeInterval(timeTagStr)! / 1000
             
-            let durationStr = match[2]!.content
+            let durationStr = match.output.2
             let duration = TimeInterval(durationStr)! / 1000
             
             var lineContent = ""
             var attachment = LyricsLine.Attachments.InlineTimeTag(tags: [.init(index: 0, time: 0)], duration: duration)
             var dt = 0.0
-            netEaseInlineTagRegex.matches(in: content, range: match[3]!.range).forEach { m in
-                let timeTagStr = m[1]!.content
+            match.output.3.matches(of: netEaseInlineTagRegex).forEach { m in
+                let timeTagStr = m.output.1
                 var timeTag = TimeInterval(timeTagStr)! / 1000
-                var fragment = m[2]!.content
-                if m[3] != nil {
+                var fragment = m.output.2
+                if m.output.3 != nil {
                     timeTag += 0.001
                     fragment += " "
                 }

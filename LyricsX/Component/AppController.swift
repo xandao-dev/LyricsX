@@ -11,7 +11,6 @@ import AppKit
 import Combine
 import LyricsService
 import MusicPlayer
-import Regex
 
 class AppController: NSObject {
     
@@ -108,9 +107,7 @@ class AppController: NSObject {
             }
             return content
         }.joined(separator: "\n")
-        // swiftlint:disable:next force_try
-        let regex = try! Regex(#"\n{3,}"#)
-        let replaced = content.replacingMatches(of: regex, with: "\n\n")
+        let replaced = content.replacing(/\n{3,}/, with: "\n\n")
         sbTrack.setValue(replaced, forKey: "lyrics")
     }
     

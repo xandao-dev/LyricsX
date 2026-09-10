@@ -210,13 +210,13 @@ extension LyricsLine.Attachments {
         }
         
         public init?(_ description: String) {
-            let matchs = timeLineAttachmentRegex.matches(in: description)
-            tags = matchs.compactMap { Tag($0[1]!.string) }
+            let matchs = description.matches(of: timeLineAttachmentRegex)
+            tags = matchs.compactMap { Tag(String($0.output.1)) }
             guard !tags.isEmpty else {
                 return nil
             }
-            if let match = timeLineAttachmentDurationRegex.firstMatch(in: description) {
-                durationMSec = Int(match[1]!.content)
+            if let match = description.firstMatch(of: timeLineAttachmentDurationRegex) {
+                durationMSec = Int(match.output.1)
             }
         }
     }
@@ -268,8 +268,8 @@ extension LyricsLine.Attachments {
         }
         
         public init?(_ description: String) {
-            let matchs = rangeAttachmentRegex.matches(in: description)
-            attributes = matchs.compactMap { Attribute($0[1]!.string) }
+            let matchs = description.matches(of: rangeAttachmentRegex)
+            attributes = matchs.compactMap { Attribute(String($0.output.1)) }
             guard !attributes.isEmpty else {
                 return nil
             }

@@ -39,7 +39,7 @@ extension LyricsProviders.Syair: _LyricsProvider {
         return sharedURLSession.dataTaskPublisher(for: url)
             .map {
                 return String(data: $0.data, encoding: .utf8).map {
-                    return syairSearchResultRegex.matches(in: $0).compactMap { ($0[1]?.string) }
+                    return $0.matches(of: syairSearchResultRegex).map { String($0.output.1) }
                 } ?? []
             }
             .replaceError(with: [])
@@ -56,7 +56,7 @@ extension LyricsProviders.Syair: _LyricsProvider {
         return sharedURLSession.dataTaskPublisher(for: req)
             .compactMap {
                 guard let str = String(data: $0.data, encoding: .utf8),
-                    let lrcData = syairLyricsContentRegex.firstMatch(in: str)?.captures[1]?.string.data(using: .utf8),
+                    let lrcData = str.firstMatch(of: syairLyricsContentRegex)?.output.1.data(using: .utf8),
                     let lrcStr = try? NSAttributedString(data: lrcData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil).string,
                     let lrc = Lyrics(lrcStr) else {
                         return nil

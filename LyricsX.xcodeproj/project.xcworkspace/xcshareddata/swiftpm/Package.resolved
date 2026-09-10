@@ -37,15 +37,6 @@
       }
     },
     {
-      "identity" : "regex",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ddddxxx/Regex",
-      "state" : {
-        "revision" : "c0ad0a7e9a48989d9688c2b524a1e69b6293b733",
-        "version" : "1.0.1"
-      }
-    },
-    {
       "identity" : "swiftcf",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ddddxxx/SwiftCF",

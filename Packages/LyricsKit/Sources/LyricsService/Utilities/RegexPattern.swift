@@ -8,36 +8,34 @@
 //
 
 import Foundation
-internal import Regex
 
-private func rx(_ pattern: String, options: NSRegularExpression.Options = []) -> Regex {
-    try! Regex(pattern, options: options)
-}
+// Unicode scalar semantics match NSRegularExpression (ICU), which these patterns
+// were written for. See LyricsCore/RegexPattern.swift.
+// Regex isn't Sendable; these are never mutated after initialization.
 
-nonisolated(unsafe) private let timeTagRegex = rx(#"\[([-+]?\d+):(\d+(?:\.\d+)?)\]"#)
+nonisolated(unsafe) private let timeTagRegex = #/\[([-+]?\d+):(\d+(?:\.\d+)?)\]/#.matchingSemantics(.unicodeScalar)
 func resolveTimeTag(_ str: String) -> [TimeInterval] {
-    let matchs = timeTagRegex.matches(in: str)
+    let matchs = str.matches(of: timeTagRegex)
     return matchs.map { match in
-        let min = Double(match[1]!.content)!
-        let sec = Double(match[2]!.content)!
+        let min = Double(match.output.1)!
+        let sec = Double(match.output.2)!
         return min * 60 + sec
     }
 }
 
-nonisolated(unsafe) let id3TagRegex = rx(#"^(?!\[[+-]?\d+:\d+(?:\.\d+)?\])\[(.+?):(.+)\]$"#, options: .anchorsMatchLines)
+nonisolated(unsafe) let id3TagRegex = #/^(?!\[[+-]?\d+:\d+(?:\.\d+)?\])\[(.+?):(.+)\]$/#.anchorsMatchLineEndings().matchingSemantics(.unicodeScalar)
 
-nonisolated(unsafe) let krcLineRegex = rx(#"^\[(\d+),(\d+)\](.*)"#, options: .anchorsMatchLines)
+nonisolated(unsafe) let krcLineRegex = #/^\[(\d+),(\d+)\](.*)/#.anchorsMatchLineEndings().matchingSemantics(.unicodeScalar)
 
-nonisolated(unsafe) let netEaseInlineTagRegex = rx(#"\(0,(\d+)\)([^(]+)(\(0,1\) )?"#)
+nonisolated(unsafe) let netEaseInlineTagRegex = #/\(0,(\d+)\)([^(]+)(\(0,1\) )?/#.matchingSemantics(.unicodeScalar)
 
-nonisolated(unsafe) let kugouInlineTagRegex = rx(#"<(\d+),(\d+),0>([^<]*)"#)
+nonisolated(unsafe) let kugouInlineTagRegex = #/<(\d+),(\d+),0>([^<]*)/#.matchingSemantics(.unicodeScalar)
 
-nonisolated(unsafe) let ttpodXtrcLineRegex = rx(
-    #"^((?:\[[+-]?\d+:\d+(?:\.\d+)?\])+)(?:((?:<\d+>[^<\r\n]+)+)|(.*))$(?:[\r\n]+\[x\-trans\](.*))?"#,
-    options: .anchorsMatchLines)
+nonisolated(unsafe) let ttpodXtrcLineRegex = #/^((?:\[[+-]?\d+:\d+(?:\.\d+)?\])+)(?:((?:<\d+>[^<\r\n]+)+)|(.*))$(?:[\r\n]+\[x\-trans\](.*))?/#
+    .anchorsMatchLineEndings().matchingSemantics(.unicodeScalar)
 
-nonisolated(unsafe) let ttpodXtrcInlineTagRegex = rx(#"<(\d+)>([^<\r\n]*)"#)
+nonisolated(unsafe) let ttpodXtrcInlineTagRegex = #/<(\d+)>([^<\r\n]*)/#.matchingSemantics(.unicodeScalar)
 
-nonisolated(unsafe) let syairSearchResultRegex = rx(#"<div class="title"><a href="([^"]+)">"#)
+nonisolated(unsafe) let syairSearchResultRegex = #/<div class="title"><a href="([^"]+)">/#.matchingSemantics(.unicodeScalar)
 
-nonisolated(unsafe) let syairLyricsContentRegex = rx(#"<div class="entry">(.+?)<div"#, options: .dotMatchesLineSeparators)
+nonisolated(unsafe) let syairLyricsContentRegex = #/<div class="entry">(.+?)<div/#.dotMatchesNewlines().matchingSemantics(.unicodeScalar)

@@ -10,7 +10,6 @@
 import Foundation
 import LyricsCore
 import Combine
-internal import Regex
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -110,14 +109,10 @@ extension LyricsProviders.NetEase: _LyricsProvider {
     }
 }
 
-nonisolated(unsafe) private let netEaseTimeTagFixer = rxNetEase(#"(\[\d+:\d+):(\d+\])"#)
-
-private func rxNetEase(_ pattern: String) -> Regex {
-    try! Regex(pattern)
-}
+nonisolated(unsafe) private let netEaseTimeTagFixer = #/(\[\d+:\d+):(\d+\])/#.matchingSemantics(.unicodeScalar)
 
 private extension NetEaseResponseSingleLyrics.Lyric {
     var fixedLyric: String? {
-        return lyric?.replacingMatches(of: netEaseTimeTagFixer, with: "$1.$2")
+        return lyric?.replacing(netEaseTimeTagFixer) { "\($0.output.1).\($0.output.2)" }
     }
 }

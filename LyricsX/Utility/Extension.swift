@@ -10,7 +10,6 @@
 import Cocoa
 import LyricsCore
 import MusicPlayer
-import Regex
 
 extension MusicPlayerName {
     
@@ -187,13 +186,17 @@ private extension NSPredicate {
     
     private static let observer = defaults.observe(.lyricsFilterKeys, options: [.new, .initial]) { _, change in
         let predicates = change.newValue.compactMap { (key: String) -> NSPredicate? in
-            let isRegex = key.hasPrefix("/")
-            let pattern = isRegex ? String(key.dropFirst()) : key
-            let options: NSRegularExpression.Options = isRegex ? [] : [.ignoreMetacharacters]
-            guard let regex = try? Regex(pattern, options: options) else { return nil }
+            // Scalar semantics and simple \b keep filters written for NSRegularExpression working.
+            let filter: any RegexComponent
+            if key.hasPrefix("/") {
+                guard let regex = try? Regex(String(key.dropFirst())) else { return nil }
+                filter = regex.matchingSemantics(.unicodeScalar).wordBoundaryKind(.simple)
+            } else {
+                filter = Regex<Substring>(verbatim: key).matchingSemantics(.unicodeScalar)
+            }
             return NSPredicate { object, _ in
                 guard let object = object as? LyricsLine else { return false }
-                return !regex.isMatch(object.content)
+                return !object.content.contains(filter)
             }
         }
         _lyricsPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)

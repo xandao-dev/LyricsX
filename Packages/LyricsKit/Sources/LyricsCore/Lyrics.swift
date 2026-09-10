@@ -27,22 +27,22 @@ final public class Lyrics: LosslessStringConvertible {
     
     public convenience init?(_ description: String) {
         var idTags: [IDTagKey: String] = [:]
-        id3TagRegex.matches(in: description).forEach { match in
-            if let key = match[1]?.content.trimmingCharacters(in: .whitespaces),
-                let value = match[2]?.content.trimmingCharacters(in: .whitespaces),
-                !value.isEmpty {
+        description.matches(of: id3TagRegex).forEach { match in
+            let key = match.output.1.trimmingCharacters(in: .whitespaces)
+            let value = match.output.2.trimmingCharacters(in: .whitespaces)
+            if !value.isEmpty {
                 idTags[.init(key)] = value
             }
         }
         
-        let lines = lyricsLineRegex.matches(in: description).flatMap { match -> [LyricsLine] in
-            let timeTagStr = match[1]!.string
+        let lines = description.matches(of: lyricsLineRegex).flatMap { match -> [LyricsLine] in
+            let timeTagStr = String(match.output.1)
             let timeTags = resolveTimeTag(timeTagStr)
             
-            let lyricsContentStr = match[2]!.string
+            let lyricsContentStr = String(match.output.2)
             var line = LyricsLine(content: lyricsContentStr, position: 0)
             
-            if let translationStr = match[3]?.string, !translationStr.isEmpty {
+            if let translationStr = match.output.3.map(String.init), !translationStr.isEmpty {
                 line.attachments[.translation()] = translationStr
             }
             
@@ -61,12 +61,12 @@ final public class Lyrics: LosslessStringConvertible {
         self.init(lines: lines, idTags: idTags)
         
         var tags: Set<LyricsLine.Attachments.Tag> = []
-        lyricsLineAttachmentRegex.matches(in: description).forEach { match in
-            let timeTagStr = match[1]!.string
+        description.matches(of: lyricsLineAttachmentRegex).forEach { match in
+            let timeTagStr = String(match.output.1)
             let timeTags = resolveTimeTag(timeTagStr)
             
-            let attachmentTagStr = match[2]!.string
-            let attachmentStr = match[3]?.string ?? ""
+            let attachmentTagStr = String(match.output.2)
+            let attachmentStr = String(match.output.3)
             
             for timeTag in timeTags {
                 if case let .found(at: index) = lineIndex(of: timeTag) {
@@ -156,11 +156,11 @@ extension Lyrics {
     public var length: TimeInterval? {
         get {
             guard let len = idTags[.length],
-                let match = base60TimeRegex.firstMatch(in: len) else {
+                let match = len.firstMatch(of: base60TimeRegex) else {
                     return nil
             }
-            let min = (match[1]?.content).flatMap(Double.init) ?? 0
-            let sec = Double(match[2]!.content) ?? 0
+            let min = match.output.1.flatMap { Double($0) } ?? 0
+            let sec = Double(match.output.2) ?? 0
             return min * 60 + sec
         }
         set {
