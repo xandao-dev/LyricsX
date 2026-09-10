@@ -9,14 +9,4 @@
 
 import Cocoa
 
-class PreferenceViewController: NSTabViewController {
-    
-    override func viewWillAppear() {
-        #if IS_FOR_MAS
-            if defaults[.isInMASReview] != false {
-                removeTabViewItem(tabViewItems.last!)
-            }
-            checkForMASReview()
-        #endif
-    }
-}
+class PreferenceViewController: NSTabViewController {}

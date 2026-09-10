@@ -11,10 +11,7 @@ import Cocoa
 import GenericID
 import MASShortcut
 import MusicPlayer
-
-#if !IS_FOR_MAS
 import Sparkle
-#endif
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenuDelegate {
@@ -69,9 +66,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
             groupDefaults.bind(NSBindingName($0.key), withDefaultName: $0)
         }
         
-        #if IS_FOR_MAS
-        checkForMASReview(force: true)
-        #else
         SUUpdater.shared()?.checkForUpdatesInBackground()
         if #available(OSX 10.12.2, *) {
             observeDefaults(key: .touchBarLyricsEnabled, options: [.new, .initial]) { _, change in
@@ -82,7 +76,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
                 }
             }
         }
-        #endif
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -144,22 +137,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
     }
     
     @IBAction func aboutLyricsXAction(_ sender: Any) {
-        #if IS_FOR_MAS
-            let channel = "App Store"
-        #else
-            let channel = "GitHub"
-        #endif
-        let versionString = "\(channel) Version \(Bundle.main.semanticVersion!)"
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        let versionString = "GitHub Version \(version)"
         NSApp.orderFrontStandardAboutPanel(options: [.applicationVersion: versionString])
         NSApp.activate(ignoringOtherApps: true)
     }
     
     @IBAction func checkUpdateAction(_ sender: Any) {
-        #if IS_FOR_MAS
-        assert(false, "should not be there")
-        #else
         SUUpdater.shared()?.checkForUpdates(sender)
-        #endif
     }
     
     @IBAction func increaseOffset(_ sender: Any?) {

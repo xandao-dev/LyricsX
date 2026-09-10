@@ -12,8 +12,6 @@ import GenericID
 import MusicPlayer
 
 let fontNameFallbackCountMax = 1
-// 7 days. after this period of time since the app built, the app is not considered as "in review".
-let masReviewPeriodLimit: TimeInterval = 60 * 60 * 24 * 7
 
 // NOTE: to build your own product, you need to replace the team identifier to yours
 // and do the same thing in LyricsXHelper
@@ -28,7 +26,6 @@ let workspaceNC = NSWorkspace.shared.notificationCenter
 let selectedPlayer = MusicPlayers.Selected.shared
 
 let isInSandbox = ProcessInfo.processInfo.environment["APP_SANDBOX_CONTAINER_ID"] != nil
-let isFromMacAppStore = (try? Bundle.main.appStoreReceiptURL?.checkResourceIsReachable()) == true
 
 extension CAMediaTimingFunction {
     static let mystery = CAMediaTimingFunction(controlPoints: 0.2, 0.1, 0.2, 1)
@@ -137,9 +134,6 @@ extension UserDefaults.DefaultsKeys {
     static let writeToiTunesAutomatically = Key<Bool>("WriteToiTunesAutomatically")
     
     static let globalLyricsOffset = Key<Int>("GlobalLyricsOffset")
-    
-    //
-    static let isInMASReview = Key<Bool?>("isInMASReview")
     
     static let launchHelperTime = Key<Date?>("launchHelperTime")
 }
