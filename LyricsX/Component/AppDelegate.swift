@@ -11,7 +11,6 @@ import Cocoa
 import GenericID
 import MASShortcut
 import MusicPlayer
-import Sparkle
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenuDelegate {
@@ -64,17 +63,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
         ]
         sharedKeys.forEach {
             groupDefaults.bind(NSBindingName($0.key), withDefaultName: $0)
-        }
-        
-        SUUpdater.shared()?.checkForUpdatesInBackground()
-        if #available(OSX 10.12.2, *) {
-            observeDefaults(key: .touchBarLyricsEnabled, options: [.new, .initial]) { _, change in
-                if change.newValue, TouchBarLyricsController.shared == nil {
-                    TouchBarLyricsController.shared = TouchBarLyricsController()
-                } else if !change.newValue, TouchBarLyricsController.shared != nil {
-                    TouchBarLyricsController.shared = nil
-                }
-            }
         }
     }
     
@@ -141,10 +129,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
         let versionString = "GitHub Version \(version)"
         NSApp.orderFrontStandardAboutPanel(options: [.applicationVersion: versionString])
         NSApp.activate(ignoringOtherApps: true)
-    }
-    
-    @IBAction func checkUpdateAction(_ sender: Any) {
-        SUUpdater.shared()?.checkForUpdates(sender)
     }
     
     @IBAction func increaseOffset(_ sender: Any?) {

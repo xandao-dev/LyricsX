@@ -59,14 +59,12 @@ extension NSStoryboard.SceneIdentifier {
 
 extension UserDefaults.DefaultsKeys {
     
-    static let notifiedUpdateVersion = Key<String?>("NotifiedUpdateVersion")
     static let noSearchingTrackIds = Key<[String]>("NoSearchingTrackIds")
     static let noSearchingAlbumNames = Key<[String]>("NoSearchingAlbumNames")
     
     // Menu
     static let desktopLyricsEnabled = Key<Bool>("DesktopLyricsEnabled")
     static let menuBarLyricsEnabled = Key<Bool>("MenuBarLyricsEnabled")
-    static let touchBarLyricsEnabled = Key<Bool>("TouchBarLyricsEnabled")
     
     // General
     static let preferredPlayerIndex = Key<Int>("PreferredPlayerIndex")

@@ -362,12 +362,6 @@
                                 <action selector="aboutLyricsXAction:" target="Ady-hI-5gd" id="lXd-fE-0si"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Check For Update..." tag="401" id="Piu-i2-JjD">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="checkUpdateAction:" target="Ady-hI-5gd" id="Ait-5g-99F"/>
-                            </connections>
-                        </menuItem>
                         <menuItem title="Donate..." tag="402" id="EoO-ld-6Xv">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>

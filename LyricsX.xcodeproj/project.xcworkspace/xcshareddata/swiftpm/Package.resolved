@@ -1,5 +1,5 @@
 {
-  "originHash" : "f1dc0a5baad559e6c1337ba8a8c2d494af2fd5181e85591bd40f18d75cf8ac13",
+  "originHash" : "618a6b917e236255b4308bc2ee4598bacc44a61929d1c703c9dd7b4e00cad876",
   "pins" : [
     {
       "identity" : "cxshim",
@@ -46,30 +46,12 @@
       }
     },
     {
-      "identity" : "sparkle",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/sparkle-project/Sparkle",
-      "state" : {
-        "revision" : "c0933a516b420806e9216e71bd13ba76c54f0de6",
-        "version" : "1.26.0"
-      }
-    },
-    {
       "identity" : "swiftcf",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ddddxxx/SwiftCF",
       "state" : {
         "revision" : "72775c4b4dfceba8f6f43820d50f9286dc97160d",
         "version" : "0.2.1"
-      }
-    },
-    {
-      "identity" : "touchbarhelper",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ddddxxx/TouchBarHelper",
-      "state" : {
-        "revision" : "003d41193ac1c6ab9cc570a1923587298014bf1d",
-        "version" : "0.1.0"
       }
     }
   ],
