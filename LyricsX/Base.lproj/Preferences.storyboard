@@ -65,257 +65,9 @@
             <objects>
                 <viewController title="General" id="d5d-dC-DK4" userLabel="General" customClass="PreferenceGeneralViewController" customModule="LyricsX" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Ium-Ya-ZzT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="363"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="213"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <box title="Preferred music player" translatesAutoresizingMaskIntoConstraints="NO" id="JYR-Ed-Tax">
-                                <rect key="frame" x="17" y="227" width="566" height="112"/>
-                                <view key="contentView" id="r1e-Ln-LSb">
-                                    <rect key="frame" x="3" y="3" width="560" height="94"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="5xx-Ht-pau">
-                                            <rect key="frame" x="38" y="0.0" width="484" height="94"/>
-                                            <subviews>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="f2X-id-RV9" userLabel="Auto icon">
-                                                    <rect key="frame" x="16" y="34" width="52" height="52"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="52" id="CHQ-ub-bmZ"/>
-                                                        <constraint firstAttribute="width" secondItem="f2X-id-RV9" secondAttribute="height" multiplier="1:1" id="c2J-iB-22m"/>
-                                                    </constraints>
-                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="now_playing_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="c0h-zb-1Qx">
-                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="performClick:" target="GAh-L4-fgK" id="Wis-Sf-xOC"/>
-                                                    </connections>
-                                                </button>
-                                                <button tag="-1" translatesAutoresizingMaskIntoConstraints="NO" id="GAh-L4-fgK">
-                                                    <rect key="frame" x="14" y="8" width="55" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="qpD-Cy-Yj0"/>
-                                                    </constraints>
-                                                    <buttonCell key="cell" type="radio" title="Auto" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="0VO-JB-ubq">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="preferredPlayerAction:" target="d5d-dC-DK4" id="gg2-JV-oqS"/>
-                                                    </connections>
-                                                </button>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="iIP-cu-YIV" userLabel="iTunes icon">
-                                                    <rect key="frame" x="96" y="34" width="52" height="52"/>
-                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="iTunes_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hRk-Cd-2ek">
-                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="performClick:" target="6Bj-Lj-AqF" id="g5E-6j-bIo"/>
-                                                    </connections>
-                                                </button>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="6Bj-Lj-AqF" userLabel="Prefer iTunes">
-                                                    <rect key="frame" x="88" y="8" width="66" height="18"/>
-                                                    <buttonCell key="cell" type="radio" title="iTunes" bezelStyle="regularSquare" imagePosition="left" inset="2" id="cRD-iF-2qo">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                        <attributedString key="userComments">
-                                                            <fragment content="#bc-ignore!">
-                                                                <attributes>
-                                                                    <font key="NSFont" metaFont="message" size="11"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="preferredPlayerAction:" target="d5d-dC-DK4" id="QHf-PU-hBB"/>
-                                                    </connections>
-                                                </button>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="LQF-xP-dc8" userLabel="Spotify icon">
-                                                    <rect key="frame" x="176" y="34" width="52" height="52"/>
-                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="spotify_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="APa-El-ZCg">
-                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                        <attributedString key="userComments">
-                                                            <fragment content="#bc-ignore!">
-                                                                <attributes>
-                                                                    <font key="NSFont" metaFont="message" size="11"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="performClick:" target="Wb5-Rf-75m" id="IBZ-3w-o6k"/>
-                                                    </connections>
-                                                </button>
-                                                <button tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wb5-Rf-75m">
-                                                    <rect key="frame" x="166" y="8" width="70" height="18"/>
-                                                    <buttonCell key="cell" type="radio" title="Spotify" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="jhm-dK-4Y3">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                        <attributedString key="userComments">
-                                                            <fragment content="#bc-ignore!">
-                                                                <attributes>
-                                                                    <font key="NSFont" metaFont="message" size="11"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="preferredPlayerAction:" target="d5d-dC-DK4" id="uP4-D4-sN6"/>
-                                                    </connections>
-                                                </button>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="lc1-kb-SxJ" userLabel="Vox icon">
-                                                    <rect key="frame" x="256" y="34" width="52" height="52"/>
-                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="vox_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="JCN-jv-3J0">
-                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="performClick:" target="RSg-dR-tCT" id="i3G-mI-qXK"/>
-                                                    </connections>
-                                                </button>
-                                                <button tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="RSg-dR-tCT">
-                                                    <rect key="frame" x="257" y="8" width="49" height="18"/>
-                                                    <buttonCell key="cell" type="radio" title="Vox" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="oTS-3z-Tz7">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                        <attributedString key="userComments">
-                                                            <fragment content="#bc-ignore!">
-                                                                <attributes>
-                                                                    <font key="NSFont" metaFont="message" size="11"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="preferredPlayerAction:" target="d5d-dC-DK4" id="iyh-YZ-fsB"/>
-                                                    </connections>
-                                                </button>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="kO5-RO-5MT" userLabel="Audirvana icon">
-                                                    <rect key="frame" x="336" y="34" width="52" height="52"/>
-                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="audirvana_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="QyC-DM-NOI">
-                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="performClick:" target="9Pq-VD-9xN" id="mMX-1e-Y2p"/>
-                                                    </connections>
-                                                </button>
-                                                <button tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="9Pq-VD-9xN" userLabel="Prefer Audirvana">
-                                                    <rect key="frame" x="318" y="8" width="87" height="18"/>
-                                                    <buttonCell key="cell" type="radio" title="Audirvana" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="m2S-vK-wBN">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                        <attributedString key="userComments">
-                                                            <fragment content="#bc-ignore!">
-                                                                <attributes>
-                                                                    <font key="NSFont" metaFont="message" size="11"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="preferredPlayerAction:" target="d5d-dC-DK4" id="mlJ-LH-hpi"/>
-                                                    </connections>
-                                                </button>
-                                                <button translatesAutoresizingMaskIntoConstraints="NO" id="cbk-Ic-gb7" userLabel="Swinsian icon">
-                                                    <rect key="frame" x="416" y="34" width="52" height="52"/>
-                                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="swinsian_icon" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="uEk-IM-Voy">
-                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="performClick:" target="VwG-Ue-ZKi" id="l59-tq-Bee"/>
-                                                    </connections>
-                                                </button>
-                                                <button tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="VwG-Ue-ZKi" userLabel="Prefer Swinsian">
-                                                    <rect key="frame" x="401" y="8" width="80" height="18"/>
-                                                    <buttonCell key="cell" type="radio" title="Swinsian" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="Vyb-yN-EFY">
-                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                        <font key="font" metaFont="system"/>
-                                                        <attributedString key="userComments">
-                                                            <fragment content="#bc-ignore!">
-                                                                <attributes>
-                                                                    <font key="NSFont" metaFont="message" size="11"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
-                                                    </buttonCell>
-                                                    <connections>
-                                                        <action selector="preferredPlayerAction:" target="d5d-dC-DK4" id="HZ0-1g-8dn"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="VwG-Ue-ZKi" firstAttribute="centerY" secondItem="GAh-L4-fgK" secondAttribute="centerY" id="1eh-Sa-hS2"/>
-                                                <constraint firstItem="cbk-Ic-gb7" firstAttribute="height" secondItem="f2X-id-RV9" secondAttribute="height" id="27K-Vg-jdc"/>
-                                                <constraint firstItem="6Bj-Lj-AqF" firstAttribute="centerX" secondItem="iIP-cu-YIV" secondAttribute="centerX" id="4ZW-2E-Hsq"/>
-                                                <constraint firstItem="RSg-dR-tCT" firstAttribute="centerX" secondItem="lc1-kb-SxJ" secondAttribute="centerX" id="5uV-y5-vTo"/>
-                                                <constraint firstItem="cbk-Ic-gb7" firstAttribute="width" secondItem="f2X-id-RV9" secondAttribute="width" id="6DU-W1-VCx"/>
-                                                <constraint firstItem="Wb5-Rf-75m" firstAttribute="centerX" secondItem="LQF-xP-dc8" secondAttribute="centerX" id="6NR-Ft-jyN"/>
-                                                <constraint firstItem="VwG-Ue-ZKi" firstAttribute="centerX" secondItem="cbk-Ic-gb7" secondAttribute="centerX" id="6cD-9t-ZoM"/>
-                                                <constraint firstItem="cbk-Ic-gb7" firstAttribute="centerY" secondItem="f2X-id-RV9" secondAttribute="centerY" id="6mx-OH-oAC"/>
-                                                <constraint firstAttribute="bottom" secondItem="GAh-L4-fgK" secondAttribute="bottom" constant="9" id="CrB-UI-mud"/>
-                                                <constraint firstItem="lc1-kb-SxJ" firstAttribute="leading" secondItem="LQF-xP-dc8" secondAttribute="trailing" constant="28" id="E0p-Fq-yoN"/>
-                                                <constraint firstItem="9Pq-VD-9xN" firstAttribute="centerX" secondItem="kO5-RO-5MT" secondAttribute="centerX" id="GjR-9l-nDO"/>
-                                                <constraint firstItem="6Bj-Lj-AqF" firstAttribute="centerY" secondItem="GAh-L4-fgK" secondAttribute="centerY" id="Ijw-0s-TlZ"/>
-                                                <constraint firstItem="LQF-xP-dc8" firstAttribute="centerY" secondItem="f2X-id-RV9" secondAttribute="centerY" id="JmM-g4-L7d"/>
-                                                <constraint firstItem="lc1-kb-SxJ" firstAttribute="width" secondItem="f2X-id-RV9" secondAttribute="width" id="KBe-B9-yeg"/>
-                                                <constraint firstAttribute="trailing" secondItem="cbk-Ic-gb7" secondAttribute="trailing" constant="16" id="KyG-2L-Nth"/>
-                                                <constraint firstItem="lc1-kb-SxJ" firstAttribute="centerY" secondItem="f2X-id-RV9" secondAttribute="centerY" id="MfJ-Dg-dMe"/>
-                                                <constraint firstItem="kO5-RO-5MT" firstAttribute="centerY" secondItem="f2X-id-RV9" secondAttribute="centerY" id="QZB-hw-65c"/>
-                                                <constraint firstItem="kO5-RO-5MT" firstAttribute="leading" secondItem="lc1-kb-SxJ" secondAttribute="trailing" constant="28" id="Tcx-Jy-bFH"/>
-                                                <constraint firstItem="LQF-xP-dc8" firstAttribute="height" secondItem="f2X-id-RV9" secondAttribute="height" id="Tvi-aU-FRh"/>
-                                                <constraint firstItem="f2X-id-RV9" firstAttribute="leading" secondItem="5xx-Ht-pau" secondAttribute="leading" constant="16" id="a7Y-tG-khm"/>
-                                                <constraint firstItem="iIP-cu-YIV" firstAttribute="centerY" secondItem="f2X-id-RV9" secondAttribute="centerY" id="agI-KF-Ye4"/>
-                                                <constraint firstItem="LQF-xP-dc8" firstAttribute="leading" secondItem="iIP-cu-YIV" secondAttribute="trailing" constant="28" id="b26-um-lf3"/>
-                                                <constraint firstItem="GAh-L4-fgK" firstAttribute="centerX" secondItem="f2X-id-RV9" secondAttribute="centerX" id="bWa-9g-Gqu"/>
-                                                <constraint firstItem="iIP-cu-YIV" firstAttribute="leading" secondItem="f2X-id-RV9" secondAttribute="trailing" constant="28" id="bzs-Yr-Emy"/>
-                                                <constraint firstItem="kO5-RO-5MT" firstAttribute="height" secondItem="f2X-id-RV9" secondAttribute="height" id="cid-Qu-Xhs"/>
-                                                <constraint firstItem="f2X-id-RV9" firstAttribute="top" secondItem="5xx-Ht-pau" secondAttribute="top" constant="8" id="ehJ-ES-htd"/>
-                                                <constraint firstItem="kO5-RO-5MT" firstAttribute="width" secondItem="f2X-id-RV9" secondAttribute="width" id="ey3-5d-czP"/>
-                                                <constraint firstItem="RSg-dR-tCT" firstAttribute="centerY" secondItem="GAh-L4-fgK" secondAttribute="centerY" id="jPb-Vb-aDO"/>
-                                                <constraint firstItem="iIP-cu-YIV" firstAttribute="height" secondItem="f2X-id-RV9" secondAttribute="height" id="nyZ-eK-P7Y"/>
-                                                <constraint firstItem="lc1-kb-SxJ" firstAttribute="height" secondItem="f2X-id-RV9" secondAttribute="height" id="pZs-e1-fnQ"/>
-                                                <constraint firstItem="cbk-Ic-gb7" firstAttribute="leading" secondItem="kO5-RO-5MT" secondAttribute="trailing" constant="28" id="qXc-kL-6zM"/>
-                                                <constraint firstItem="9Pq-VD-9xN" firstAttribute="centerY" secondItem="GAh-L4-fgK" secondAttribute="centerY" id="s2G-s2-w1j"/>
-                                                <constraint firstItem="Wb5-Rf-75m" firstAttribute="centerY" secondItem="GAh-L4-fgK" secondAttribute="centerY" id="tFU-tB-tQG"/>
-                                                <constraint firstItem="iIP-cu-YIV" firstAttribute="width" secondItem="f2X-id-RV9" secondAttribute="width" id="tgc-ia-oA4"/>
-                                                <constraint firstItem="LQF-xP-dc8" firstAttribute="width" secondItem="f2X-id-RV9" secondAttribute="width" id="wAa-m1-pB1"/>
-                                                <constraint firstItem="GAh-L4-fgK" firstAttribute="top" secondItem="f2X-id-RV9" secondAttribute="bottom" constant="9" id="yig-kA-hN9"/>
-                                            </constraints>
-                                        </customView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="5xx-Ht-pau" firstAttribute="top" secondItem="r1e-Ln-LSb" secondAttribute="top" id="0Fe-gL-MER"/>
-                                        <constraint firstItem="5xx-Ht-pau" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="r1e-Ln-LSb" secondAttribute="leading" constant="8" id="1Gi-OJ-Aoz"/>
-                                        <constraint firstAttribute="bottom" secondItem="5xx-Ht-pau" secondAttribute="bottom" id="MtA-FF-p49"/>
-                                        <constraint firstItem="5xx-Ht-pau" firstAttribute="centerX" secondItem="r1e-Ln-LSb" secondAttribute="centerX" id="PDG-4t-SNq"/>
-                                    </constraints>
-                                </view>
-                            </box>
-                            <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="mfr-Al-Vu9">
-                                <rect key="frame" x="234" y="198" width="246" height="18"/>
-                                <buttonCell key="cell" type="check" title="Auto launch &amp; quit with music player" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="v63-4a-fPw">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="toggleAutoLaunchAction:" target="d5d-dC-DK4" id="XAp-ou-5FU"/>
-                                    <binding destination="hHn-Lo-CwP" name="value" keyPath="values.LaunchAndQuitWithPlayer" id="vpG-FV-TVD">
-                                        <dictionary key="options">
-                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="you-yu-77c">
                                 <rect key="frame" x="105" y="165" width="117" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Lyrics saving path:" id="0M7-ao-0jb">
@@ -441,46 +193,32 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="2Yv-tb-pyE" firstAttribute="leading" secondItem="tAC-g5-B2n" secondAttribute="leading" constant="18" id="2WD-V5-gCa"/>
+                            <constraint firstItem="ydZ-SE-AM3" firstAttribute="top" secondItem="Ium-Ya-ZzT" secondAttribute="top" constant="24" id="c3G-tp-24a"/>
                             <constraint firstItem="UQR-mH-y4R" firstAttribute="top" secondItem="xmp-V1-Dn6" secondAttribute="bottom" constant="16" id="3bx-9G-RDz"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ydZ-SE-AM3" secondAttribute="trailing" constant="40" id="5qc-4a-zut"/>
-                            <constraint firstItem="ydZ-SE-AM3" firstAttribute="leading" secondItem="mfr-Al-Vu9" secondAttribute="leading" id="6h0-9j-Gv7"/>
                             <constraint firstAttribute="trailing" secondItem="UQR-mH-y4R" secondAttribute="trailing" constant="20" id="AqF-h8-heh"/>
                             <constraint firstItem="uiE-OU-NWP" firstAttribute="top" secondItem="ydZ-SE-AM3" secondAttribute="bottom" constant="8" id="FC2-c7-SOn"/>
                             <constraint firstItem="xmp-V1-Dn6" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="leading" id="Fwu-8p-Lsf"/>
                             <constraint firstItem="ydZ-SE-AM3" firstAttribute="leading" secondItem="you-yu-77c" secondAttribute="trailing" constant="16" id="Hmq-iV-ozM"/>
                             <constraint firstItem="you-yu-77c" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ium-Ya-ZzT" secondAttribute="leading" constant="20" id="LoW-h0-G1D"/>
                             <constraint firstItem="you-yu-77c" firstAttribute="trailing" secondItem="Ium-Ya-ZzT" secondAttribute="centerX" constant="-80" id="OMR-7Z-L5p"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mfr-Al-Vu9" secondAttribute="trailing" constant="20" id="PTZ-qa-6DK"/>
                             <constraint firstItem="uiE-OU-NWP" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="leading" id="Tq8-F5-8ZX"/>
                             <constraint firstItem="2Yv-tb-pyE" firstAttribute="top" secondItem="tAC-g5-B2n" secondAttribute="bottom" constant="8" id="Y74-GG-e8t"/>
                             <constraint firstAttribute="bottom" secondItem="2Yv-tb-pyE" secondAttribute="bottom" constant="28" id="Zk7-jw-Cov"/>
-                            <constraint firstItem="JYR-Ed-Tax" firstAttribute="leading" secondItem="Ium-Ya-ZzT" secondAttribute="leading" constant="20" id="a77-8k-2YR"/>
                             <constraint firstItem="xmp-V1-Dn6" firstAttribute="centerY" secondItem="g0L-A1-o0L" secondAttribute="centerY" id="aTz-f7-vjT"/>
                             <constraint firstItem="HqA-iJ-lec" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="trailing" constant="10" id="aan-F0-PIg"/>
-                            <constraint firstItem="mfr-Al-Vu9" firstAttribute="top" secondItem="JYR-Ed-Tax" secondAttribute="bottom" constant="16" id="ahR-Ta-P3Z"/>
                             <constraint firstItem="xmp-V1-Dn6" firstAttribute="top" secondItem="uiE-OU-NWP" secondAttribute="bottom" constant="16" id="bDY-BS-EKC"/>
                             <constraint firstItem="tAC-g5-B2n" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="leading" id="bNO-xe-6OV"/>
                             <constraint firstItem="tAC-g5-B2n" firstAttribute="top" secondItem="UQR-mH-y4R" secondAttribute="bottom" constant="16" id="fAG-gP-mk9"/>
-                            <constraint firstItem="JYR-Ed-Tax" firstAttribute="top" secondItem="Ium-Ya-ZzT" secondAttribute="top" constant="24" id="h5j-IZ-Xgi"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uiE-OU-NWP" secondAttribute="trailing" constant="20" id="jN3-X8-xdL"/>
                             <constraint firstItem="ydZ-SE-AM3" firstAttribute="centerY" secondItem="you-yu-77c" secondAttribute="centerY" id="lz5-X8-tZT"/>
                             <constraint firstItem="UQR-mH-y4R" firstAttribute="leading" secondItem="Ium-Ya-ZzT" secondAttribute="leading" constant="20" id="mJn-RT-EXL"/>
                             <constraint firstItem="HqA-iJ-lec" firstAttribute="centerY" secondItem="ydZ-SE-AM3" secondAttribute="centerY" id="q8t-Qe-yJh"/>
                             <constraint firstItem="xmp-V1-Dn6" firstAttribute="leading" secondItem="g0L-A1-o0L" secondAttribute="trailing" constant="16" id="uVx-oL-nu9"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2Yv-tb-pyE" secondAttribute="trailing" constant="20" id="vdO-Q4-Dp8"/>
-                            <constraint firstAttribute="trailing" secondItem="JYR-Ed-Tax" secondAttribute="trailing" constant="20" id="xXs-qV-Iz7"/>
-                            <constraint firstItem="ydZ-SE-AM3" firstAttribute="top" secondItem="mfr-Al-Vu9" secondAttribute="bottom" constant="16" id="z0E-ny-nlG"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="autoLaunchButton" destination="mfr-Al-Vu9" id="Nwf-Mq-nSa"/>
-                        <outlet property="loadHomonymLrcButton" destination="uiE-OU-NWP" id="7XP-6g-pVL"/>
-                        <outlet property="preferAudirvana" destination="9Pq-VD-9xN" id="Trl-UP-HaB"/>
-                        <outlet property="preferAuto" destination="GAh-L4-fgK" id="QSc-xP-6L7"/>
-                        <outlet property="preferSpotify" destination="Wb5-Rf-75m" id="fOa-Pt-HZD"/>
-                        <outlet property="preferSwinsian" destination="VwG-Ue-ZKi" id="WDG-hf-wMD"/>
-                        <outlet property="preferVox" destination="RSg-dR-tCT" id="0FN-E8-vpj"/>
-                        <outlet property="preferiTunes" destination="6Bj-Lj-AqF" id="ulb-Mw-FqJ"/>
                         <outlet property="savingPathPopUp" destination="ydZ-SE-AM3" id="b3z-xP-9uw"/>
                         <outlet property="userPathMenuItem" destination="hXE-OF-DFz" id="ioW-SC-5Kb"/>
                     </connections>
@@ -1051,11 +789,11 @@
             <objects>
                 <viewController title="Shortcut" id="ppx-ob-WJc" userLabel="Shortcut" customClass="PreferenceShortcutViewController" customModule="LyricsX" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="yOR-wI-2Wv">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="288"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="256"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="fHF-oJ-2oH">
-                                <rect key="frame" x="125" y="248" width="177" height="16"/>
+                                <rect key="frame" x="125" y="216" width="177" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Show / Hide menu bar lyrics:" id="XHQ-gX-urF">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1063,7 +801,7 @@
                                 </textFieldCell>
                             </textField>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Wl2-0l-Mvk" customClass="MASShortcutView">
-                                <rect key="frame" x="308" y="247" width="160" height="19"/>
+                                <rect key="frame" x="308" y="215" width="160" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="aeH-Wb-3PE"/>
                                     <constraint firstAttribute="height" constant="19" id="qpD-zO-7uX"/>
@@ -1073,7 +811,7 @@
                                 </userDefinedRuntimeAttributes>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="XuJ-N7-23c">
-                                <rect key="frame" x="135" y="216" width="167" height="16"/>
+                                <rect key="frame" x="135" y="184" width="167" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Show / Hide karaoke lyrics:" id="lOc-OP-AcU">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1081,7 +819,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="BAG-Gf-bbI">
-                                <rect key="frame" x="175" y="184" width="127" height="16"/>
+                                <rect key="frame" x="175" y="152" width="127" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Show lyrics window:" id="TB9-Fk-WAX">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1089,7 +827,7 @@
                                 </textFieldCell>
                             </textField>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="r6F-LJ-R46" customClass="MASShortcutView">
-                                <rect key="frame" x="308" y="183" width="160" height="19"/>
+                                <rect key="frame" x="308" y="151" width="160" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="L2I-57-We6"/>
                                 </constraints>
@@ -1098,7 +836,7 @@
                                 </userDefinedRuntimeAttributes>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="rZM-vL-ukW">
-                                <rect key="frame" x="168" y="152" width="134" height="16"/>
+                                <rect key="frame" x="168" y="120" width="134" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Increase lyrics offset:" id="mo2-3C-gLY">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1106,7 +844,7 @@
                                 </textFieldCell>
                             </textField>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="xRx-86-gVx" customClass="MASShortcutView">
-                                <rect key="frame" x="308" y="151" width="160" height="19"/>
+                                <rect key="frame" x="308" y="119" width="160" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="m70-Qr-7Hx"/>
                                 </constraints>
@@ -1115,7 +853,7 @@
                                 </userDefinedRuntimeAttributes>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="8LH-Ws-6CC">
-                                <rect key="frame" x="162" y="120" width="140" height="16"/>
+                                <rect key="frame" x="162" y="88" width="140" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Decrease lyrics offset:" id="bmk-rW-Uot">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1129,23 +867,6 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="associatedUserDefaultsKey" value="ShortcutOffsetDecrease"/>
-                                </userDefinedRuntimeAttributes>
-                            </customView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Paz-vU-k0Z">
-                                <rect key="frame" x="167" y="88" width="135" height="16"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Write lyrics to iTunes:" id="6We-TB-Wfc">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="ZhS-BF-7UN" customClass="MASShortcutView">
-                                <rect key="frame" x="308" y="87" width="160" height="19"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="19" id="Zoc-wc-dp9"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="associatedUserDefaultsKey" value="ShortcutWriteToiTunes"/>
                                 </userDefinedRuntimeAttributes>
                             </customView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Kmn-Mi-l4p">
@@ -1183,7 +904,7 @@
                                 </userDefinedRuntimeAttributes>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="TbU-as-K5K" customClass="MASShortcutView">
-                                <rect key="frame" x="308" y="215" width="160" height="19"/>
+                                <rect key="frame" x="308" y="183" width="160" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="Lcm-Zd-hA8"/>
                                 </constraints>
@@ -1199,8 +920,7 @@
                             <constraint firstItem="l4G-ES-LlU" firstAttribute="centerY" secondItem="Kmn-Mi-l4p" secondAttribute="centerY" id="58G-dQ-WcG"/>
                             <constraint firstItem="Kmn-Mi-l4p" firstAttribute="top" secondItem="Uyz-8q-0bL" secondAttribute="bottom" constant="16" id="6ig-NT-Lph"/>
                             <constraint firstItem="Uyz-8q-0bL" firstAttribute="trailing" secondItem="rZM-vL-ukW" secondAttribute="trailing" id="74j-PQ-Xk4"/>
-                            <constraint firstItem="Paz-vU-k0Z" firstAttribute="trailing" secondItem="rZM-vL-ukW" secondAttribute="trailing" id="APM-uX-ZnS"/>
-                            <constraint firstItem="Uyz-8q-0bL" firstAttribute="top" secondItem="Paz-vU-k0Z" secondAttribute="bottom" constant="16" id="Aqf-Wy-FF7"/>
+                            <constraint firstItem="Uyz-8q-0bL" firstAttribute="top" secondItem="8LH-Ws-6CC" secondAttribute="bottom" constant="16" id="c3S-tp-16a"/>
                             <constraint firstItem="fHF-oJ-2oH" firstAttribute="top" secondItem="yOR-wI-2Wv" secondAttribute="top" constant="24" id="DLH-Mf-b9Q"/>
                             <constraint firstItem="Uyz-8q-0bL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yOR-wI-2Wv" secondAttribute="leading" constant="20" id="DkG-cQ-ByF"/>
                             <constraint firstItem="Kmn-Mi-l4p" firstAttribute="trailing" secondItem="rZM-vL-ukW" secondAttribute="trailing" id="ESI-UF-K8H"/>
@@ -1210,7 +930,6 @@
                             <constraint firstItem="l4G-ES-LlU" firstAttribute="leading" secondItem="Kmn-Mi-l4p" secondAttribute="trailing" constant="8" id="LNf-No-i7b"/>
                             <constraint firstItem="XuJ-N7-23c" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yOR-wI-2Wv" secondAttribute="leading" constant="20" id="LkM-XE-8Kh"/>
                             <constraint firstItem="BAG-Gf-bbI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yOR-wI-2Wv" secondAttribute="leading" constant="20" id="MDO-BM-0nm"/>
-                            <constraint firstItem="ZhS-BF-7UN" firstAttribute="leading" secondItem="Paz-vU-k0Z" secondAttribute="trailing" constant="8" id="MnK-HN-lKs"/>
                             <constraint firstItem="8LH-Ws-6CC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yOR-wI-2Wv" secondAttribute="leading" constant="20" id="O46-kw-Kty"/>
                             <constraint firstAttribute="bottom" secondItem="Kmn-Mi-l4p" secondAttribute="bottom" constant="24" id="PMl-xq-0wi"/>
                             <constraint firstItem="rZM-vL-ukW" firstAttribute="top" secondItem="BAG-Gf-bbI" secondAttribute="bottom" constant="16" id="QJT-Qv-Z7k"/>
@@ -1221,9 +940,6 @@
                             <constraint firstItem="xRx-86-gVx" firstAttribute="centerY" secondItem="rZM-vL-ukW" secondAttribute="centerY" id="dzF-pI-dlc"/>
                             <constraint firstItem="Wl2-0l-Mvk" firstAttribute="centerY" secondItem="fHF-oJ-2oH" secondAttribute="centerY" id="emF-hd-V2U"/>
                             <constraint firstItem="xRx-86-gVx" firstAttribute="width" secondItem="Wl2-0l-Mvk" secondAttribute="width" id="ff9-Ur-ieI"/>
-                            <constraint firstItem="Paz-vU-k0Z" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yOR-wI-2Wv" secondAttribute="leading" constant="20" id="g56-W5-tJK"/>
-                            <constraint firstItem="Kmn-Mi-l4p" firstAttribute="top" secondItem="Paz-vU-k0Z" secondAttribute="bottom" priority="750" constant="16" id="gqg-Vu-mu0"/>
-                            <constraint firstItem="ZhS-BF-7UN" firstAttribute="centerY" secondItem="Paz-vU-k0Z" secondAttribute="centerY" id="hnp-DF-O2a"/>
                             <constraint firstItem="rZM-vL-ukW" firstAttribute="trailing" secondItem="BAG-Gf-bbI" secondAttribute="trailing" id="jqj-dm-Ul6"/>
                             <constraint firstItem="92Q-NC-T3a" firstAttribute="centerY" secondItem="8LH-Ws-6CC" secondAttribute="centerY" id="js1-zR-2g2"/>
                             <constraint firstItem="XuJ-N7-23c" firstAttribute="top" secondItem="fHF-oJ-2oH" secondAttribute="bottom" constant="16" id="k3S-oh-bMv"/>
@@ -1235,11 +951,9 @@
                             <constraint firstItem="92Q-NC-T3a" firstAttribute="width" secondItem="Wl2-0l-Mvk" secondAttribute="width" id="pDa-RQ-CtR"/>
                             <constraint firstItem="r6F-LJ-R46" firstAttribute="leading" secondItem="BAG-Gf-bbI" secondAttribute="trailing" constant="8" id="pRh-9u-zpr"/>
                             <constraint firstItem="TbU-as-K5K" firstAttribute="width" secondItem="Wl2-0l-Mvk" secondAttribute="width" id="qmt-pR-hq1"/>
-                            <constraint firstItem="Paz-vU-k0Z" firstAttribute="top" secondItem="8LH-Ws-6CC" secondAttribute="bottom" constant="16" id="sVE-M2-NRt"/>
                             <constraint firstItem="TbU-as-K5K" firstAttribute="leading" secondItem="XuJ-N7-23c" secondAttribute="trailing" constant="8" id="vEl-gs-1nc"/>
                             <constraint firstItem="rZM-vL-ukW" firstAttribute="trailing" secondItem="yOR-wI-2Wv" secondAttribute="centerX" id="vop-eU-AJO"/>
                             <constraint firstItem="Axy-WJ-CRv" firstAttribute="centerY" secondItem="Uyz-8q-0bL" secondAttribute="centerY" id="w6h-zl-0u2"/>
-                            <constraint firstItem="ZhS-BF-7UN" firstAttribute="width" secondItem="Wl2-0l-Mvk" secondAttribute="width" id="xSG-gp-COd"/>
                             <constraint firstItem="xRx-86-gVx" firstAttribute="leading" secondItem="rZM-vL-ukW" secondAttribute="trailing" constant="8" id="zQi-Ou-E9R"/>
                             <constraint firstItem="8LH-Ws-6CC" firstAttribute="top" secondItem="rZM-vL-ukW" secondAttribute="bottom" constant="16" id="za1-YD-BRY"/>
                         </constraints>
@@ -1254,39 +968,11 @@
             <objects>
                 <viewController title="Lab" id="bFk-1g-XeL" userLabel="Lab" sceneMemberID="viewController">
                     <view key="view" id="uY5-7S-zG1">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="204"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="116"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Tvk-yf-w4p">
-                                <rect key="frame" x="234" y="55" width="108" height="18"/>
-                                <buttonCell key="cell" type="check" title="Automatically" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="7Ax-7T-26K">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="MQW-nm-dXS" name="value" keyPath="values.WriteToiTunesAutomatically" id="s2M-GE-9K2"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="IKY-aR-ZdS">
-                                <rect key="frame" x="234" y="79" width="122" height="18"/>
-                                <buttonCell key="cell" type="check" title="With translation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="jFb-kX-VbY">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="MQW-nm-dXS" name="value" keyPath="values.WriteiTunesWithTranslation" id="YcT-LV-fEn"/>
-                                </connections>
-                            </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Z5r-WZ-ZnL">
-                                <rect key="frame" x="87" y="80" width="135" height="16"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Write lyrics to iTunes:" id="8Sx-vb-5pB">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GqQ-7c-IhI">
-                                <rect key="frame" x="76" y="148" width="449" height="32"/>
+                                <rect key="frame" x="76" y="60" width="449" height="32"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Here are some experimental features that may not be stable enough, and may be removed in the future." id="g2u-8D-dln">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -1303,41 +989,15 @@
                                     <binding destination="MQW-nm-dXS" name="value" keyPath="values.CombinedMenubarLyrics" id="P5p-VX-SXH"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="BIz-Ld-Wfi">
-                                <rect key="frame" x="234" y="111" width="274" height="18"/>
-                                <buttonCell key="cell" type="check" title="Use system wide now playing application" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="gin-P2-gb5">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="MQW-nm-dXS" name="value" keyPath="values.UseSystemWideNowPlaying" id="5Fq-A8-Ybn">
-                                        <dictionary key="options">
-                                            <integer key="NSNullPlaceholder" value="0"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IKY-aR-ZdS" secondAttribute="trailing" constant="20" id="5UF-sE-ts0"/>
-                            <constraint firstItem="IKY-aR-ZdS" firstAttribute="leading" secondItem="Tvk-yf-w4p" secondAttribute="leading" id="8Ip-8V-Nhx"/>
                             <constraint firstItem="GqQ-7c-IhI" firstAttribute="centerX" secondItem="uY5-7S-zG1" secondAttribute="centerX" id="B45-c6-kKm"/>
-                            <constraint firstItem="Z5r-WZ-ZnL" firstAttribute="trailing" secondItem="uY5-7S-zG1" secondAttribute="centerX" constant="-80" id="Bvv-K0-o1n"/>
+                            <constraint firstItem="Dt8-Tg-5JV" firstAttribute="top" secondItem="GqQ-7c-IhI" secondAttribute="bottom" constant="20" id="c3L-tp-20a"/>
+                            <constraint firstItem="Dt8-Tg-5JV" firstAttribute="leading" secondItem="uY5-7S-zG1" secondAttribute="centerX" constant="-64" id="c3L-ld-64a"/>
                             <constraint firstAttribute="bottom" secondItem="Dt8-Tg-5JV" secondAttribute="bottom" constant="24" id="FKR-Kz-0Dz"/>
-                            <constraint firstItem="Dt8-Tg-5JV" firstAttribute="leading" secondItem="IKY-aR-ZdS" secondAttribute="leading" id="H4F-3n-tYj"/>
                             <constraint firstItem="GqQ-7c-IhI" firstAttribute="top" secondItem="uY5-7S-zG1" secondAttribute="top" constant="24" id="OTp-XT-yZH"/>
-                            <constraint firstItem="IKY-aR-ZdS" firstAttribute="centerY" secondItem="Z5r-WZ-ZnL" secondAttribute="centerY" id="Pql-bZ-j9U"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Dt8-Tg-5JV" secondAttribute="trailing" constant="20" id="QIl-HG-7l1"/>
-                            <constraint firstItem="IKY-aR-ZdS" firstAttribute="leading" secondItem="BIz-Ld-Wfi" secondAttribute="leading" id="WjH-ZP-2wM"/>
-                            <constraint firstItem="Dt8-Tg-5JV" firstAttribute="top" secondItem="Tvk-yf-w4p" secondAttribute="bottom" constant="16" id="XeS-Xf-0Vl"/>
-                            <constraint firstItem="Z5r-WZ-ZnL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uY5-7S-zG1" secondAttribute="leading" constant="20" id="Zjl-xt-6Q8"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Tvk-yf-w4p" secondAttribute="trailing" constant="20" id="nVW-K7-QKb"/>
-                            <constraint firstItem="BIz-Ld-Wfi" firstAttribute="top" secondItem="GqQ-7c-IhI" secondAttribute="bottom" constant="20" id="snG-fw-aST"/>
-                            <constraint firstItem="Tvk-yf-w4p" firstAttribute="top" secondItem="IKY-aR-ZdS" secondAttribute="bottom" constant="8" id="tKi-Ka-ZTQ"/>
                             <constraint firstItem="GqQ-7c-IhI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uY5-7S-zG1" secondAttribute="leading" constant="75" id="tiw-jZ-dmo"/>
-                            <constraint firstItem="IKY-aR-ZdS" firstAttribute="top" secondItem="BIz-Ld-Wfi" secondAttribute="bottom" constant="16" id="uQF-nl-tLo"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BIz-Ld-Wfi" secondAttribute="trailing" constant="20" id="wNF-TT-kUC"/>
-                            <constraint firstItem="IKY-aR-ZdS" firstAttribute="leading" secondItem="Z5r-WZ-ZnL" secondAttribute="trailing" constant="16" id="wee-My-TEI"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -1353,15 +1013,9 @@
         <image name="NSPreferencesGeneral" width="32" height="32"/>
         <image name="NSRemoveTemplate" width="14" height="4"/>
         <image name="NSStopProgressFreestandingTemplate" width="15" height="15"/>
-        <image name="audirvana_icon" width="64" height="64"/>
         <image name="folder" width="21" height="18"/>
-        <image name="iTunes_icon" width="64" height="64"/>
-        <image name="now_playing_icon" width="64" height="64"/>
-        <image name="spotify_icon" width="64" height="64"/>
-        <image name="swinsian_icon" width="64" height="64"/>
         <image name="toolbar_filter" width="32" height="32"/>
         <image name="toolbar_lab" width="32" height="32"/>
         <image name="toolbar_shortcut" width="32" height="32"/>
-        <image name="vox_icon" width="64" height="64"/>
     </resources>
 </document>

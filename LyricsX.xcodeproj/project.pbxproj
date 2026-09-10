@@ -41,10 +41,6 @@
 		BB58D8BF248636900047E3C6 /* DonateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB58D8BE248636900047E3C6 /* DonateViewController.swift */; };
 		BB58D8C2248638950047E3C6 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB58D8C1248638950047E3C6 /* DebugViewController.swift */; };
 		BB5D4B2D2094A1D700844D9F /* FontSelectTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5D4B2C2094A1D700844D9F /* FontSelectTextField.swift */; };
-		BB60F3041E889A1B00BA1FD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB60F3031E889A1B00BA1FD2 /* AppDelegate.swift */; };
-		BB60F3061E889A1B00BA1FD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB60F3051E889A1B00BA1FD2 /* Assets.xcassets */; };
-		BB60F3091E889A1B00BA1FD2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB60F3071E889A1B00BA1FD2 /* MainMenu.xib */; };
-		BB60F3121E889FCD00BA1FD2 /* LyricsXHelper.app in Copy Helper */ = {isa = PBXBuildFile; fileRef = BB60F3011E889A1B00BA1FD2 /* LyricsXHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BB6139741FCCFA6700CBD808 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB6139761FCCFA6700CBD808 /* Preferences.storyboard */; };
 		BB7EC7B21E4E018C00A0AC3F /* LyricsHUDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7EC7B11E4E018C00A0AC3F /* LyricsHUDViewController.swift */; };
 		BB89089E21ED69410078F522 /* Lyrics+Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB89089D21ED69410078F522 /* Lyrics+Language.swift */; };
@@ -95,17 +91,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		BB60F3111E889FC000BA1FD2 /* Copy Helper */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = Contents/Library/LoginItems;
-			dstSubfolderSpec = 1;
-			files = (
-				BB60F3121E889FCD00BA1FD2 /* LyricsXHelper.app in Copy Helper */,
-			);
-			name = "Copy Helper";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		BCE7E4146ACA245B794DA853 /* Embed MediaRemoteAdapter */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -140,12 +125,6 @@
 		BB58D8BE248636900047E3C6 /* DonateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateViewController.swift; sourceTree = "<group>"; };
 		BB58D8C1248638950047E3C6 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		BB5D4B2C2094A1D700844D9F /* FontSelectTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectTextField.swift; sourceTree = "<group>"; };
-		BB60F3011E889A1B00BA1FD2 /* LyricsXHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LyricsXHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB60F3031E889A1B00BA1FD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BB60F3051E889A1B00BA1FD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BB60F3081E889A1B00BA1FD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		BB60F30A1E889A1B00BA1FD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BB60F30E1E889C5400BA1FD2 /* LyricsXHelper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LyricsXHelper.entitlements; sourceTree = "<group>"; };
 		BB6139751FCCFA6700CBD808 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Preferences.storyboard; sourceTree = "<group>"; };
 		BB7EC7B11E4E018C00A0AC3F /* LyricsHUDViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LyricsHUDViewController.swift; sourceTree = "<group>"; };
 		BB89089D21ED69410078F522 /* Lyrics+Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Lyrics+Language.swift"; sourceTree = "<group>"; };
@@ -206,13 +185,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BB60F2FE1E889A1B00BA1FD2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C641AAA50722A85F2BF0939A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -239,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				BB4141AC1E458BA800A51775 /* LyricsX */,
-				BB60F3021E889A1B00BA1FD2 /* LyricsXHelper */,
 				131DA48BDAB6B5F300CFA79B /* MediaRemoteAdapter */,
 				BB4141AB1E458BA800A51775 /* Products */,
 			);
@@ -249,7 +220,6 @@
 			isa = PBXGroup;
 			children = (
 				BB4141AA1E458BA800A51775 /* LyricsX.app */,
-				BB60F3011E889A1B00BA1FD2 /* LyricsXHelper.app */,
 				F385DAC38DEB5B06C2AD69BD /* MediaRemoteAdapter.framework */,
 			);
 			name = Products;
@@ -279,15 +249,6 @@
 				BB58B0881E82CA9B00598D4F /* Credits.rtf */,
 			);
 			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		BB60F3021E889A1B00BA1FD2 /* LyricsXHelper */ = {
-			isa = PBXGroup;
-			children = (
-				BB60F3031E889A1B00BA1FD2 /* AppDelegate.swift */,
-				BBFE81831F07776A00941735 /* Supporting Files */,
-			);
-			path = LyricsXHelper;
 			sourceTree = "<group>";
 		};
 		BB7EC7B41E4ECFFB00A0AC3F /* Controller */ = {
@@ -329,17 +290,6 @@
 				BB0B29691E7FBA2D00B1D6C9 /* PreferenceFilterViewController.swift */,
 			);
 			path = Preferences;
-			sourceTree = "<group>";
-		};
-		BBFE81831F07776A00941735 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				BB60F3071E889A1B00BA1FD2 /* MainMenu.xib */,
-				BB60F3051E889A1B00BA1FD2 /* Assets.xcassets */,
-				BB60F30E1E889C5400BA1FD2 /* LyricsXHelper.entitlements */,
-				BB60F30A1E889A1B00BA1FD2 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		E9C49A8E2110490700159ADC /* Component */ = {
@@ -440,7 +390,6 @@
 				BB4141A71E458BA800A51775 /* Frameworks */,
 				BB4141A81E458BA800A51775 /* Resources */,
 				BCE7E4146ACA245B794DA853 /* Embed MediaRemoteAdapter */,
-				BB60F3111E889FC000BA1FD2 /* Copy Helper */,
 				BBC1D5811E4AFE64008869EC /* Bump Build */,
 			);
 			buildRules = (
@@ -458,23 +407,6 @@
 			);
 			productName = LyricsX;
 			productReference = BB4141AA1E458BA800A51775 /* LyricsX.app */;
-			productType = "com.apple.product-type.application";
-		};
-		BB60F3001E889A1B00BA1FD2 /* LyricsXHelper */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BB60F30B1E889A1C00BA1FD2 /* Build configuration list for PBXNativeTarget "LyricsXHelper" */;
-			buildPhases = (
-				BB60F2FD1E889A1B00BA1FD2 /* Sources */,
-				BB60F2FE1E889A1B00BA1FD2 /* Frameworks */,
-				BB60F2FF1E889A1B00BA1FD2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = LyricsXHelper;
-			productName = LyricsXHelper;
-			productReference = BB60F3011E889A1B00BA1FD2 /* LyricsXHelper.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E98D7EB84FFBCE6406B77EC6 /* MediaRemoteAdapter */ = {
@@ -513,26 +445,6 @@
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
-							com.apple.ApplicationGroups.Mac = {
-								enabled = 1;
-							};
-							com.apple.HardenedRuntime = {
-								enabled = 1;
-							};
-							com.apple.Sandbox = {
-								enabled = 1;
-							};
-						};
-					};
-					BB60F3001E889A1B00BA1FD2 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 3665V726AE;
-						LastSwiftMigration = 1020;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.Mac = {
-								enabled = 1;
-							};
 							com.apple.HardenedRuntime = {
 								enabled = 1;
 							};
@@ -564,7 +476,6 @@
 			projectRoot = "";
 			targets = (
 				BB4141A91E458BA800A51775 /* LyricsX */,
-				BB60F3001E889A1B00BA1FD2 /* LyricsXHelper */,
 				E98D7EB84FFBCE6406B77EC6 /* MediaRemoteAdapter */,
 				BB30651020878608008A9AC8 /* SwiftLint */,
 			);
@@ -581,15 +492,6 @@
 				BB58B0821E82971400598D4F /* UserDefaults.plist in Resources */,
 				BB4141B51E458BA900A51775 /* Main.storyboard in Resources */,
 				BB58B0891E82CA9B00598D4F /* Credits.rtf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BB60F2FF1E889A1B00BA1FD2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BB60F3061E889A1B00BA1FD2 /* Assets.xcassets in Resources */,
-				BB60F3091E889A1B00BA1FD2 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,14 +591,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BB60F2FD1E889A1B00BA1FD2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BB60F3041E889A1B00BA1FD2 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5C5A11CD5FAADFE6E1555D95 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -736,14 +630,6 @@
 				BB4141B41E458BA900A51775 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		BB60F3071E889A1B00BA1FD2 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BB60F3081E889A1B00BA1FD2 /* Base */,
-			);
-			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 		BB6139761FCCFA6700CBD808 /* Preferences.storyboard */ = {
@@ -934,42 +820,6 @@
 			};
 			name = Release;
 		};
-		BB60F30C1E889A1C00BA1FD2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = LyricsXHelper/LyricsXHelper.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 3665V726AE;
-				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = LyricsXHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.xandao.LyricsXHelper;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		BB60F30D1E889A1C00BA1FD2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = LyricsXHelper/LyricsXHelper.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 3665V726AE;
-				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = LyricsXHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.xandao.LyricsXHelper;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		5F76E03FBA048AC79DD81D2A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1024,15 +874,6 @@
 			buildConfigurations = (
 				BB4141BA1E458BA900A51775 /* Debug */,
 				BB4141BB1E458BA900A51775 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BB60F30B1E889A1C00BA1FD2 /* Build configuration list for PBXNativeTarget "LyricsXHelper" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BB60F30C1E889A1C00BA1FD2 /* Debug */,
-				BB60F30D1E889A1C00BA1FD2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

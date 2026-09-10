@@ -1,78 +1,12 @@
 # MusicPlayer
 
-[![Github CI Status](https://github.com/ddddxxx/MusicPlayer/workflows/CI/badge.svg)](https://github.com/ddddxxx/MusicPlayer/actions)
-[![codebeat badge](https://codebeat.co/badges/1e88cb27-5d83-48d0-b50b-ad88593e2b5f)](https://codebeat.co/projects/github-com-ddddxxx-musicplayer-master)
+Track detection for LyricsX, vendored from [ddddxxx/MusicPlayer](https://github.com/ddddxxx/MusicPlayer) v0.8.3 and cut down to what the app uses.
 
-Music player submodule for [LyricsX](https://github.com/ddddxxx/LyricsX).
+- `SystemMedia` reads macOS Now Playing, which browsers publish too. It goes through [mediaremote-adapter](https://github.com/ungive/mediaremote-adapter), so the app has to embed `MediaRemoteAdapter.framework` in `Contents/Frameworks` (the `MediaRemoteAdapter` target in the Xcode project does that). Without the framework, `SystemMedia()` returns nil.
+- `Agent` forwards another player's state and commands.
+- `Virtual` is a player whose state you set yourself.
 
-Unified API for music players.
-
-## Supported Players
-
-#### macOS
-
-- [x] Apple Music (iTunes)
-- [x] Spotify
-- [x] Vox
-- [x] Audirvana
-- [x] Swinsian
-
-#### iOS
-
-- [x] Music
-- [ ] Spotify (see [#5](https://github.com/ddddxxx/MusicPlayer/issues/5))
-
-#### Linux
-
-- [x] [MPRIS](https://specifications.freedesktop.org/mpris-spec/latest/) (test needed) (Thanks to [@suransea](https://github.com/suransea))
-
-<details><summary>Read me before using MPRIS</summary>
-
-##### dependencies
-
-- [playerctl](https://github.com/altdesktop/playerctl) (could be installed by package manager)
-
-> A running `GMainLoop` is required to automatically update the player and playback status for MPRIS.
-> If not, you can run one by: 
-> ```swift
-> GRunLoop.main.run()
-> ```
-> or in other threads:
-> ```swift
-> Thread.detachNewThread { 
->     GRunLoop.main.run() 
-> }
-> ```
-
-</details>
-
-#### Universal
-
-- SystemMedia: System-wide Now Playing
-  - [x] macOS
-  - [x] iOS (jailbroken device only) (test needed)
-  - [ ] Windows (via [SMTC](https://docs.microsoft.com/en-us/uwp/api/windows.media.systemmediatransportcontrols))
-- [ ] Spotify (Web API)
-
-#### Helper:
-
-- [x] Agent: Delegate events to another player.
-- [x] Now Playing: Automatically choose a playing player from given players.
-- [x] MPRIS Now Playing: Just like Now Playing, but automatically find available MPRIS players.
-- [x] Virtual: A virtual player that allows you to manipulate its state.
-- [ ] Remote: Sync player state from other devices.
-
-## Usage
-
-### Quick Start
-
-```swift
-let player = MusicPlayers.Scriptable(name: .appleMusic)!
-let track = player.currentTrack.title
-if player.playbackState.isPlaying {
-    player.skipToNextItem()
-}
-```
+The AppleScript players (Music, Spotify, Vox, Audirvana, Swinsian), the iOS players and MPRIS are gone.
 
 ## License
 

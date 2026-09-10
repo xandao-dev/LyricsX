@@ -9,10 +9,6 @@
 
 import Foundation
 
-#if os(macOS)
-import ScriptingBridge
-#endif
-
 public struct MusicTrack {
     
     public var id: String
@@ -23,9 +19,7 @@ public struct MusicTrack {
     public var fileURL: URL?
     public var artwork: Image?
     
-    public var originalTrack: AnyObject? = nil
-    
-    public init(id: String, title: String?, album: String?, artist: String?, duration: TimeInterval? = nil, fileURL: URL? = nil, artwork: Image? = nil, originalTrack: AnyObject? = nil) {
+    public init(id: String, title: String?, album: String?, artist: String?, duration: TimeInterval? = nil, fileURL: URL? = nil, artwork: Image? = nil) {
         self.id = id
         self.title = title
         self.album = album
@@ -33,14 +27,7 @@ public struct MusicTrack {
         self.duration = duration
         self.fileURL = fileURL
         self.artwork = artwork
-        self.originalTrack = originalTrack
     }
-    
-    #if os(macOS)
-    public var originalSBTrack: SBObject? {
-        return originalTrack as? SBObject
-    }
-    #endif
 }
 
 extension MusicTrack: Equatable, Hashable {

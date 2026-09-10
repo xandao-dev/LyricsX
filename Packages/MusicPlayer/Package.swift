@@ -9,24 +9,9 @@ let package = Package(
     ],
     products: [
         .library(name: "MusicPlayer", targets: ["MusicPlayer"]),
-        .library(name: "LXMusicPlayer", targets: ["LXMusicPlayer"]),
     ],
     targets: [
-        .target(
-            name: "MusicPlayer",
-            dependencies: [
-                "LXMusicPlayer",
-            ],
-            cSettings: [
-                .define("TARGET_OS_MAC", to: "1"),
-            ]),
-        .target(
-            name: "LXMusicPlayer",
-            cSettings: [
-                .define("TARGET_OS_MAC", to: "1"),
-                .headerSearchPath("private"),
-                .headerSearchPath("BridgingHeader"),
-            ]),
+        .target(name: "MusicPlayer"),
     ],
     swiftLanguageModes: [.v6]
 )

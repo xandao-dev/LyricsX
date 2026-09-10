@@ -11,49 +11,6 @@ import Cocoa
 import LyricsCore
 import MusicPlayer
 
-extension MusicPlayerName {
-    
-    init?(index: Int) {
-        switch index {
-        case 0: self = .appleMusic
-        case 1: self = .spotify
-        case 2: self = .vox
-        case 3: self = .audirvana
-        case 4: self = .swinsian
-        default: return nil
-        }
-    }
-    
-    var icon: NSImage {
-        switch self {
-        case .appleMusic:   return #imageLiteral(resourceName: "iTunes_icon")
-        case .spotify:  return #imageLiteral(resourceName: "spotify_icon")
-        case .vox:      return #imageLiteral(resourceName: "vox_icon")
-        case .audirvana: return #imageLiteral(resourceName: "audirvana_icon")
-        case .swinsian: return #imageLiteral(resourceName: "swinsian_icon")
-        }
-    }
-}
-
-extension MusicTrack {
-    
-    var lyrics: String? {
-        guard let originalTrack = originalTrack,
-            originalTrack.responds(to: Selector(("lyrics"))) else {
-            return nil
-        }
-        return originalTrack.value(forKey: "lyrics") as? String
-    }
-    
-    func setLyrics(_ lyrics: String) {
-        guard let originalTrack = originalTrack,
-            originalTrack.responds(to: Selector(("setLyrics:"))) else {
-                return
-        }
-        originalTrack.setValue(lyrics, forKey: "lyrics")
-    }
-}
-
 extension NSFont {
     
     convenience init?(name fontName: String, size fontSize: CGFloat, fallback fallbackNames: [String]) {

@@ -160,10 +160,6 @@ extension MusicPlayers.SystemMedia: MusicPlayerProtocol {
         return $playbackState.eraseToAnyPublisher()
     }
 
-    public var name: MusicPlayerName? {
-        return nil
-    }
-
     public var playbackTime: TimeInterval {
         get {
             return playbackState.time
@@ -194,10 +190,6 @@ extension MusicPlayers.SystemMedia: MusicPlayerProtocol {
 
     public func skipToPreviousItem() {
         send("send", "5")
-    }
-
-    public func updatePlayerState() {
-        // The stream already reports every change.
     }
 }
 

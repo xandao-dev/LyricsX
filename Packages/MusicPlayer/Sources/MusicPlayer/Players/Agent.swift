@@ -32,10 +32,6 @@ extension MusicPlayers {
 
 extension MusicPlayers.Agent: MusicPlayerProtocol {
     
-    public var name: MusicPlayerName? {
-        return designatedPlayer?.name
-    }
-    
     public var currentTrack: MusicTrack? {
         return designatedPlayer?.currentTrack
     }
@@ -79,9 +75,5 @@ extension MusicPlayers.Agent: MusicPlayerProtocol {
     
     public func skipToPreviousItem() {
         designatedPlayer?.skipToPreviousItem()
-    }
-    
-    public func updatePlayerState() {
-        designatedPlayer?.updatePlayerState()
     }
 }

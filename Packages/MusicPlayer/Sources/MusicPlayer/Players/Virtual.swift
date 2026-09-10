@@ -39,10 +39,6 @@ extension MusicPlayers.Virtual: MusicPlayerProtocol {
         return $playbackState.eraseToAnyPublisher()
     }
     
-    public var name: MusicPlayerName? {
-        return nil
-    }
-    
     public var playbackTime: TimeInterval {
         get {
             return playbackState.time
@@ -71,6 +67,4 @@ extension MusicPlayers.Virtual: MusicPlayerProtocol {
     public func skipToPreviousItem() {
         stop()
     }
-    
-    public func updatePlayerState() {}
 }

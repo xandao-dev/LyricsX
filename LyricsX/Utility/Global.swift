@@ -13,12 +13,9 @@ import MusicPlayer
 
 let fontNameFallbackCountMax = 1
 
-let lyricsXGroupIdentifier = "group.dev.xandao.LyricsX"
-let lyricsXHelperIdentifier = "dev.xandao.LyricsXHelper"
 let lyricsXErrorDomain = "dev.xandao.LyricsX"
 
 let defaults = UserDefaults.standard
-let groupDefaults = UserDefaults(suiteName: lyricsXGroupIdentifier)!
 let defaultNC = NotificationCenter.default
 let workspaceNC = NSWorkspace.shared.notificationCenter
 let selectedPlayer = MusicPlayers.Selected.shared
@@ -65,9 +62,6 @@ extension UserDefaults.DefaultsKeys {
     static let menuBarLyricsEnabled = Key<Bool>("MenuBarLyricsEnabled")
     
     // General
-    static let preferredPlayerIndex = Key<Int>("PreferredPlayerIndex")
-    static let launchAndQuitWithPlayer = Key<Bool>("LaunchAndQuitWithPlayer")
-    
     static let lyricsSavingPathPopUpIndex = Key<Int>("LyricsSavingPathPopUpIndex")
     static let lyricsCustomSavingPathBookmark = Key<Data?>("LyricsCustomSavingPathBookmark")
     static let loadLyricsBesideTrack = Key<Bool>("LoadLyricsBesideTrack")
@@ -110,7 +104,6 @@ extension UserDefaults.DefaultsKeys {
     static let shortcutShowLyricsWindow = Key<String>("ShortcutShowLyricsWindow")
     static let shortcutOffsetIncrease = Key<String>("ShortcutOffsetIncrease")
     static let shortcutOffsetDecrease = Key<String>("ShortcutOffsetDecrease")
-    static let shortcutWriteToiTunes = Key<String>("ShortcutWriteToiTunes")
     static let shortcutSearchLyrics = Key<String>("ShortcutSearchLyrics")
     static let shortcutWrongLyrics = Key<String>("ShortcutWrongLyrics")
     
@@ -120,14 +113,7 @@ extension UserDefaults.DefaultsKeys {
     static let lyricsFilterKeys = Key<[String]>("LyricsFilterKeys")
     
     // Lab
-    static let useSystemWideNowPlaying = Key<Bool>("UseSystemWideNowPlaying")
-    
-    static let writeiTunesWithTranslation = Key<Bool>("WriteiTunesWithTranslation")
-    static let writeToiTunesAutomatically = Key<Bool>("WriteToiTunesAutomatically")
-    
     static let globalLyricsOffset = Key<Int>("GlobalLyricsOffset")
-    
-    static let launchHelperTime = Key<Date?>("launchHelperTime")
 }
 
 extension CGFloat: DefaultConstructible {}

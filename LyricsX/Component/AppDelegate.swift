@@ -54,32 +54,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
                                    options: [.continuouslyUpdatesValue: true])
         
         setupShortcuts()
-        
-        NSRunningApplication.runningApplications(withBundleIdentifier: lyricsXHelperIdentifier).forEach { $0.terminate() }
-        
-        let sharedKeys: [UserDefaults.DefaultsKeys] = [
-            .launchAndQuitWithPlayer,
-            .preferredPlayerIndex,
-        ]
-        sharedKeys.forEach {
-            groupDefaults.bind(NSBindingName($0.key), withDefaultName: $0)
-        }
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
         if AppController.shared.currentLyrics?.metadata.needsPersist == true {
             AppController.shared.currentLyrics?.persist()
-        }
-        if defaults[.launchAndQuitWithPlayer] {
-            let url = Bundle.main.bundleURL
-                .appendingPathComponent("Contents/Library/LoginItems/LyricsXHelper.app")
-            groupDefaults[.launchHelperTime] = Date()
-            do {
-                try NSWorkspace.shared.launchApplication(at: url, configuration: [:])
-                log("launch LyricsX Helper succeed.")
-            } catch {
-                log("launch LyricsX Helper failed. reason: \(error)")
-            }
         }
     }
     
@@ -90,7 +69,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
         binder.bindShortcut(.shortcutShowLyricsWindow, to: #selector(showLyricsHUD))
         binder.bindShortcut(.shortcutOffsetIncrease, to: #selector(increaseOffset))
         binder.bindShortcut(.shortcutOffsetDecrease, to: #selector(decreaseOffset))
-        binder.bindShortcut(.shortcutWriteToiTunes, to: #selector(writeToiTunes))
         binder.bindShortcut(.shortcutWrongLyrics, to: #selector(wrongLyrics))
         binder.bindShortcut(.shortcutSearchLyrics, to: #selector(searchLyrics))
     }
@@ -99,8 +77,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
     
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         switch menuItem.action {
-        case #selector(writeToiTunes(_:))?:
-            return selectedPlayer.name == .appleMusic && AppController.shared.currentLyrics != nil
         case #selector(searchLyrics(_:))?:
             return selectedPlayer.currentTrack != nil
         default:
@@ -151,10 +127,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
         }
     }
     
-    @IBAction func writeToiTunes(_ sender: Any?) {
-        AppController.shared.writeToiTunes(overwrite: true)
-    }
-    
     @IBAction func searchLyrics(_ sender: Any?) {
         searchLyricsWC.window?.makeKeyAndOrderFront(nil)
         (searchLyricsWC.contentViewController as! SearchLyricsViewController?)?.reloadKeyword()
@@ -166,9 +138,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
             return
         }
         defaults[.noSearchingTrackIds].append(track.id)
-        if defaults[.writeToiTunesAutomatically] {
-            track.setLyrics("")
-        }
         if let url = AppController.shared.currentLyrics?.metadata.localURL {
             try? FileManager.default.removeItem(at: url)
         }
@@ -182,9 +151,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
             return
         }
         defaults[.noSearchingAlbumNames].append(album)
-        if defaults[.writeToiTunesAutomatically] {
-            track.setLyrics("")
-        }
         if let url = AppController.shared.currentLyrics?.metadata.localURL {
             try? FileManager.default.removeItem(at: url)
         }

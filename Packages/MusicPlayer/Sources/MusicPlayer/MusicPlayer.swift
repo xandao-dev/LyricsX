@@ -12,7 +12,6 @@ import Combine
 
 public protocol MusicPlayerProtocol: AnyObject {
     
-    var name: MusicPlayerName? { get }
     var currentTrack: MusicTrack? { get }
     var playbackState: PlaybackState { get }
     var playbackTime: TimeInterval { get set }
@@ -27,8 +26,6 @@ public protocol MusicPlayerProtocol: AnyObject {
     
     func skipToNextItem()
     func skipToPreviousItem()
-    
-    func updatePlayerState()
 }
 
 public enum MusicPlayers {}

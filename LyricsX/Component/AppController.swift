@@ -57,14 +57,6 @@ class AppController: NSObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in self?.scheduleCurrentLineCheck() }
             .store(in: &cancelBag)
-        
-        workspaceNC.publisher(for: NSWorkspace.didTerminateApplicationNotification, object: nil)
-            .sink { n in
-                let bundleID = (n.userInfo![NSWorkspace.applicationUserInfoKey] as! NSRunningApplication).bundleIdentifier
-                if defaults[.launchAndQuitWithPlayer], (selectedPlayer.designatedPlayer as? MusicPlayers.Scriptable)?.playerBundleID == bundleID {
-                    NSApplication.shared.terminate(nil)
-                }
-            }.store(in: &cancelBag)
         currentTrackChanged()
     }
     
@@ -87,28 +79,6 @@ class AppController: NSObject {
                 self.scheduleCurrentLineCheck()
             }
         }
-    }
-    
-    func writeToiTunes(overwrite: Bool) {
-        guard selectedPlayer.name == .appleMusic,
-            let currentLyrics = currentLyrics,
-            let sbTrack = selectedPlayer.currentTrack?.originalTrack,
-            overwrite || (sbTrack.value(forKey: "lyrics") as! String?)?.isEmpty != false else {
-            return
-        }
-        let content = currentLyrics.lines.map { line -> String in
-            var content = line.content
-            if defaults[.writeiTunesWithTranslation] {
-                // TODO: tagged translation
-                let code = currentLyrics.metadata.translationLanguages.first
-                if let translation = line.attachments[.translation(languageCode: code)] {
-                    content += "\n" + translation
-                }
-            }
-            return content
-        }.joined(separator: "\n")
-        let replaced = content.replacing(/\n{3,}/, with: "\n\n")
-        sbTrack.setValue(replaced, forKey: "lyrics")
     }
     
     func currentTrackChanged() {
@@ -185,11 +155,7 @@ class AppController: NSObject {
         searchRequest = req
         searchCanceller = lyricsManager.lyricsPublisher(request: req)
             .timeout(.seconds(10), scheduler: DispatchQueue.main)
-            .sink(receiveCompletion: { [unowned self] _ in
-                if defaults[.writeToiTunesAutomatically] {
-                    self.writeToiTunes(overwrite: true)
-                }
-            }, receiveValue: { [unowned self] lyrics in
+            .sink(receiveValue: { [unowned self] lyrics in
                 self.lyricsReceived(lyrics: lyrics)
             })
     }
