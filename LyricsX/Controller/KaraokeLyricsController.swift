@@ -12,7 +12,6 @@ import Combine
 import GenericID
 import LyricsCore
 import MusicPlayer
-import SnapKit
 import SwiftCF
 import CoreGraphicsExt
 
@@ -21,6 +20,8 @@ class KaraokeLyricsWindowController: NSWindowController {
     static private let windowFrame = NSWindow.FrameAutosaveName("KaraokeWindow")
     
     private var lyricsView = KaraokeLyricsView(frame: .zero)
+    
+    private var centerConstraints: [NSLayoutConstraint] = []
     
     private var cancelBag = Set<AnyCancellable>()
     
@@ -143,15 +144,37 @@ class KaraokeLyricsWindowController: NSWindowController {
     }
     
     private func makeConstraints() {
-        lyricsView.snp.remakeConstraints { make in
-            make.centerX.equalToSuperview().safeMultipliedBy(defaults[.desktopLyricsXPositionFactor] * 2).priority(.low)
-            make.centerY.equalToSuperview().safeMultipliedBy(defaults[.desktopLyricsYPositionFactor] * 2).priority(.low)
-            
-            make.leading.greaterThanOrEqualToSuperview().priority(.keepWindowSize)
-            make.trailing.lessThanOrEqualToSuperview().priority(.keepWindowSize)
-            make.top.greaterThanOrEqualToSuperview().priority(.keepWindowSize)
-            make.bottom.lessThanOrEqualToSuperview().priority(.keepWindowSize)
-        }
+        guard let superview = lyricsView.superview else { return }
+        lyricsView.translatesAutoresizingMaskIntoConstraints = false
+        let edges = [
+            lyricsView.leadingAnchor.constraint(greaterThanOrEqualTo: superview.leadingAnchor),
+            lyricsView.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor),
+            lyricsView.topAnchor.constraint(greaterThanOrEqualTo: superview.topAnchor),
+            lyricsView.bottomAnchor.constraint(lessThanOrEqualTo: superview.bottomAnchor),
+        ]
+        edges.forEach { $0.priority = .keepWindowSize }
+        NSLayoutConstraint.activate(edges)
+        updateCenterConstraints()
+    }
+    
+    /// A multiplier is fixed once the constraint exists, so moving the overlay
+    /// replaces the pair.
+    private func updateCenterConstraints() {
+        NSLayoutConstraint.deactivate(centerConstraints)
+        centerConstraints = [
+            centerConstraint(.centerX, factor: defaults[.desktopLyricsXPositionFactor]),
+            centerConstraint(.centerY, factor: defaults[.desktopLyricsYPositionFactor]),
+        ]
+        NSLayoutConstraint.activate(centerConstraints)
+    }
+    
+    /// factor 0...1 maps the overlay's center to the superview's leading...trailing
+    /// (or top...bottom). A zero multiplier is illegal, so 0 becomes the smallest one.
+    private func centerConstraint(_ attribute: NSLayoutConstraint.Attribute, factor: CGFloat) -> NSLayoutConstraint {
+        let multiplier = factor.isZero ? .leastNonzeroMagnitude : factor * 2
+        let constraint = NSLayoutConstraint(item: lyricsView, attribute: attribute, relatedBy: .equal, toItem: lyricsView.superview, attribute: attribute, multiplier: multiplier, constant: 0)
+        constraint.priority = .defaultLow
+        return constraint
     }
     
     // MARK: Dragging
@@ -189,7 +212,7 @@ class KaraokeLyricsWindowController: NSWindowController {
         }
         defaults[.desktopLyricsXPositionFactor] = xFactor
         defaults[.desktopLyricsYPositionFactor] = yFactor
-        makeConstraints()
+        updateCenterConstraints()
         window.layoutIfNeeded()
     }
     
@@ -213,20 +236,7 @@ private extension NSScreen {
     }
 }
 
-private extension ConstraintMakerEditable {
+extension NSLayoutConstraint.Priority {
     
-    @discardableResult
-    func safeMultipliedBy(_ amount: ConstraintMultiplierTarget) -> ConstraintMakerEditable {
-        var factor = amount.constraintMultiplierTargetValue
-        if factor.isZero {
-            factor = .leastNonzeroMagnitude
-        }
-        return multipliedBy(factor)
-    }
-}
-
-extension ConstraintPriority {
-    
-    static let windowSizeStayPut = ConstraintPriority(NSLayoutConstraint.Priority.windowSizeStayPut.rawValue)
-    static let keepWindowSize = ConstraintPriority.windowSizeStayPut.advanced(by: -1)
+    static let keepWindowSize = NSLayoutConstraint.Priority(windowSizeStayPut.rawValue - 1)
 }

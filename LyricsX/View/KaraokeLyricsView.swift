@@ -8,12 +8,13 @@
 //
 
 import Cocoa
-import SnapKit
 
 class KaraokeLyricsView: NSView {
     
     private let backgroundView: NSView
     private let stackView: NSStackView
+    /// Top, leading, bottom, trailing.
+    private var stackInsets: [NSLayoutConstraint] = []
     
     @objc dynamic var font = NSFont.labelFont(ofSize: 24) { didSet { updateFontSize() } }
     @objc dynamic var textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -48,6 +49,14 @@ class KaraokeLyricsView: NSView {
         addSubview(backgroundView)
         backgroundView.addSubview(stackView)
         backgroundView.layer?.cornerRadius = 12
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackInsets = [
+            stackView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+        ]
+        NSLayoutConstraint.activate(stackInsets)
     }
     
     required init?(coder decoder: NSCoder) {
@@ -57,8 +66,8 @@ class KaraokeLyricsView: NSView {
     private func updateFontSize() {
         let insetX = font.pointSize
         let insetY = insetX / 3
-        stackView.snp.remakeConstraints {
-            $0.edges.equalToSuperview().inset(NSEdgeInsets(top: insetY, left: insetX, bottom: insetY, right: insetX))
+        for (constraint, inset) in zip(stackInsets, [insetY, insetX, insetY, insetX]) {
+            constraint.constant = inset
         }
         stackView.spacing = font.pointSize / 3
         backgroundView.layer?.cornerRadius = font.pointSize / 2
