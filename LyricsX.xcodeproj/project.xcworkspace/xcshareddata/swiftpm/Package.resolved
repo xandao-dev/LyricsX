@@ -1,5 +1,5 @@
 {
-  "originHash" : "00d0a3c094fb86344f0f537fc6814bd908eeed3cd750dfa336f3692f0acd1545",
+  "originHash" : "f1dc0a5baad559e6c1337ba8a8c2d494af2fd5181e85591bd40f18d75cf8ac13",
   "pins" : [
     {
       "identity" : "cxshim",
@@ -26,6 +26,14 @@
       "state" : {
         "revision" : "ba0b6cb51cc6202f896e469b87d2889a46b10d1b",
         "version" : "5.1.1"
+      }
+    },
+    {
+      "identity" : "masshortcut",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/shpakovski/MASShortcut",
+      "state" : {
+        "revision" : "6f2603c6b6cc18f64a799e5d2c9d3bbc467c413a"
       }
     },
     {

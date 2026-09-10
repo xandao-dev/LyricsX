@@ -28,12 +28,11 @@
 		BB1B300520E87CC9002F1AF8 /* KaraokeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B300420E87CC9002F1AF8 /* KaraokeLabel.swift */; };
 		BB1B631B1E8CD7CA004CC9E0 /* ScrollLyricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B631A1E8CD7CA004CC9E0 /* ScrollLyricsView.swift */; };
 		BB22681C234C9085008FAFED /* SwiftCF in Frameworks */ = {isa = PBXBuildFile; productRef = BB22681B234C9085008FAFED /* SwiftCF */; };
-		BB34F4A91EFFBCBC008B9E4B /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB34F4A81EFFBCBC008B9E4B /* MASShortcut.framework */; };
-		BB34F4AA1EFFBCBC008B9E4B /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BB34F4A81EFFBCBC008B9E4B /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BB4141AE1E458BA800A51775 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4141AD1E458BA800A51775 /* AppDelegate.swift */; };
 		BB4141B21E458BA800A51775 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB4141B11E458BA800A51775 /* Assets.xcassets */; };
 		BB4141B51E458BA900A51775 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB4141B31E458BA900A51775 /* Main.storyboard */; };
 		BB4141C01E45B67800A51775 /* KaraokeLyricsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4141BF1E45B67800A51775 /* KaraokeLyricsController.swift */; };
+		BB4318995BE753B13F5905AE /* MASShortcut in Frameworks */ = {isa = PBXBuildFile; productRef = BBF4ED4FCE3071A3AD7C22FA /* MASShortcut */; };
 		BB458C63201C5F4500740C3B /* LyricsMetadata+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB458C62201C5F4500740C3B /* LyricsMetadata+Extension.swift */; };
 		BB4919361F00CD800054EA09 /* PreferenceShortcutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4919351F00CD800054EA09 /* PreferenceShortcutViewController.swift */; };
 		BB5863F321EFFD9F0084D2C0 /* TouchBarLyricsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5863F221EFFD9F0084D2C0 /* TouchBarLyricsItem.swift */; };
@@ -75,17 +74,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		BB4141CA1E46CDD700A51775 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				BB34F4AA1EFFBCBC008B9E4B /* MASShortcut.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		BB60F3111E889FC000BA1FD2 /* Copy Helper */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -106,7 +94,6 @@
 		BB1B300220E878AE002F1AF8 /* StdExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StdExtension.swift; sourceTree = "<group>"; };
 		BB1B300420E87CC9002F1AF8 /* KaraokeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaraokeLabel.swift; sourceTree = "<group>"; };
 		BB1B631A1E8CD7CA004CC9E0 /* ScrollLyricsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollLyricsView.swift; sourceTree = "<group>"; };
-		BB34F4A81EFFBCBC008B9E4B /* MASShortcut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MASShortcut.framework; path = Carthage/Build/Mac/MASShortcut.framework; sourceTree = "<group>"; };
 		BB4141AA1E458BA800A51775 /* LyricsX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LyricsX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB4141AD1E458BA800A51775 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB4141B11E458BA800A51775 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
@@ -158,7 +145,7 @@
 			files = (
 				BBA82F0A256AB8620076831F /* Sparkle in Frameworks */,
 				BB9C3D8323435A5700860698 /* MusicPlayer in Frameworks */,
-				BB34F4A91EFFBCBC008B9E4B /* MASShortcut.framework in Frameworks */,
+				BB4318995BE753B13F5905AE /* MASShortcut in Frameworks */,
 				BB22681C234C9085008FAFED /* SwiftCF in Frameworks */,
 				BB6C75E8248B908500804AEB /* TouchBarHelper in Frameworks */,
 				BBB03F2D232FB3AF00A3879E /* GenericID in Frameworks */,
@@ -191,7 +178,6 @@
 		BB4141A11E458BA800A51775 = {
 			isa = PBXGroup;
 			children = (
-				BB7EC7B31E4ECFC400A0AC3F /* Frameworks */,
 				BB4141AC1E458BA800A51775 /* LyricsX */,
 				BB60F3021E889A1B00BA1FD2 /* LyricsXHelper */,
 				BB4141AB1E458BA800A51775 /* Products */,
@@ -240,14 +226,6 @@
 				BBFE81831F07776A00941735 /* Supporting Files */,
 			);
 			path = LyricsXHelper;
-			sourceTree = "<group>";
-		};
-		BB7EC7B31E4ECFC400A0AC3F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BB34F4A81EFFBCBC008B9E4B /* MASShortcut.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BB7EC7B41E4ECFFB00A0AC3F /* Controller */ = {
@@ -330,7 +308,6 @@
 				BB4141A61E458BA800A51775 /* Sources */,
 				BB4141A71E458BA800A51775 /* Frameworks */,
 				BB4141A81E458BA800A51775 /* Resources */,
-				BB4141CA1E46CDD700A51775 /* Embed Frameworks */,
 				BB60F3111E889FC000BA1FD2 /* Copy Helper */,
 				BBC1D5811E4AFE64008869EC /* Bump Build */,
 			);
@@ -346,6 +323,7 @@
 				BB22681B234C9085008FAFED /* SwiftCF */,
 				BB6C75E7248B908500804AEB /* TouchBarHelper */,
 				BBA82F09256AB8620076831F /* Sparkle */,
+				BBF4ED4FCE3071A3AD7C22FA /* MASShortcut */,
 			);
 			productName = LyricsX;
 			productReference = BB4141AA1E458BA800A51775 /* LyricsX.app */;
@@ -433,6 +411,7 @@
 				BB22681A234C9085008FAFED /* XCRemoteSwiftPackageReference "SwiftCF" */,
 				BB6C75E6248B908500804AEB /* XCRemoteSwiftPackageReference "TouchBarHelper" */,
 				BBA82F08256AB8620076831F /* XCRemoteSwiftPackageReference "Sparkle" */,
+				BB911C68EDE2BC816E3F9579 /* XCRemoteSwiftPackageReference "MASShortcut" */,
 			);
 			productRefGroup = BB4141AB1E458BA800A51775 /* Products */;
 			projectDirPath = "";
@@ -739,7 +718,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "LyricsX/Supporting Files/Info.plist";
@@ -763,7 +741,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "LyricsX/Supporting Files/Info.plist";
@@ -881,6 +858,14 @@
 				minimumVersion = 0.1.0;
 			};
 		};
+		BB911C68EDE2BC816E3F9579 /* XCRemoteSwiftPackageReference "MASShortcut" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/shpakovski/MASShortcut";
+			requirement = {
+				kind = revision;
+				revision = 6f2603c6b6cc18f64a799e5d2c9d3bbc467c413a;
+			};
+		};
 		BBA82F08256AB8620076831F /* XCRemoteSwiftPackageReference "Sparkle" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sparkle-project/Sparkle";
@@ -929,6 +914,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "Packages/LyricsKit" */;
 			productName = LyricsKit;
+		};
+		BBF4ED4FCE3071A3AD7C22FA /* MASShortcut */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BB911C68EDE2BC816E3F9579 /* XCRemoteSwiftPackageReference "MASShortcut" */;
+			productName = MASShortcut;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
