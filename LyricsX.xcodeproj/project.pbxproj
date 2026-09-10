@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -703,8 +703,8 @@
 				BBB03F2B232FB3AF00A3879E /* XCRemoteSwiftPackageReference "GenericID" */,
 				BBB03F2E232FB40400A3879E /* XCRemoteSwiftPackageReference "Semver" */,
 				BBB03F382331D8A800A3879E /* XCRemoteSwiftPackageReference "SwiftyOpenCC" */,
-				BBB03F3B2331DACD00A3879E /* XCRemoteSwiftPackageReference "LyricsKit" */,
-				BB9C3D8123435A5700860698 /* XCRemoteSwiftPackageReference "MusicPlayer" */,
+				BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "Packages/LyricsKit" */,
+				BB9C3D8123435A5700860698 /* XCLocalSwiftPackageReference "Packages/MusicPlayer" */,
 				BB22681A234C9085008FAFED /* XCRemoteSwiftPackageReference "SwiftCF" */,
 				BB350ABC23D0613D00500146 /* XCRemoteSwiftPackageReference "CXExtensions" */,
 				BB6C75E6248B908500804AEB /* XCRemoteSwiftPackageReference "TouchBarHelper" */,
@@ -1459,14 +1459,6 @@
 				minimumVersion = 0.1.0;
 			};
 		};
-		BB9C3D8123435A5700860698 /* XCRemoteSwiftPackageReference "MusicPlayer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ddddxxx/MusicPlayer";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.8.2;
-			};
-		};
 		BBA82EF9256AB1490076831F /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/microsoft/appcenter-sdk-apple";
@@ -1507,15 +1499,18 @@
 				kind = branch;
 			};
 		};
-		BBB03F3B2331DACD00A3879E /* XCRemoteSwiftPackageReference "LyricsKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ddddxxx/LyricsKit";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.11.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "Packages/LyricsKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/LyricsKit;
+		};
+		BB9C3D8123435A5700860698 /* XCLocalSwiftPackageReference "Packages/MusicPlayer" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/MusicPlayer;
+		};
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		BB003EFE248F89A700860FF7 /* CXShim */ = {
@@ -1560,12 +1555,12 @@
 		};
 		BB9C3D8223435A5700860698 /* MusicPlayer */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BB9C3D8123435A5700860698 /* XCRemoteSwiftPackageReference "MusicPlayer" */;
+			package = BB9C3D8123435A5700860698 /* XCLocalSwiftPackageReference "Packages/MusicPlayer" */;
 			productName = MusicPlayer;
 		};
 		BB9C3D8423435A6300860698 /* MusicPlayer */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BB9C3D8123435A5700860698 /* XCRemoteSwiftPackageReference "MusicPlayer" */;
+			package = BB9C3D8123435A5700860698 /* XCLocalSwiftPackageReference "Packages/MusicPlayer" */;
 			productName = MusicPlayer;
 		};
 		BBA82EFA256AB1490076831F /* AppCenterCrashes */ = {
@@ -1610,7 +1605,7 @@
 		};
 		BBB03F3C2331DACD00A3879E /* LyricsKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BBB03F3B2331DACD00A3879E /* XCRemoteSwiftPackageReference "LyricsKit" */;
+			package = BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "Packages/LyricsKit" */;
 			productName = LyricsKit;
 		};
 		BBB03F3E2331DBB000A3879E /* GenericID */ = {
@@ -1630,7 +1625,7 @@
 		};
 		BBB03F442331DBB000A3879E /* LyricsKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BBB03F3B2331DACD00A3879E /* XCRemoteSwiftPackageReference "LyricsKit" */;
+			package = BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "Packages/LyricsKit" */;
 			productName = LyricsKit;
 		};
 /* End XCSwiftPackageProductDependency section */

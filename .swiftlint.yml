@@ -23,6 +23,7 @@ opt_in_rules:
   - yoda_condition
 excluded:
   - Carthage
+  - Packages
 
 line_length: 150
 identifier_name:
