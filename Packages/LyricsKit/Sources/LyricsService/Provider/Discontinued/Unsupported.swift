@@ -9,7 +9,7 @@
 
 import Foundation
 import LyricsCore
-import CXShim
+import Combine
 
 extension LyricsProviders {
     public final class Unsupported {

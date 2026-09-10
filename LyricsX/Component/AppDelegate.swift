@@ -153,17 +153,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
     }
     
     @IBAction func aboutLyricsXAction(_ sender: Any) {
-        if #available(OSX 10.13, *) {
-            #if IS_FOR_MAS
-                let channel = "App Store"
-            #else
-                let channel = "GitHub"
-            #endif
-            let versionString = "\(channel) Version \(Bundle.main.semanticVersion!)"
-            NSApp.orderFrontStandardAboutPanel(options: [.applicationVersion: versionString])
-        } else {
-            NSApp.orderFrontStandardAboutPanel(sender)
-        }
+        #if IS_FOR_MAS
+            let channel = "App Store"
+        #else
+            let channel = "GitHub"
+        #endif
+        let versionString = "\(channel) Version \(Bundle.main.semanticVersion!)"
+        NSApp.orderFrontStandardAboutPanel(options: [.applicationVersion: versionString])
         NSApp.activate(ignoringOtherApps: true)
     }
     

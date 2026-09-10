@@ -9,8 +9,7 @@
 
 import Foundation
 import LyricsCore
-import CXShim
-import CXExtensions
+import Combine
 
 #if canImport(Darwin)
 
@@ -37,7 +36,7 @@ extension LyricsProviders.Syair: _LyricsProvider {
             parameter["q"] = keyword
         }
         let url = URL(string: syairSearchBaseURLString + "?" + parameter.stringFromHttpParameters)!
-        return sharedURLSession.cx.dataTaskPublisher(for: url)
+        return sharedURLSession.dataTaskPublisher(for: url)
             .map {
                 return String(data: $0.data, encoding: .utf8).map {
                     return syairSearchResultRegex.matches(in: $0).compactMap { ($0[1]?.string) }
@@ -54,7 +53,7 @@ extension LyricsProviders.Syair: _LyricsProvider {
         }
         var req = URLRequest(url: url)
         req.addValue("https://syair.info/", forHTTPHeaderField: "Referer")
-        return sharedURLSession.cx.dataTaskPublisher(for: req)
+        return sharedURLSession.dataTaskPublisher(for: req)
             .compactMap {
                 guard let str = String(data: $0.data, encoding: .utf8),
                     let lrcData = syairLyricsContentRegex.firstMatch(in: str)?.captures[1]?.string.data(using: .utf8),
@@ -64,7 +63,7 @@ extension LyricsProviders.Syair: _LyricsProvider {
                 }
                 lrc.metadata.serviceToken = token
                 return lrc
-            }.ignoreError()
+            }.catch { _ in Empty() }
             .eraseToAnyPublisher()
     }
 }

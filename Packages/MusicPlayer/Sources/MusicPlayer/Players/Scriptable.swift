@@ -11,8 +11,7 @@
 
 import Foundation
 import LXMusicPlayer
-import CXShim
-import CXExtensions
+import Combine
 
 extension MusicPlayers {
     
@@ -35,17 +34,17 @@ extension MusicPlayers {
             self.player = player
             self.currentTrack = player.currentTrack.map(MusicTrack.init)
             self.playbackState = PlaybackState(lxState: player.playerState)
-            player.cx
+            player
                 .publisher(for: \.currentTrack)
                 .map { $0.map(MusicTrack.init) }
-                .receive(on: DispatchQueue.playerUpdate.cx)
-                .assign(to: \.currentTrack, weaklyOn: self)
+                .receive(on: DispatchQueue.playerUpdate)
+                .sink { [weak self] in self?.currentTrack = $0 }
                 .store(in: &cancellers)
-            player.cx
+            player
                 .publisher(for: \.playerState)
                 .map(PlaybackState.init)
-                .receive(on: DispatchQueue.playerUpdate.cx)
-                .assign(to: \.playbackState, weaklyOn: self)
+                .receive(on: DispatchQueue.playerUpdate)
+                .sink { [weak self] in self?.playbackState = $0 }
                 .store(in: &cancellers)
         }
     }

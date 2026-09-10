@@ -8,8 +8,7 @@
 //
 
 import AppKit
-import CXShim
-import CXExtensions
+import Combine
 import LyricsService
 import MusicPlayer
 import OpenCC
@@ -53,17 +52,15 @@ class AppController: NSObject {
     private override init() {
         super.init()
         selectedPlayer.currentTrackWillChange
-            .signal()
-            .receive(on: DispatchQueue.lyricsDisplay.cx)
-            .invoke(AppController.currentTrackChanged, weaklyOn: self)
+            .receive(on: DispatchQueue.lyricsDisplay)
+            .sink { [weak self] _ in self?.currentTrackChanged() }
             .store(in: &cancelBag)
         selectedPlayer.playbackStateWillChange
-            .signal()
-            .receive(on: DispatchQueue.lyricsDisplay.cx)
-            .invoke(AppController.scheduleCurrentLineCheck, weaklyOn: self)
+            .receive(on: DispatchQueue.lyricsDisplay)
+            .sink { [weak self] _ in self?.scheduleCurrentLineCheck() }
             .store(in: &cancelBag)
         
-        workspaceNC.cx.publisher(for: NSWorkspace.didTerminateApplicationNotification, object: nil)
+        workspaceNC.publisher(for: NSWorkspace.didTerminateApplicationNotification, object: nil)
             .sink { n in
                 let bundleID = (n.userInfo![NSWorkspace.applicationUserInfoKey] as! NSRunningApplication).bundleIdentifier
                 if defaults[.launchAndQuitWithPlayer], (selectedPlayer.designatedPlayer as? MusicPlayers.Scriptable)?.playerBundleID == bundleID {
@@ -87,7 +84,7 @@ class AppController: NSObject {
         }
         if let next = next, playbackState.isPlaying {
             let dt = lyrics.lines[next].position - playbackTime - lyrics.adjustedTimeDelay
-            let q = DispatchQueue.lyricsDisplay.cx
+            let q = DispatchQueue.lyricsDisplay
             currentLineCheckSchedule = q.schedule(after: q.now.advanced(by: .seconds(dt)), interval: .seconds(42), tolerance: .milliseconds(20)) { [unowned self] in
                 self.scheduleCurrentLineCheck()
             }
@@ -204,7 +201,7 @@ class AppController: NSObject {
         let req = LyricsSearchRequest(searchTerm: .info(title: title, artist: artist), duration: duration, limit: 5)
         searchRequest = req
         searchCanceller = lyricsManager.lyricsPublisher(request: req)
-            .timeout(.seconds(10), scheduler: DispatchQueue.lyricsDisplay.cx)
+            .timeout(.seconds(10), scheduler: DispatchQueue.lyricsDisplay)
             .sink(receiveCompletion: { [unowned self] _ in
                 if defaults[.writeToiTunesAutomatically] {
                     self.writeToiTunes(overwrite: true)

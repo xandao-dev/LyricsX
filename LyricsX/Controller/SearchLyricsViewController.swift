@@ -8,8 +8,7 @@
 //
 
 import Cocoa
-import CXExtensions
-import CXShim
+import Combine
 import LyricsService
 import MusicPlayer
 
@@ -82,13 +81,14 @@ class SearchLyricsViewController: NSViewController, NSTableViewDelegate, NSTable
         let req = LyricsSearchRequest(searchTerm: .info(title: searchTitle, artist: searchArtist), duration: duration, limit: 8)
         searchRequest = req
         searchCanceller = lyricsManager.lyricsPublisher(request: req)
+            .timeout(.seconds(10), scheduler: DispatchQueue.lyricsDisplay)
             .sink(receiveCompletion: { [unowned self] _ in
                 DispatchQueue.main.async {
                     self.progressIndicator.stopAnimation(nil)
                 }
             }, receiveValue: { [unowned self] lyrics in
                 self.lyricsReceived(lyrics: lyrics)
-            }).cancel(after: .seconds(10), scheduler: DispatchQueue.lyricsDisplay.cx)
+            })
         progressIndicator.startAnimation(nil)
         tableView.reloadData()
     }

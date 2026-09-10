@@ -9,8 +9,7 @@
 
 import Foundation
 import LyricsCore
-import CXShim
-import CXExtensions
+import Combine
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -37,9 +36,9 @@ extension LyricsProviders.QQMusic: _LyricsProvider {
         let parameter = ["w": request.searchTerm.description]
         let url = URL(string: qqSearchBaseURLString + "?" + parameter.stringFromHttpParameters)!
         
-        return sharedURLSession.cx.dataTaskPublisher(for: url)
+        return sharedURLSession.dataTaskPublisher(for: url)
             .map { $0.data.dropFirst(9).dropLast() }
-            .decode(type: QQResponseSearchResult.self, decoder: JSONDecoder().cx)
+            .decode(type: QQResponseSearchResult.self, decoder: JSONDecoder())
             .map(\.data.song.list)
             .replaceError(with: [])
             .flatMap(Publishers.Sequence.init)
@@ -56,7 +55,7 @@ extension LyricsProviders.QQMusic: _LyricsProvider {
         let url = URL(string: qqLyricsBaseURLString + "?" + parameter.stringFromHttpParameters)!
         var req = URLRequest(url: url)
         req.setValue("y.qq.com/portal/player.html", forHTTPHeaderField: "Referer")
-        return sharedURLSession.cx.dataTaskPublisher(for: req)
+        return sharedURLSession.dataTaskPublisher(for: req)
             .compactMap {
                 let data = $0.data.dropFirst(18).dropLast()
                 guard let model = try? JSONDecoder().decode(QQResponseSingleLyrics.self, from: data),
@@ -79,7 +78,7 @@ extension LyricsProviders.QQMusic: _LyricsProvider {
                     lrc.metadata.artworkURL = URL(string: "http://imgcache.qq.com/music/photo/album/\(id % 100)/\(id).jpg")
                 }
                 return lrc
-            }.ignoreError()
+            }.catch { _ in Empty() }
             .eraseToAnyPublisher()
     }
 }

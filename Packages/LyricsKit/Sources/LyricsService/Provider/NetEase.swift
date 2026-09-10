@@ -9,8 +9,7 @@
 
 import Foundation
 import LyricsCore
-import CXShim
-import CXExtensions
+import Combine
 @_implementationOnly import Regex
 
 #if canImport(FoundationNetworking)
@@ -47,7 +46,7 @@ extension LyricsProviders.NetEase: _LyricsProvider {
         req.setValue("http://music.163.com/", forHTTPHeaderField: "Referer")
         req.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15", forHTTPHeaderField: "User-Agent")
 
-        return sharedURLSession.cx.dataTaskPublisher(for: req)
+        return sharedURLSession.dataTaskPublisher(for: req)
             .compactMap { data, response -> String? in
                 guard let httpResp = response as? HTTPURLResponse,
                       let setCookie = httpResp.allHeaderFields["Set-Cookie"] as? String,
@@ -56,12 +55,12 @@ extension LyricsProviders.NetEase: _LyricsProvider {
                 }
                 return String(setCookie[..<cookieIdx])
             }
-            .flatMap { cookie -> CXWrappers.URLSession.DataTaskPublisher in
+            .flatMap { cookie -> URLSession.DataTaskPublisher in
                 req.setValue(cookie, forHTTPHeaderField: "Cookie")
-                return sharedURLSession.cx.dataTaskPublisher(for: req)
+                return sharedURLSession.dataTaskPublisher(for: req)
             }
             .map(\.data)
-            .decode(type: NetEaseResponseSearchResult.self, decoder: JSONDecoder().cx)
+            .decode(type: NetEaseResponseSearchResult.self, decoder: JSONDecoder())
             .map(\.songs)
             .replaceError(with: [])
             .flatMap(Publishers.Sequence.init)
@@ -77,9 +76,9 @@ extension LyricsProviders.NetEase: _LyricsProvider {
             "tv": -1,
         ]
         let url = URL(string: netEaseLyricsBaseURLString + parameter.stringFromHttpParameters)!
-        return sharedURLSession.cx.dataTaskPublisher(for: url)
+        return sharedURLSession.dataTaskPublisher(for: url)
             .map(\.data)
-            .decode(type: NetEaseResponseSingleLyrics.self, decoder: JSONDecoder().cx)
+            .decode(type: NetEaseResponseSingleLyrics.self, decoder: JSONDecoder())
             .compactMap {
                 let lyrics: Lyrics
                 let transLrc = ($0.tlyric?.fixedLyric).flatMap(Lyrics.init(_:))
@@ -106,7 +105,7 @@ extension LyricsProviders.NetEase: _LyricsProvider {
                 lyrics.metadata.serviceToken = "\(token.value.id)"
                 
                 return lyrics
-            }.ignoreError()
+            }.catch { _ in Empty() }
             .eraseToAnyPublisher()
     }
 }

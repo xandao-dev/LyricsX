@@ -21,8 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		BB003EFF248F89A700860FF7 /* CXShim in Frameworks */ = {isa = PBXBuildFile; productRef = BB003EFE248F89A700860FF7 /* CXShim */; };
-		BB003F01248F89B700860FF7 /* CXShim in Frameworks */ = {isa = PBXBuildFile; productRef = BB003F00248F89B700860FF7 /* CXShim */; };
 		BB03C8891FDF6FC000FBE0DA /* ChineseConverter+Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03C8881FDF6FC000FBE0DA /* ChineseConverter+Singleton.swift */; };
 		BB063B2E1E8A93C900A25C3E /* KaraokeLyricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB063B2D1E8A93C900A25C3E /* KaraokeLyricsView.swift */; };
 		BB0A3AE122803B1D006C2E52 /* TouchBarPlaybackControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB63C24E22774B47008CFFBB /* TouchBarPlaybackControlViewController.swift */; };
@@ -37,8 +35,6 @@
 		BB34F4A91EFFBCBC008B9E4B /* MASShortcut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB34F4A81EFFBCBC008B9E4B /* MASShortcut.framework */; };
 		BB34F4AA1EFFBCBC008B9E4B /* MASShortcut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BB34F4A81EFFBCBC008B9E4B /* MASShortcut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BB34F7E61F21911700B7C484 /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB34F7E51F21911700B7C484 /* Updater.swift */; };
-		BB350ABE23D0613D00500146 /* CXExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = BB350ABD23D0613D00500146 /* CXExtensions */; };
-		BB350AC023D0614800500146 /* CXExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = BB350ABF23D0614800500146 /* CXExtensions */; };
 		BB4141AE1E458BA800A51775 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4141AD1E458BA800A51775 /* AppDelegate.swift */; };
 		BB4141B21E458BA800A51775 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB4141B11E458BA800A51775 /* Assets.xcassets */; };
 		BB4141B51E458BA900A51775 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB4141B31E458BA900A51775 /* Main.storyboard */; };
@@ -48,7 +44,6 @@
 		BB458C63201C5F4500740C3B /* LyricsMetadata+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB458C62201C5F4500740C3B /* LyricsMetadata+Extension.swift */; };
 		BB4919361F00CD800054EA09 /* PreferenceShortcutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4919351F00CD800054EA09 /* PreferenceShortcutViewController.swift */; };
 		BB50786422014C3900B695C3 /* KaraokeLyricsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4141BF1E45B67800A51775 /* KaraokeLyricsController.swift */; };
-		BB50786522014C3900B695C3 /* Polyfill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97593E32150F47800D80616 /* Polyfill.swift */; };
 		BB50786622014C3900B695C3 /* PreferenceLabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72784920996DE900231C63 /* PreferenceLabViewController.swift */; };
 		BB50786722014C3900B695C3 /* LyricsHUDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7EC7B11E4E018C00A0AC3F /* LyricsHUDViewController.swift */; };
 		BB50786822014C3900B695C3 /* IBInspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97593E52150F6FB00D80616 /* IBInspection.swift */; };
@@ -142,7 +137,6 @@
 		BBE2A79924041E36004A7E93 /* CombineExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE2A79724041E36004A7E93 /* CombineExtension.swift */; };
 		BBE8FC751F6BEA6200122AFA /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE8FC741F6BEA6200122AFA /* Then.swift */; };
 		E91F76EB21211B8D00755698 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91F76EA21211B8D00755698 /* PreferenceViewController.swift */; };
-		E97593E42150F47900D80616 /* Polyfill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97593E32150F47800D80616 /* Polyfill.swift */; };
 		E97593E62150F6FB00D80616 /* IBInspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97593E52150F6FB00D80616 /* IBInspection.swift */; };
 		E97AFB59215CBF0300AF74CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E97AFB5B215CBF0300AF74CD /* InfoPlist.strings */; };
 		E9E55138207C4CB000F9958A /* TouchBarLyricsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E55137207C4CB000F9958A /* TouchBarLyricsController.swift */; };
@@ -312,7 +306,6 @@
 		BBF3CB6A2423313B000C6AB9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		BBF3CB6B2423313B000C6AB9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Preferences.strings; sourceTree = "<group>"; };
 		E91F76EA21211B8D00755698 /* PreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
-		E97593E32150F47800D80616 /* Polyfill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polyfill.swift; sourceTree = "<group>"; };
 		E97593E52150F6FB00D80616 /* IBInspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBInspection.swift; sourceTree = "<group>"; };
 		E97AFB5A215CBF0300AF74CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E97AFB5C215CBF0500AF74CD /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -333,7 +326,6 @@
 				BB9C3D8323435A5700860698 /* MusicPlayer in Frameworks */,
 				BB4141C81E46CDD700A51775 /* SnapKit.framework in Frameworks */,
 				BBB03F3A2331D8A800A3879E /* OpenCC in Frameworks */,
-				BB003EFF248F89A700860FF7 /* CXShim in Frameworks */,
 				BBB03F30232FB40400A3879E /* Semver in Frameworks */,
 				BB34F4A91EFFBCBC008B9E4B /* MASShortcut.framework in Frameworks */,
 				BB22681C234C9085008FAFED /* SwiftCF in Frameworks */,
@@ -342,7 +334,6 @@
 				BBA82EFD256AB1490076831F /* AppCenterAnalytics in Frameworks */,
 				BBB03F2D232FB3AF00A3879E /* GenericID in Frameworks */,
 				BBB03F3D2331DACD00A3879E /* LyricsKit in Frameworks */,
-				BB350ABE23D0613D00500146 /* CXExtensions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,12 +343,10 @@
 			files = (
 				BBB03F432331DBB000A3879E /* OpenCC in Frameworks */,
 				BB6C75EA248B908F00804AEB /* TouchBarHelper in Frameworks */,
-				BB003F01248F89B700860FF7 /* CXShim in Frameworks */,
 				BBB03F3F2331DBB000A3879E /* GenericID in Frameworks */,
 				BBB03F452331DBB000A3879E /* LyricsKit in Frameworks */,
 				BB22681E234C908D008FAFED /* SwiftCF in Frameworks */,
 				BBA82F03256AB29F0076831F /* AppCenterAnalytics in Frameworks */,
-				BB350AC023D0614800500146 /* CXExtensions in Frameworks */,
 				BBA82F05256AB29F0076831F /* AppCenterCrashes in Frameworks */,
 				BBB03F412331DBB000A3879E /* Semver in Frameworks */,
 				BB9C3D8523435A6300860698 /* MusicPlayer in Frameworks */,
@@ -474,7 +463,6 @@
 			isa = PBXGroup;
 			children = (
 				BBC1D35E1E499A6D002538A2 /* Global.swift */,
-				E97593E32150F47800D80616 /* Polyfill.swift */,
 				E97593E52150F6FB00D80616 /* IBInspection.swift */,
 				BB9BCEB91E843157001BC54B /* Extension.swift */,
 				BBE2A79724041E36004A7E93 /* CombineExtension.swift */,
@@ -556,9 +544,7 @@
 				BBB03F3C2331DACD00A3879E /* LyricsKit */,
 				BB9C3D8223435A5700860698 /* MusicPlayer */,
 				BB22681B234C9085008FAFED /* SwiftCF */,
-				BB350ABD23D0613D00500146 /* CXExtensions */,
 				BB6C75E7248B908500804AEB /* TouchBarHelper */,
-				BB003EFE248F89A700860FF7 /* CXShim */,
 				BBA82EFA256AB1490076831F /* AppCenterCrashes */,
 				BBA82EFC256AB1490076831F /* AppCenterAnalytics */,
 				BBA82F09256AB8620076831F /* Sparkle */,
@@ -593,9 +579,7 @@
 				BBB03F442331DBB000A3879E /* LyricsKit */,
 				BB9C3D8423435A6300860698 /* MusicPlayer */,
 				BB22681D234C908D008FAFED /* SwiftCF */,
-				BB350ABF23D0614800500146 /* CXExtensions */,
 				BB6C75E9248B908F00804AEB /* TouchBarHelper */,
-				BB003F00248F89B700860FF7 /* CXShim */,
 				BBA82F02256AB29F0076831F /* AppCenterAnalytics */,
 				BBA82F04256AB29F0076831F /* AppCenterCrashes */,
 			);
@@ -706,9 +690,7 @@
 				BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "Packages/LyricsKit" */,
 				BB9C3D8123435A5700860698 /* XCLocalSwiftPackageReference "Packages/MusicPlayer" */,
 				BB22681A234C9085008FAFED /* XCRemoteSwiftPackageReference "SwiftCF" */,
-				BB350ABC23D0613D00500146 /* XCRemoteSwiftPackageReference "CXExtensions" */,
 				BB6C75E6248B908500804AEB /* XCRemoteSwiftPackageReference "TouchBarHelper" */,
-				BB003EFD248F89A700860FF7 /* XCRemoteSwiftPackageReference "CombineX" */,
 				BBA82EF9256AB1490076831F /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */,
 				BBA82F08256AB8620076831F /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
@@ -908,7 +890,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB4141C01E45B67800A51775 /* KaraokeLyricsController.swift in Sources */,
-				E97593E42150F47900D80616 /* Polyfill.swift in Sources */,
 				BB72784A20996DE900231C63 /* PreferenceLabViewController.swift in Sources */,
 				BB7EC7B21E4E018C00A0AC3F /* LyricsHUDViewController.swift in Sources */,
 				E97593E62150F6FB00D80616 /* IBInspection.swift in Sources */,
@@ -953,7 +934,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB50786422014C3900B695C3 /* KaraokeLyricsController.swift in Sources */,
-				BB50786522014C3900B695C3 /* Polyfill.swift in Sources */,
 				BB50786622014C3900B695C3 /* PreferenceLabViewController.swift in Sources */,
 				BB50786722014C3900B695C3 /* LyricsHUDViewController.swift in Sources */,
 				BB50786822014C3900B695C3 /* IBInspection.swift in Sources */,
@@ -1174,7 +1154,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
@@ -1229,7 +1209,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-DRELEASE";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1427,28 +1407,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		BB003EFD248F89A700860FF7 /* XCRemoteSwiftPackageReference "CombineX" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/cx-org/CombineX";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.4.0;
-			};
-		};
 		BB22681A234C9085008FAFED /* XCRemoteSwiftPackageReference "SwiftCF" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ddddxxx/SwiftCF";
 			requirement = {
 				kind = upToNextMinorVersion;
 				minimumVersion = 0.2.1;
-			};
-		};
-		BB350ABC23D0613D00500146 /* XCRemoteSwiftPackageReference "CXExtensions" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/cx-org/CXExtensions";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.4.0;
 			};
 		};
 		BB6C75E6248B908500804AEB /* XCRemoteSwiftPackageReference "TouchBarHelper" */ = {
@@ -1513,16 +1477,6 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		BB003EFE248F89A700860FF7 /* CXShim */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BB003EFD248F89A700860FF7 /* XCRemoteSwiftPackageReference "CombineX" */;
-			productName = CXShim;
-		};
-		BB003F00248F89B700860FF7 /* CXShim */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BB003EFD248F89A700860FF7 /* XCRemoteSwiftPackageReference "CombineX" */;
-			productName = CXShim;
-		};
 		BB22681B234C9085008FAFED /* SwiftCF */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BB22681A234C9085008FAFED /* XCRemoteSwiftPackageReference "SwiftCF" */;
@@ -1532,16 +1486,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BB22681A234C9085008FAFED /* XCRemoteSwiftPackageReference "SwiftCF" */;
 			productName = SwiftCF;
-		};
-		BB350ABD23D0613D00500146 /* CXExtensions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BB350ABC23D0613D00500146 /* XCRemoteSwiftPackageReference "CXExtensions" */;
-			productName = CXExtensions;
-		};
-		BB350ABF23D0614800500146 /* CXExtensions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BB350ABC23D0613D00500146 /* XCRemoteSwiftPackageReference "CXExtensions" */;
-			productName = CXExtensions;
 		};
 		BB6C75E7248B908500804AEB /* TouchBarHelper */ = {
 			isa = XCSwiftPackageProductDependency;

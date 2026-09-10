@@ -9,23 +9,9 @@
 
 public enum MusicPlayerName: String {
     
-    #if os(macOS)
-    
     case appleMusic = "Music"
     case spotify    = "Spotify"
     case vox        = "Vox"
     case audirvana  = "Audirvana"
     case swinsian   = "Swinsian"
-    
-    #elseif os(iOS)
-    
-    case appleMusic = "Music"
-    case spotify    = "Spotify"
-    
-    #elseif os(Linux)
-    
-    // FIXME: dynamically create player application with name and identifier
-    case mpris = "mpris"
-    
-    #endif
 }

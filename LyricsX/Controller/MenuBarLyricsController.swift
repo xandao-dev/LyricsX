@@ -8,8 +8,7 @@
 //
 
 import Cocoa
-import CXExtensions
-import CXShim
+import Combine
 import GenericID
 import LyricsCore
 import MusicPlayer
@@ -40,17 +39,16 @@ class MenuBarLyricsController {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         AppController.shared.$currentLyrics
             .combineLatest(AppController.shared.$currentLineIndex)
-            .receive(on: DispatchQueue.lyricsDisplay.cx)
-            .invoke(MenuBarLyricsController.handleLyricsDisplay, weaklyOn: self)
+            .receive(on: DispatchQueue.lyricsDisplay)
+            .sink { [weak self] in self?.handleLyricsDisplay(event: $0) }
             .store(in: &cancelBag)
-        workspaceNC.cx
+        workspaceNC
             .publisher(for: NSWorkspace.didActivateApplicationNotification)
-            .signal()
-            .invoke(MenuBarLyricsController.updateStatusItem, weaklyOn: self)
+            .sink { [weak self] _ in self?.updateStatusItem() }
             .store(in: &cancelBag)
         defaults.publisher(for: [.menuBarLyricsEnabled, .combinedMenubarLyrics])
             .prepend()
-            .invoke(MenuBarLyricsController.updateStatusItem, weaklyOn: self)
+            .sink { [weak self] in self?.updateStatusItem() }
             .store(in: &cancelBag)
     }
     

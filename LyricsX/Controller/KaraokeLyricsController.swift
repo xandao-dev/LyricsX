@@ -8,7 +8,7 @@
 //
 
 import Cocoa
-import CXShim
+import Combine
 import GenericID
 import LyricsCore
 import MusicPlayer
@@ -46,23 +46,20 @@ class KaraokeLyricsWindowController: NSWindowController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.lyricsView.displayLrc("")
             AppController.shared.$currentLyrics
-                .signal()
-                .receive(on: DispatchQueue.lyricsDisplay.cx)
-                .invoke(KaraokeLyricsWindowController.handleLyricsDisplay, weaklyOn: self)
+                .receive(on: DispatchQueue.lyricsDisplay)
+                .sink { [weak self] _ in self?.handleLyricsDisplay() }
                 .store(in: &self.cancelBag)
             AppController.shared.$currentLineIndex
-                .signal()
-                .receive(on: DispatchQueue.lyricsDisplay.cx)
-                .invoke(KaraokeLyricsWindowController.handleLyricsDisplay, weaklyOn: self)
+                .receive(on: DispatchQueue.lyricsDisplay)
+                .sink { [weak self] _ in self?.handleLyricsDisplay() }
                 .store(in: &self.cancelBag)
             selectedPlayer.playbackStateWillChange
-                .signal()
-                .receive(on: DispatchQueue.lyricsDisplay.cx)
-                .invoke(KaraokeLyricsWindowController.handleLyricsDisplay, weaklyOn: self)
+                .receive(on: DispatchQueue.lyricsDisplay)
+                .sink { [weak self] _ in self?.handleLyricsDisplay() }
                 .store(in: &self.cancelBag)
             defaults.publisher(for: [.preferBilingualLyrics, .desktopLyricsOneLineMode])
                 .prepend()
-                .invoke(KaraokeLyricsWindowController.handleLyricsDisplay, weaklyOn: self)
+                .sink { [weak self] in self?.handleLyricsDisplay() }
                 .store(in: &self.cancelBag)
         }
     }

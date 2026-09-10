@@ -9,7 +9,7 @@
 
 import Foundation
 import LyricsCore
-import CXShim
+import Combine
 
 extension LyricsProviders {
     
@@ -22,7 +22,7 @@ extension LyricsProviders {
         }
         
         public func lyricsPublisher(request: LyricsSearchRequest) -> AnyPublisher<Lyrics, Never> {
-            return providers.cx.publisher
+            return providers.publisher
                 .flatMap { $0.lyricsPublisher(request: request) }
                 .eraseToAnyPublisher()
         }

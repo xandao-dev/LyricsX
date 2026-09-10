@@ -9,8 +9,7 @@
 
 import Foundation
 import LyricsCore
-import CXShim
-import CXExtensions
+import Combine
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -44,9 +43,9 @@ extension LyricsProviders.Xiami: _LyricsProvider {
         var req = URLRequest(url: url)
         req.httpMethod = "POST"
         req.setValue("http://h.xiami.com/", forHTTPHeaderField: "Referer")
-        return sharedURLSession.cx.dataTaskPublisher(for: req)
+        return sharedURLSession.dataTaskPublisher(for: req)
             .map(\.data)
-            .decode(type: XiamiResponseSearchResult.self, decoder: JSONDecoder().cx)
+            .decode(type: XiamiResponseSearchResult.self, decoder: JSONDecoder())
             .map(\.data.songs)
             .replaceError(with: [])
             .flatMap(Publishers.Sequence.init)
@@ -59,7 +58,7 @@ extension LyricsProviders.Xiami: _LyricsProvider {
             let lrcURL = URL(string: lrcURLStr) else {
                 return Empty().eraseToAnyPublisher()
         }
-        return sharedURLSession.cx.dataTaskPublisher(for: lrcURL)
+        return sharedURLSession.dataTaskPublisher(for: lrcURL)
             .compactMap {
                 guard let lrcStr = String(data: $0.data, encoding: .utf8),
                     let lrc = Lyrics(ttpodXtrcContent:lrcStr) else {
@@ -72,7 +71,7 @@ extension LyricsProviders.Xiami: _LyricsProvider {
                 lrc.metadata.artworkURL = token.value.album_logo
                 lrc.metadata.serviceToken = token.value.lyric
                 return lrc
-            }.ignoreError()
+            }.catch { _ in Empty() }
             .eraseToAnyPublisher()
     }
 }

@@ -9,8 +9,7 @@
 
 import Foundation
 import LyricsCore
-import CXShim
-import CXExtensions
+import Combine
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -42,9 +41,9 @@ extension LyricsProviders.Kugou: _LyricsProvider {
             "man": "yes",
             ]
         let url = URL(string: kugouSearchBaseURLString + "?" + parameter.stringFromHttpParameters)!
-        return sharedURLSession.cx.dataTaskPublisher(for: url)
+        return sharedURLSession.dataTaskPublisher(for: url)
             .map(\.data)
-            .decode(type: KugouResponseSearchResult.self, decoder: JSONDecoder().cx)
+            .decode(type: KugouResponseSearchResult.self, decoder: JSONDecoder())
             .map(\.candidates)
             .replaceError(with: [])
             .flatMap(Publishers.Sequence.init)
@@ -63,9 +62,9 @@ extension LyricsProviders.Kugou: _LyricsProvider {
             "ver": 1,
         ]
         let url = URL(string: kugouLyricsBaseURLString + "?" + parameter.stringFromHttpParameters)!
-        return sharedURLSession.cx.dataTaskPublisher(for: url)
+        return sharedURLSession.dataTaskPublisher(for: url)
             .map(\.data)
-            .decode(type: KugouResponseSingleLyrics.self, decoder: JSONDecoder().cx)
+            .decode(type: KugouResponseSingleLyrics.self, decoder: JSONDecoder())
             .compactMap {
                 guard let lrcContent = decryptKugouKrc($0.content),
                     let lrc = Lyrics(kugouKrcContent: lrcContent) else {
@@ -78,7 +77,7 @@ extension LyricsProviders.Kugou: _LyricsProvider {
                 lrc.length = Double(token.duration)/1000
                 lrc.metadata.serviceToken = "\(token.id),\(token.accesskey)"
                 return lrc
-            }.ignoreError()
+            }.catch { _ in Empty() }
             .eraseToAnyPublisher()
     }
 }

@@ -8,7 +8,7 @@
 //
 
 import Cocoa
-import CXShim
+import Combine
 import GenericID
 import MusicPlayer
 
@@ -62,12 +62,11 @@ class LyricsHUDViewController: NSViewController, NSWindowDelegate, ScrollLyricsV
         }
         
         AppController.shared.$currentLyrics
-            .signal()
-            .receive(on: DispatchQueue.main.cx)
-            .invoke(LyricsHUDViewController.lyricsChanged, weaklyOn: self)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in self?.lyricsChanged() }
             .store(in: &cancelBag)
         AppController.shared.$currentLineIndex
-            .receive(on: DispatchQueue.main.cx)
+            .receive(on: DispatchQueue.main)
             .sink { [unowned self] _ in
                 self.displayLyrics()
             }.store(in: &cancelBag)
