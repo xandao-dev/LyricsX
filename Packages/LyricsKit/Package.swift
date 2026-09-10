@@ -14,7 +14,6 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/ddddxxx/Regex", from: "1.0.1"),
-        .package(url: "https://github.com/ddddxxx/SwiftCF", .upToNextMinor(from: "0.2.0")),
         .package(url: "https://github.com/1024jp/GzipSwift", from: "5.0.0"),
     ],
     targets: [
@@ -22,7 +21,6 @@ let package = Package(
             name: "LyricsCore",
             dependencies: [
                 .product(name: "Regex", package: "Regex"),
-                .product(name: "SwiftCF", package: "SwiftCF"),
             ]),
         .target(
             name: "LyricsService",

@@ -14,20 +14,6 @@ import CoreTextExt
 
 class KaraokeLabel: NSTextField {
     
-    @objc dynamic var isVertical = false {
-        didSet {
-            clearCache()
-            invalidateIntrinsicContentSize()
-        }
-    }
-    
-    @objc dynamic var drawFurigana = false {
-        didSet {
-            clearCache()
-            invalidateIntrinsicContentSize()
-        }
-    }
-    
     override var attributedStringValue: NSAttributedString {
         didSet {
             clearCache()
@@ -66,26 +52,6 @@ class KaraokeLabel: NSTextField {
             return attrString
         }
         let attrString = NSMutableAttributedString(attributedString: attributedStringValue)
-        let string = attrString.string as NSString
-        let shouldDrawFurigana = drawFurigana && string.dominantLanguage == "ja"
-        let tokenizer = CFStringTokenizer.create(string: .from(string))
-        for tokenType in IteratorSequence(tokenizer) where tokenType.contains(.isCJWordMask) {
-            if isVertical {
-                let tokenRange = tokenizer.currentTokenRange()
-                let attr: [NSAttributedString.Key: Any] = [
-                    .verticalGlyphForm: true,
-                    .baselineOffset: (font?.pointSize ?? 24) * 0.25,
-                ]
-                attrString.addAttributes(attr, range: tokenRange.asNS)
-            }
-            guard shouldDrawFurigana else { continue }
-            if let (furigana, range) = tokenizer.currentFuriganaAnnotation(in: string) {
-                var attr: [CFAttributedString.Key: Any] = [.ctRubySizeFactor: 0.5]
-                attr[.ctForegroundColor] = textColor
-                let annotation = CTRubyAnnotation.create(furigana, attributes: attr)
-                attrString.addAttribute(.cf(.ctRubyAnnotation), value: annotation, range: range)
-            }
-        }
         textColor?.do { attrString.addAttributes([.foregroundColor: $0], range: attrString.fullRange) }
         _attrString = attrString
         return attrString
@@ -97,22 +63,18 @@ class KaraokeLabel: NSTextField {
             return ctFrame
         }
         layoutSubtreeIfNeeded()
-        let progression: CTFrameProgression = isVertical ? .rightToLeft : .topToBottom
-        let frameAttr: [CTFrame.AttributeKey: Any] = [.progression: progression.rawValue as NSNumber]
         let framesetter = CTFramesetter.create(attributedString: attrString)
-        let (suggestSize, fitRange) = framesetter.suggestFrameSize(constraints: bounds.size, frameAttributes: frameAttr)
+        let (suggestSize, fitRange) = framesetter.suggestFrameSize(constraints: bounds.size)
         let path = CGPath(rect: CGRect(origin: .zero, size: suggestSize), transform: nil)
-        let ctFrame = framesetter.frame(stringRange: fitRange, path: path, frameAttributes: frameAttr)
+        let ctFrame = framesetter.frame(stringRange: fitRange, path: path)
         _ctFrame = ctFrame
         return ctFrame
     }
     
     override var intrinsicContentSize: NSSize {
-        let progression: CTFrameProgression = isVertical ? .rightToLeft : .topToBottom
-        let frameAttr: [CTFrame.AttributeKey: Any] = [.progression: progression.rawValue as NSNumber]
         let framesetter = CTFramesetter.create(attributedString: attrString)
         let constraints = CGSize(width: CGFloat.infinity, height: .infinity)
-        return framesetter.suggestFrameSize(constraints: constraints, frameAttributes: frameAttr).size
+        return framesetter.suggestFrameSize(constraints: constraints).size
     }
     
     override func draw(_ dirtyRect: NSRect) {
@@ -149,14 +111,10 @@ class KaraokeLabel: NSTextField {
                 return
         }
         var lineBounds = line.bounds()
-        var transform = CGAffineTransform.translate(x: origin.x, y: origin.y)
-        if isVertical {
-            transform.transform(by: .swap() * .translate(y: -lineBounds.width))
-            transform *= .flip(height: bounds.height)
-        }
+        let transform = CGAffineTransform.translate(x: origin.x, y: origin.y)
         lineBounds.apply(t: transform)
         
-        progressLayer.anchorPoint = isVertical ? CGPoint(x: 0.5, y: 0) : CGPoint(x: 0, y: 0.5)
+        progressLayer.anchorPoint = CGPoint(x: 0, y: 0.5)
         progressLayer.frame = lineBounds
         progressLayer.backgroundColor = color.cgColor
         let mask = CALayer()
@@ -182,7 +140,7 @@ class KaraokeLabel: NSTextField {
         let animation = CAKeyframeAnimation()
         animation.keyTimes = map.map { ($0.0 / duration) as NSNumber }
         animation.values = map.map { $0.1 }
-        animation.keyPath = isVertical ? "bounds.size.height" : "bounds.size.width"
+        animation.keyPath = "bounds.size.width"
         animation.duration = duration
         progressLayer.add(animation, forKey: "inlineProgress")
     }

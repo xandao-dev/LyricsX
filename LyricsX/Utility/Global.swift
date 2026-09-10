@@ -78,7 +78,6 @@ extension UserDefaults.DefaultsKeys {
     
     static let strictSearchEnabled = Key<Bool>("StrictSearchEnabled")
     static let preferBilingualLyrics = Key<Bool>("PreferBilingualLyrics")
-    static let chineseConversionIndex = Key<Int>("ChineseConversionIndex")
     
     static let combinedMenubarLyrics = Key<Bool>("CombinedMenubarLyrics")
     
@@ -88,13 +87,10 @@ extension UserDefaults.DefaultsKeys {
     
     // Display
     static let desktopLyricsOneLineMode = Key<Bool>("DesktopLyricsOneLineMode")
-    static let desktopLyricsVerticalMode = Key<Bool>("DesktopLyricsVerticalMode")
     static let desktopLyricsDraggable = Key<Bool>("DesktopLyricsDraggable")
     
     static let desktopLyricsXPositionFactor = Key<CGFloat>("DesktopLyricsXPositionFactor")
     static let desktopLyricsYPositionFactor = Key<CGFloat>("DesktopLyricsYPositionFactor")
-    
-    static let desktopLyricsEnableFurigana = Key<Bool>("DesktopLyricsEnableFurigana")
     
     static let desktopLyricsFontName = Key<String>("DesktopLyricsFontName")
     static let desktopLyricsFontSize = Key<Int>("DesktopLyricsFontSize")

@@ -10,7 +10,6 @@
 import Cocoa
 import LyricsCore
 import TouchBarHelper
-import OpenCC
 
 @available(OSX 10.12.2, *)
 class TouchBarLyricsController: TouchBarSystemModalController {

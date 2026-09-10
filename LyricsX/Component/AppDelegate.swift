@@ -208,10 +208,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
     }
     
     func registerUserDefaults() {
-        let currentLang = NSLocale.preferredLanguages.first!
-        let isZh = currentLang.hasPrefix("zh") || currentLang.hasPrefix("yue")
-        let isHant = isZh && (currentLang.contains("-Hant") || currentLang.contains("-HK"))
-        
         let defaultsUrl = Bundle.main.url(forResource: "UserDefaults", withExtension: "plist")!
         if let dict = NSDictionary(contentsOf: defaultsUrl) as? [String: Any] {
             defaults.register(defaults: dict)
@@ -223,8 +219,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
             .desktopLyricsBackgroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.6041579279),
             .lyricsWindowTextColor: #colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 1),
             .lyricsWindowHighlightColor: #colorLiteral(red: 0.8866666667, green: 1, blue: 0.8, alpha: 1),
-            .preferBilingualLyrics: isZh,
-            .chineseConversionIndex: isHant ? 2 : 0,
             .desktopLyricsXPositionFactor: 0.5,
             .desktopLyricsYPositionFactor: 0.9,
         ])

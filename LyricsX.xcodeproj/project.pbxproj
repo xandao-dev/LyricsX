@@ -21,7 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		BB03C8891FDF6FC000FBE0DA /* ChineseConverter+Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03C8881FDF6FC000FBE0DA /* ChineseConverter+Singleton.swift */; };
 		BB063B2E1E8A93C900A25C3E /* KaraokeLyricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB063B2D1E8A93C900A25C3E /* KaraokeLyricsView.swift */; };
 		BB0B296A1E7FBA2D00B1D6C9 /* PreferenceFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B29691E7FBA2D00B1D6C9 /* PreferenceFilterViewController.swift */; };
 		BB1B2FFD20E8780A002F1AF8 /* CFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1B2FFC20E8780A002F1AF8 /* CFExtension.swift */; };
@@ -62,7 +61,6 @@
 		BB9C3D8323435A5700860698 /* MusicPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = BB9C3D8223435A5700860698 /* MusicPlayer */; };
 		BBA82F0A256AB8620076831F /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = BBA82F09256AB8620076831F /* Sparkle */; };
 		BBB03F2D232FB3AF00A3879E /* GenericID in Frameworks */ = {isa = PBXBuildFile; productRef = BBB03F2C232FB3AF00A3879E /* GenericID */; };
-		BBB03F3A2331D8A800A3879E /* OpenCC in Frameworks */ = {isa = PBXBuildFile; productRef = BBB03F392331D8A800A3879E /* OpenCC */; };
 		BBB03F3D2331DACD00A3879E /* LyricsKit in Frameworks */ = {isa = PBXBuildFile; productRef = BBB03F3C2331DACD00A3879E /* LyricsKit */; };
 		BBB9AAE31E57EE880078F91A /* SearchLyricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB9AAE21E57EE880078F91A /* SearchLyricsViewController.swift */; };
 		BBC1D35B1E485BA7002538A2 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC1D35A1E485BA7002538A2 /* AppController.swift */; };
@@ -105,7 +103,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		BB03C8881FDF6FC000FBE0DA /* ChineseConverter+Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChineseConverter+Singleton.swift"; sourceTree = "<group>"; };
 		BB063B2D1E8A93C900A25C3E /* KaraokeLyricsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KaraokeLyricsView.swift; sourceTree = "<group>"; };
 		BB0B29691E7FBA2D00B1D6C9 /* PreferenceFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceFilterViewController.swift; sourceTree = "<group>"; };
 		BB1B2FFC20E8780A002F1AF8 /* CFExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFExtension.swift; sourceTree = "<group>"; };
@@ -166,7 +163,6 @@
 				BBA82F0A256AB8620076831F /* Sparkle in Frameworks */,
 				BB9C3D8323435A5700860698 /* MusicPlayer in Frameworks */,
 				BB4141C81E46CDD700A51775 /* SnapKit.framework in Frameworks */,
-				BBB03F3A2331D8A800A3879E /* OpenCC in Frameworks */,
 				BB34F4A91EFFBCBC008B9E4B /* MASShortcut.framework in Frameworks */,
 				BB22681C234C9085008FAFED /* SwiftCF in Frameworks */,
 				BB6C75E8248B908500804AEB /* TouchBarHelper in Frameworks */,
@@ -320,7 +316,6 @@
 				BB4141AD1E458BA800A51775 /* AppDelegate.swift */,
 				BBC1D35A1E485BA7002538A2 /* AppController.swift */,
 				BB947DFA23B4C60000C43BF2 /* SelectedPlayer.swift */,
-				BB03C8881FDF6FC000FBE0DA /* ChineseConverter+Singleton.swift */,
 				BB458C62201C5F4500740C3B /* LyricsMetadata+Extension.swift */,
 				BB89089D21ED69410078F522 /* Lyrics+Language.swift */,
 				BB5863F221EFFD9F0084D2C0 /* TouchBarLyricsItem.swift */,
@@ -352,7 +347,6 @@
 			name = LyricsX;
 			packageProductDependencies = (
 				BBB03F2C232FB3AF00A3879E /* GenericID */,
-				BBB03F392331D8A800A3879E /* OpenCC */,
 				BBB03F3C2331DACD00A3879E /* LyricsKit */,
 				BB9C3D8223435A5700860698 /* MusicPlayer */,
 				BB22681B234C9085008FAFED /* SwiftCF */,
@@ -440,7 +434,6 @@
 			mainGroup = BB4141A11E458BA800A51775;
 			packageReferences = (
 				BBB03F2B232FB3AF00A3879E /* XCRemoteSwiftPackageReference "GenericID" */,
-				BBB03F382331D8A800A3879E /* XCRemoteSwiftPackageReference "SwiftyOpenCC" */,
 				BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "Packages/LyricsKit" */,
 				BB9C3D8123435A5700860698 /* XCLocalSwiftPackageReference "Packages/MusicPlayer" */,
 				BB22681A234C9085008FAFED /* XCRemoteSwiftPackageReference "SwiftCF" */,
@@ -562,7 +555,6 @@
 				E91F76EB21211B8D00755698 /* PreferenceViewController.swift in Sources */,
 				BB063B2E1E8A93C900A25C3E /* KaraokeLyricsView.swift in Sources */,
 				BBC1D5801E4AE3B9008869EC /* MenuBarLyricsController.swift in Sources */,
-				BB03C8891FDF6FC000FBE0DA /* ChineseConverter+Singleton.swift in Sources */,
 				BB58D8BF248636900047E3C6 /* DonateViewController.swift in Sources */,
 				BB5D4B2D2094A1D700844D9F /* FontSelectTextField.swift in Sources */,
 				BB9BCEBA1E843157001BC54B /* Extension.swift in Sources */,
@@ -911,14 +903,6 @@
 				minimumVersion = 0.7.0;
 			};
 		};
-		BBB03F382331D8A800A3879E /* XCRemoteSwiftPackageReference "SwiftyOpenCC" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ddddxxx/SwiftyOpenCC";
-			requirement = {
-				branch = "v2.0.0-beta";
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -946,11 +930,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BBB03F2B232FB3AF00A3879E /* XCRemoteSwiftPackageReference "GenericID" */;
 			productName = GenericID;
-		};
-		BBB03F392331D8A800A3879E /* OpenCC */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BBB03F382331D8A800A3879E /* XCRemoteSwiftPackageReference "SwiftyOpenCC" */;
-			productName = OpenCC;
 		};
 		BBB03F3C2331DACD00A3879E /* LyricsKit */ = {
 			isa = XCSwiftPackageProductDependency;

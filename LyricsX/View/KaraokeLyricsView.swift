@@ -15,16 +15,6 @@ class KaraokeLyricsView: NSView {
     private let backgroundView: NSView
     private let stackView: NSStackView
     
-    @objc dynamic var isVertical = false {
-        didSet {
-            stackView.orientation = isVertical ? .horizontal : .vertical
-            (isVertical ? displayLine2 : displayLine1).map { stackView.insertArrangedSubview($0, at: 0) }
-            updateFontSize()
-        }
-    }
-    
-    @objc dynamic var drawFurigana = false
-    
     @objc dynamic var font = NSFont.labelFont(ofSize: 24) { didSet { updateFontSize() } }
     @objc dynamic var textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     @objc dynamic var shadowColor = #colorLiteral(red: 0, green: 1, blue: 0.8333333333, alpha: 1)
@@ -65,11 +55,8 @@ class KaraokeLyricsView: NSView {
     }
     
     private func updateFontSize() {
-        var insetX = font.pointSize
-        var insetY = insetX / 3
-        if isVertical {
-            (insetX, insetY) = (insetY, insetX)
-        }
+        let insetX = font.pointSize
+        let insetY = insetX / 3
         stackView.snp.remakeConstraints {
             $0.edges.equalToSuperview().inset(NSEdgeInsets(top: insetY, left: insetX, bottom: insetY, right: insetX))
         }
@@ -91,8 +78,6 @@ class KaraokeLyricsView: NSView {
             $0.bind(\.textColor, to: self, withKeyPath: \.textColor)
             $0.bind(\.progressColor, to: self, withKeyPath: \.progressColor)
             $0.bind(\._shadowColor, to: self, withKeyPath: \.shadowColor)
-            $0.bind(\.isVertical, to: self, withKeyPath: \.isVertical)
-            $0.bind(\.drawFurigana, to: self, withKeyPath: \.drawFurigana)
             $0.alphaValue = 0
         }
     }
@@ -102,13 +87,12 @@ class KaraokeLyricsView: NSView {
         var toBeShow: [NSTextField] = []
         var shouldHideAll = false
         
-        let index = isVertical ? 0 : 1
         if firstLine.trimmingCharacters(in: .whitespaces).isEmpty {
             displayLine1 = nil
             shouldHideAll = true
-        } else if toBeHide.count == 2, toBeHide[index].stringValue == firstLine {
-            displayLine1 = toBeHide[index]
-            toBeHide.remove(at: index)
+        } else if toBeHide.count == 2, toBeHide[1].stringValue == firstLine {
+            displayLine1 = toBeHide[1]
+            toBeHide.remove(at: 1)
         } else {
             let label = lyricsLabel(firstLine)
             displayLine1 = label
@@ -134,11 +118,7 @@ class KaraokeLyricsView: NSView {
                 $0.removeProgressAnimation()
             }
             toBeShow.forEach {
-                if isVertical {
-                    stackView.insertArrangedSubview($0, at: 0)
-                } else {
-                    stackView.addArrangedSubview($0)
-                }
+                stackView.addArrangedSubview($0)
                 $0.isHidden = false
                 $0.alphaValue = 1
             }

@@ -10,7 +10,6 @@
 import AppKit
 import Combine
 import LyricsCore
-import OpenCC
 
 @available(OSX 10.12.2, *)
 class TouchBarLyricsItem: NSCustomTouchBarItem {
@@ -51,11 +50,7 @@ class TouchBarLyricsItem: NSCustomTouchBarItem {
                 return
         }
         let line = lyrics.lines[index]
-        var lyricsContent = line.content
-        if let converter = ChineseConverter.shared,
-            lyrics.metadata.language?.hasPrefix("zh") == true {
-            lyricsContent = converter.convert(lyricsContent)
-        }
+        let lyricsContent = line.content
         DispatchQueue.main.async {
             self.lyricsTextField.stringValue = lyricsContent
             if let timetag = line.attachments.timetag {

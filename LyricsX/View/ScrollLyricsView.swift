@@ -9,7 +9,6 @@
 
 import Cocoa
 import LyricsCore
-import OpenCC
 
 protocol ScrollLyricsViewDelegate: AnyObject {
     func doubleClickLyricsLine(at position: TimeInterval)
@@ -71,17 +70,9 @@ class ScrollLyricsView: NSScrollView {
         var lrcContent = ""
         var newRanges: [(TimeInterval, NSRange)] = []
         let enabledLrc = lyrics.lines.filter({ $0.enabled && !$0.content.isEmpty })
-        let languageCode = lyrics.metadata.translationLanguages.first
         
         for line in enabledLrc {
-            var lineStr = line.content
-            if var trans = line.attachments[.translation(languageCode: languageCode)], defaults[.preferBilingualLyrics],
-                languageCode?.hasPrefix("zh") == true {
-                if let converter = ChineseConverter.shared {
-                    trans = converter.convert(trans)
-                }
-                lineStr += "\n" + trans
-            }
+            let lineStr = line.content
             let range = NSRange(location: lrcContent.utf16.count, length: lineStr.utf16.count)
             newRanges.append((line.position, range))
             lrcContent += lineStr

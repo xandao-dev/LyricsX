@@ -12,7 +12,6 @@ import Combine
 import GenericID
 import LyricsCore
 import MusicPlayer
-import OpenCC
 import SnapKit
 import SwiftCF
 import CoreGraphicsExt
@@ -57,7 +56,7 @@ class KaraokeLyricsWindowController: NSWindowController {
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in self?.handleLyricsDisplay() }
                 .store(in: &self.cancelBag)
-            defaults.publisher(for: [.preferBilingualLyrics, .desktopLyricsOneLineMode])
+            defaults.publisher(for: [.desktopLyricsOneLineMode])
                 .prepend()
                 .sink { [weak self] in self?.handleLyricsDisplay() }
                 .store(in: &self.cancelBag)
@@ -73,8 +72,6 @@ class KaraokeLyricsWindowController: NSWindowController {
         lyricsView.bind(\.progressColor, withDefaultName: .desktopLyricsProgressColor)
         lyricsView.bind(\.shadowColor, withDefaultName: .desktopLyricsShadowColor)
         lyricsView.bind(\.backgroundColor, withDefaultName: .desktopLyricsBackgroundColor)
-        lyricsView.bind(\.isVertical, withDefaultName: .desktopLyricsVerticalMode, options: [.nullPlaceholder: false])
-        lyricsView.bind(\.drawFurigana, withDefaultName: .desktopLyricsEnableFurigana)
         
         let negateOption = [NSBindingOption.valueTransformerName: NSValueTransformerName.negateBooleanTransformerName]
         window?.contentView?.bind(.hidden, withDefaultName: .desktopLyricsEnabled, options: negateOption)
@@ -124,31 +121,12 @@ class KaraokeLyricsWindowController: NSWindowController {
         let lrc = lyrics.lines[index]
         let next = lyrics.lines[(index + 1)...].first { $0.enabled }
         
-        let languageCode = lyrics.metadata.translationLanguages.first
-        
-        var firstLine = lrc.content
-        var secondLine: String
-        var secondLineIsTranslation = false
+        let firstLine = lrc.content
+        let secondLine: String
         if defaults[.desktopLyricsOneLineMode] {
             secondLine = ""
-        } else if defaults[.preferBilingualLyrics],
-            let translation = lrc.attachments[.translation(languageCode: languageCode)] {
-            secondLine = translation
-            secondLineIsTranslation = true
         } else {
             secondLine = next?.content ?? ""
-        }
-        
-        if let converter = ChineseConverter.shared {
-            if lyrics.metadata.language?.hasPrefix("zh") == true {
-                firstLine = converter.convert(firstLine)
-                if !secondLineIsTranslation {
-                    secondLine = converter.convert(secondLine)
-                }
-            }
-            if languageCode?.hasPrefix("zh") == true {
-                secondLine = converter.convert(secondLine)
-            }
         }
         
         lyricsView.displayLrc(firstLine, secondLine: secondLine)

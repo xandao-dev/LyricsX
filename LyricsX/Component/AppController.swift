@@ -11,7 +11,6 @@ import AppKit
 import Combine
 import LyricsService
 import MusicPlayer
-import OpenCC
 import Regex
 
 class AppController: NSObject {
@@ -100,16 +99,10 @@ class AppController: NSObject {
         }
         let content = currentLyrics.lines.map { line -> String in
             var content = line.content
-            if let converter = ChineseConverter.shared {
-                content = converter.convert(content)
-            }
             if defaults[.writeiTunesWithTranslation] {
                 // TODO: tagged translation
                 let code = currentLyrics.metadata.translationLanguages.first
-                if var translation = line.attachments[.translation(languageCode: code)] {
-                    if let converter = ChineseConverter.shared {
-                        translation = converter.convert(translation)
-                    }
+                if let translation = line.attachments[.translation(languageCode: code)] {
                     content += "\n" + translation
                 }
             }
