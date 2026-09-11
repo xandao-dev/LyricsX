@@ -34,6 +34,7 @@ class AppController: NSObject {
     
     var searchRequest: LyricsSearchRequest?
     var searchCanceller: Cancellable?
+    private var searchTrack: MusicTrack?
     
     private var cancelBag = Set<AnyCancellable>()
     
@@ -52,7 +53,7 @@ class AppController: NSObject {
         super.init()
         selectedPlayer.currentTrackWillChange
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in self?.currentTrackChanged() }
+            .sink { [weak self] track in self?.currentTrackChanged(to: track) }
             .store(in: &cancelBag)
         selectedPlayer.playbackStateWillChange
             .receive(on: DispatchQueue.main)
@@ -61,7 +62,11 @@ class AppController: NSObject {
         observeDefaults(keys: [.preferBilingualLyrics, .translationLanguage]) { [weak self] in
             self?.currentLyrics.map(LyricsTranslator.translateIfNeeded)
         }
-        currentTrackChanged()
+        // Retry after returning from System Settings (for newly downloaded
+        // language packs) and after transient Translation service failures.
+        observeNotification(name: NSApplication.didBecomeActiveNotification, queue: .main) { [weak self] in
+            self?.currentLyrics.map(LyricsTranslator.translateIfNeeded)
+        }
     }
     
     var currentLineCheckSchedule: Cancellable?
@@ -85,14 +90,16 @@ class AppController: NSObject {
         }
     }
     
-    func currentTrackChanged() {
+    func currentTrackChanged(to track: MusicTrack?) {
         if currentLyrics?.metadata.needsPersist == true {
             currentLyrics?.persist()
         }
         currentLyrics = nil
         currentLineIndex = nil
         searchCanceller?.cancel()
-        guard let track = selectedPlayer.currentTrack else {
+        searchRequest = nil
+        searchTrack = nil
+        guard let track else {
             return
         }
         // FIXME: deal with optional value
@@ -149,6 +156,7 @@ class AppController: NSObject {
         let duration = track.duration ?? 0
         let req = LyricsSearchRequest(searchTerm: .info(title: title, artist: artist), duration: duration, limit: 5)
         searchRequest = req
+        searchTrack = track
         searchCanceller = lyricsManager.lyricsPublisher(request: req)
             .timeout(.seconds(10), scheduler: DispatchQueue.main)
             .sink(receiveValue: { [unowned self] lyrics in
@@ -161,7 +169,8 @@ class AppController: NSObject {
     func lyricsReceived(lyrics: Lyrics) {
         guard let req = searchRequest,
             lyrics.metadata.request == req,
-            let track = selectedPlayer.currentTrack else {
+            let track = searchTrack,
+            selectedPlayer.currentTrack?.id == track.id else {
             return
         }
         if defaults[.strictSearchEnabled] && !lyrics.isMatched() {

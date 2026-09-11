@@ -27,6 +27,7 @@ class SearchLyricsViewController: NSViewController, NSTableViewDelegate, NSTable
     let lyricsManager = LyricsProviders.Group()
     var searchRequest: LyricsSearchRequest?
     var searchCanceller: Cancellable?
+    private var searchedTrackID: String?
     var searchResult: [Lyrics] = []
     var progressObservation: NSKeyValueObservation?
     
@@ -73,6 +74,7 @@ class SearchLyricsViewController: NSViewController, NSTableViewDelegate, NSTable
     @IBAction func searchAction(_ sender: Any?) {
         searchCanceller?.cancel()
         progressObservation?.invalidate()
+        searchedTrackID = selectedPlayer.currentTrack?.id
         searchResult = []
         artworkView.image = #imageLiteral(resourceName: "missing_artwork")
         lyricsPreviewTextView.string = " "
@@ -99,7 +101,9 @@ class SearchLyricsViewController: NSViewController, NSTableViewDelegate, NSTable
             return
         }
         
-        guard let track = selectedPlayer.currentTrack else {
+        guard let track = selectedPlayer.currentTrack,
+              track.id == searchedTrackID else {
+            reloadKeyword()
             return
         }
         if let index = defaults[.noSearchingTrackIds].firstIndex(of: track.id) {

@@ -447,40 +447,6 @@
             </objects>
             <point key="canvasLocation" x="668" y="197"/>
         </scene>
-        <!--Lyrics HUD Accessory-->
-        <scene sceneID="WWo-Fn-ADk">
-            <objects>
-                <viewController storyboardIdentifier="LyricsHUDAccessory" id="qIY-x4-82C" userLabel="Lyrics HUD Accessory" customClass="LyricsHUDAccessoryViewController" customModule="LyricsX" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="iU6-PW-pat">
-                        <rect key="frame" x="0.0" y="0.0" width="130" height="53"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <button toolTip="Always on top" translatesAutoresizingMaskIntoConstraints="NO" id="Gza-SX-MCH">
-                                <rect key="frame" x="115" y="21" width="11" height="11"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="11" id="cFK-hb-1mS"/>
-                                    <constraint firstAttribute="width" constant="11" id="qqU-Od-szk"/>
-                                </constraints>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="hud_button_lock_off" imagePosition="only" alignment="center" alternateImage="hud_button_lock_on" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="9FZ-sc-gCU">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="lockAction:" target="qIY-x4-82C" id="ets-PT-qqw"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Gza-SX-MCH" secondAttribute="trailing" constant="4" id="LdV-e1-NEG"/>
-                            <constraint firstItem="Gza-SX-MCH" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iU6-PW-pat" secondAttribute="leading" id="Mmu-Qn-jXx"/>
-                            <constraint firstItem="Gza-SX-MCH" firstAttribute="centerY" secondItem="iU6-PW-pat" secondAttribute="centerY" id="hu1-3a-FKw"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <customObject id="BzW-ne-X63" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="667" y="425"/>
-        </scene>
         <!--Lyrics HUD Window Controller-->
         <scene sceneID="Bwn-Z7-ydj">
             <objects>
@@ -938,8 +904,6 @@ IA
         </scene>
     </scenes>
     <resources>
-        <image name="hud_button_lock_off" width="11" height="11"/>
-        <image name="hud_button_lock_on" width="11" height="11"/>
         <image name="hud_button_sync_button" width="14" height="12"/>
         <image name="missing_artwork" width="400" height="400"/>
     </resources>

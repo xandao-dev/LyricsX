@@ -102,9 +102,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
     }
     
     @IBAction func aboutLyricsXAction(_ sender: Any) {
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-        let versionString = "GitHub Version \(version)"
-        NSApp.orderFrontStandardAboutPanel(options: [.applicationVersion: versionString])
+        NSApp.orderFrontStandardAboutPanel(sender)
         NSApp.activate(ignoringOtherApps: true)
     }
     

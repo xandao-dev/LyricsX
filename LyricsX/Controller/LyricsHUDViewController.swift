@@ -44,11 +44,9 @@ class LyricsHUDViewController: NSViewController, NSWindowDelegate, ScrollLyricsV
             $0.titleVisibility = .hidden
             $0.styleMask.insert(.borderless)
             $0.delegate = self
+            $0.level = .modalPanel
+            $0.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         }
-        // swiftlint:disable:next force_cast
-        let accessory = NSStoryboard.main!.instantiateController(withIdentifier: .lyricsHUDAccessory) as! NSTitlebarAccessoryViewController
-        accessory.layoutAttribute = .right
-        view.window?.addTitlebarAccessoryViewController(accessory)
         
         dragNDropView.dragDelegate = self
         lyricsScrollView.delegate = self
@@ -149,18 +147,6 @@ class LyricsHUDViewController: NSViewController, NSWindowDelegate, ScrollLyricsV
         } catch {
             let alert = NSAlert(error: error)
             alert.beginSheetModal(for: view.window!)
-        }
-    }
-    
-}
-
-class LyricsHUDAccessoryViewController: NSTitlebarAccessoryViewController {
-    
-    @IBAction func lockAction(_ sender: NSButton) {
-        if sender.state == .on {
-            view.window?.level = .modalPanel
-        } else {
-            view.window?.level = .normal
         }
     }
     
