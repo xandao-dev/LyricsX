@@ -68,68 +68,86 @@ enum LyricsTranslator {
         activeLyrics = lyrics
         activeTargetCode = targetCode
         translationTask = Task { @MainActor in
-            let source = Locale.Language(identifier: sourceCode)
-            let target = Locale.Language(identifier: targetCode)
-            let status = await LanguageAvailability().status(from: source, to: target)
-            guard status == .installed else {
-                log("Not translating \(sourceCode) to \(targetCode): \(status)")
-                finishTask(for: lyrics, targetCode: targetCode)
-                return
-            }
-            
-            var remaining = requests
-            let tag = LyricsLine.Attachments.Tag.translation(languageCode: targetCode)
-            
-            // Always use progressive batches. The first small batch makes the
-            // current overlay update quickly; later batches favor throughput.
-            for attempt in 0..<3 where !remaining.isEmpty {
-                var failed: [(index: Int, text: String)] = []
-                var start = 0
-                var isFirstBatch = attempt == 0
-                while start < remaining.count {
-                    guard !Task.isCancelled,
-                          defaults[.preferBilingualLyrics],
-                          defaults[.translationLanguage] == targetCode,
-                          AppController.shared.currentLyrics === lyrics else {
-                        finishTask(for: lyrics, targetCode: targetCode)
-                        return
-                    }
-                    
-                    let batchSize = isFirstBatch ? 8 : 24
-                    let end = min(start + batchSize, remaining.count)
-                    let batch = Array(remaining[start..<end])
-                    let results = await translations(of: batch, from: source, to: target)
-                    let translatedIndices = Set(results.map(\.index))
-                    failed += batch.filter { !translatedIndices.contains($0.index) }
-                    
-                    for result in results {
-                        for index in duplicateIndices[result.index] ?? [result.index]
-                            where lyrics.lines.indices.contains(index) {
-                            lyrics.lines[index].attachments[tag] = result.text
-                        }
-                    }
-                    
-                    if !results.isEmpty {
-                        lyrics.metadata.attachmentTags.insert(tag)
-                        lyrics.metadata.needsPersist = true
-                        AppController.shared.currentLyrics = lyrics
-                        // A crash or track change cannot discard completed work.
-                        lyrics.persist()
-                    }
-                    
-                    start = end
-                    isFirstBatch = false
-                }
-                remaining = failed
-                if !remaining.isEmpty, attempt < 2 {
-                    try? await Task.sleep(for: .milliseconds(250 * (attempt + 1)))
-                }
-            }
-            
-            if !remaining.isEmpty {
-                log("Translation incomplete: \(remaining.count) line(s) still missing")
-            }
+            await translate(lyrics, requests: requests, duplicateIndices: duplicateIndices, from: sourceCode, to: targetCode)
+        }
+    }
+    
+    private static func translate(
+        _ lyrics: Lyrics,
+        requests: [(index: Int, text: String)],
+        duplicateIndices: [Int: [Int]],
+        from sourceCode: String,
+        to targetCode: String
+    ) async {
+        let source = Locale.Language(identifier: sourceCode)
+        let target = Locale.Language(identifier: targetCode)
+        let status = await LanguageAvailability().status(from: source, to: target)
+        guard status == .installed else {
+            log("Not translating \(sourceCode) to \(targetCode): \(status)")
             finishTask(for: lyrics, targetCode: targetCode)
+            return
+        }
+        
+        var remaining = requests
+        let tag = LyricsLine.Attachments.Tag.translation(languageCode: targetCode)
+        
+        // Always use progressive batches. The first small batch makes the
+        // current overlay update quickly; later batches favor throughput.
+        for attempt in 0..<3 where !remaining.isEmpty {
+            var failed: [(index: Int, text: String)] = []
+            var start = 0
+            var isFirstBatch = attempt == 0
+            while start < remaining.count {
+                guard !Task.isCancelled,
+                      defaults[.preferBilingualLyrics],
+                      defaults[.translationLanguage] == targetCode,
+                      AppController.shared.currentLyrics === lyrics else {
+                    finishTask(for: lyrics, targetCode: targetCode)
+                    return
+                }
+                
+                let batchSize = isFirstBatch ? 8 : 24
+                let end = min(start + batchSize, remaining.count)
+                let batch = Array(remaining[start..<end])
+                let results = await translations(of: batch, from: source, to: target)
+                let translatedIndices = Set(results.map(\.index))
+                failed += batch.filter { !translatedIndices.contains($0.index) }
+                apply(results, to: lyrics, tag: tag, duplicateIndices: duplicateIndices)
+                
+                start = end
+                isFirstBatch = false
+            }
+            remaining = failed
+            if !remaining.isEmpty, attempt < 2 {
+                try? await Task.sleep(for: .milliseconds(250 * (attempt + 1)))
+            }
+        }
+        
+        if !remaining.isEmpty {
+            log("Translation incomplete: \(remaining.count) line(s) still missing")
+        }
+        finishTask(for: lyrics, targetCode: targetCode)
+    }
+    
+    private static func apply(
+        _ results: [TranslatedLine],
+        to lyrics: Lyrics,
+        tag: LyricsLine.Attachments.Tag,
+        duplicateIndices: [Int: [Int]]
+    ) {
+        for result in results {
+            for index in duplicateIndices[result.index] ?? [result.index]
+                where lyrics.lines.indices.contains(index) {
+                lyrics.lines[index].attachments[tag] = result.text
+            }
+        }
+        
+        if !results.isEmpty {
+            lyrics.metadata.attachmentTags.insert(tag)
+            lyrics.metadata.needsPersist = true
+            AppController.shared.currentLyrics = lyrics
+            // A crash or track change cannot discard completed work.
+            lyrics.persist()
         }
     }
     

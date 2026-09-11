@@ -1,7 +1,7 @@
 import Cocoa
-import SwiftCF
 import CoreGraphicsExt
 import CoreTextExt
+import SwiftCF
 
 class KaraokeLabel: NSTextField {
     
@@ -78,7 +78,7 @@ class KaraokeLabel: NSTextField {
     
     // MARK: - Progress
     
-    // TODO: multi-line
+    // Covers the first line only, so a wrapped line's progress stops at its end.
     private lazy var progressLayer: CALayer = {
         let pLayer = CALayer()
         wantsLayer = true

@@ -47,9 +47,7 @@ class KaraokeLyricsView: NSView {
         stackView = NSStackView(frame: frameRect)
         stackView.orientation = .vertical
         stackView.autoresizingMask = [.width, .height]
-        backgroundView = NSView() //NSVisualEffectView(frame: frameRect)
-//        backgroundView.material = .dark
-//        backgroundView.state = .active
+        backgroundView = NSView()
         backgroundView.autoresizingMask = [.width, .height]
         backgroundView.wantsLayer = true
         super.init(frame: frameRect)

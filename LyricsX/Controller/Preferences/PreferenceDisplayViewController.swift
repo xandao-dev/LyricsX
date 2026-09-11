@@ -99,7 +99,8 @@ class PreferenceDisplayViewController: NSViewController, FontSelectTextFieldDele
         popup.bind(.enabled, withDefaultName: .preferBilingualLyrics)
         
         let tip = NSTextField(
-            wrappingLabelWithString: "Download both languages in System Settings\u{00A0}> General\u{00A0}> Language & Region\u{00A0}> Translation Languages."
+            wrappingLabelWithString: "Download both languages in System Settings\u{00A0}> General\u{00A0}> "
+                + "Language & Region\u{00A0}> Translation Languages."
         )
         let hint = NSTextField(wrappingLabelWithString: "")
         for label in [tip, hint] {

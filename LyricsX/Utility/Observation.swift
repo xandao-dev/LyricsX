@@ -7,11 +7,11 @@ private extension NSValueTransformerName {
 
 nonisolated private final class ColorArchiveValueTransformer: ValueTransformer {
     
-    override class func transformedValueClass() -> AnyClass {
+    override static func transformedValueClass() -> AnyClass {
         NSColor.self
     }
     
-    override class func allowsReverseTransformation() -> Bool {
+    override static func allowsReverseTransformation() -> Bool {
         true
     }
     
@@ -100,10 +100,12 @@ extension NSObject {
         autoDestruction.add(token)
     }
     
-    func observeDefaults<T: DefaultConstructible>(_ defaults: UserDefaults = .standard,
-                                                  key: UserDefaults.DefaultsKeys.Key<T>,
-                                                  options: NSKeyValueObservingOptions = [],
-                                                  changeHandler: @escaping (UserDefaults, UserDefaults.ConstructedDefaultsObservedChange<T>) -> Void) {
+    func observeDefaults<T: DefaultConstructible>(
+        _ defaults: UserDefaults = .standard,
+        key: UserDefaults.DefaultsKeys.Key<T>,
+        options: NSKeyValueObservingOptions = [],
+        changeHandler: @escaping (UserDefaults, UserDefaults.ConstructedDefaultsObservedChange<T>) -> Void
+    ) {
         let token = defaults.observe(key, options: options, changeHandler: changeHandler)
         autoDestruction.add(token)
     }
@@ -117,7 +119,7 @@ extension NSObject {
     }
 }
 
-/// MARK: Binding
+// MARK: Binding
 
 protocol KeyPathBinding {}
 

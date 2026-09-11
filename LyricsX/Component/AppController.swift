@@ -73,10 +73,10 @@ class AppController: NSObject {
             currentLineIndex = index
         }
         if let next = next, playbackState.isPlaying {
-            let dt = lyrics.lines[next].position - playbackTime - lyrics.adjustedTimeDelay
+            let delay = lyrics.lines[next].position - playbackTime - lyrics.adjustedTimeDelay
             let queue = DispatchQueue.main
             currentLineCheckSchedule = queue.schedule(
-                after: queue.now.advanced(by: .seconds(dt)),
+                after: queue.now.advanced(by: .seconds(delay)),
                 interval: .seconds(42),
                 tolerance: .milliseconds(20)
             ) { [unowned self] in
@@ -94,29 +94,46 @@ class AppController: NSObject {
         searchCanceller?.cancel()
         searchRequest = nil
         searchTrack = nil
-        guard let track else {
+        // A search needs a title. The artist is optional.
+        guard let track, let title = track.title else {
             return
         }
-        // FIXME: deal with optional value
-        let title = track.title ?? ""
         let artist = track.artist ?? ""
         
         guard !defaults[.noSearchingTrackIds].contains(track.id) else {
             return
         }
         
-        var candidateLyricsURL: [(URL, Bool, Bool)] = []  // (fileURL, isSecurityScoped, needsSearching)
+        if let lyrics = savedLyrics(title: title, artist: artist) {
+            currentLyrics = lyrics
+            // An .lrcx is final. A plain .lrc stays up while a search looks for better lyrics.
+            if lyrics.metadata.localURL?.pathExtension == "lrcx" {
+                return
+            }
+        }
         
+        if let album = track.album, defaults[.noSearchingAlbumNames].contains(album) {
+            return
+        }
+        
+        let duration = track.duration ?? 0
+        let req = LyricsSearchRequest(searchTerm: .info(title: title, artist: artist), duration: duration, limit: 5)
+        searchRequest = req
+        searchTrack = track
+        searchCanceller = lyricsManager.lyricsPublisher(request: req)
+            .timeout(.seconds(10), scheduler: DispatchQueue.main)
+            .sink(receiveValue: { [unowned self] lyrics in
+                self.lyricsReceived(lyrics: lyrics)
+            })
+    }
+    
+    private func savedLyrics(title: String, artist: String) -> Lyrics? {
         let (url, security) = defaults.lyricsSavingPath()
         let titleForReading = title.replacingOccurrences(of: "/", with: ":")
         let artistForReading = artist.replacingOccurrences(of: "/", with: ":")
         let fileName = url.appendingPathComponent("\(titleForReading) - \(artistForReading)")
-        candidateLyricsURL += [
-            (fileName.appendingPathExtension("lrcx"), security, false),
-            (fileName.appendingPathExtension("lrc"), security, true)
-        ]
         
-        for (url, security, needsSearching) in candidateLyricsURL {
+        for url in [fileName.appendingPathExtension("lrcx"), fileName.appendingPathExtension("lrc")] {
             if security {
                 guard url.startAccessingSecurityScopedResource() else {
                     continue
@@ -135,28 +152,10 @@ class AppController: NSObject {
                 lyrics.metadata.artist = artist
                 lyrics.filtrate()
                 lyrics.recognizeLanguage()
-                currentLyrics = lyrics
-                if needsSearching {
-                    break
-                } else {
-                    return
-                }
+                return lyrics
             }
         }
-        
-        if let album = track.album, defaults[.noSearchingAlbumNames].contains(album) {
-            return
-        }
-        
-        let duration = track.duration ?? 0
-        let req = LyricsSearchRequest(searchTerm: .info(title: title, artist: artist), duration: duration, limit: 5)
-        searchRequest = req
-        searchTrack = track
-        searchCanceller = lyricsManager.lyricsPublisher(request: req)
-            .timeout(.seconds(10), scheduler: DispatchQueue.main)
-            .sink(receiveValue: { [unowned self] lyrics in
-                self.lyricsReceived(lyrics: lyrics)
-            })
+        return nil
     }
     
     // MARK: LyricsSourceDelegate

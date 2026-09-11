@@ -1,10 +1,10 @@
 import Cocoa
 import Combine
+import CoreGraphicsExt
 import GenericID
 import LyricsCore
 import MusicPlayer
 import SwiftCF
-import CoreGraphicsExt
 
 class KaraokeLyricsWindowController: NSWindowController {
     
@@ -162,7 +162,15 @@ class KaraokeLyricsWindowController: NSWindowController {
     /// (or top...bottom). A zero multiplier is illegal, so 0 becomes the smallest one.
     private func centerConstraint(_ attribute: NSLayoutConstraint.Attribute, factor: CGFloat) -> NSLayoutConstraint {
         let multiplier = factor.isZero ? .leastNonzeroMagnitude : factor * 2
-        let constraint = NSLayoutConstraint(item: lyricsView, attribute: attribute, relatedBy: .equal, toItem: lyricsView.superview, attribute: attribute, multiplier: multiplier, constant: 0)
+        let constraint = NSLayoutConstraint(
+            item: lyricsView,
+            attribute: attribute,
+            relatedBy: .equal,
+            toItem: lyricsView.superview,
+            attribute: attribute,
+            multiplier: multiplier,
+            constant: 0
+        )
         constraint.priority = .defaultLow
         return constraint
     }
