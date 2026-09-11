@@ -65,6 +65,9 @@ class LyricsHUDViewController: NSViewController, NSWindowDelegate, ScrollLyricsV
             self.lyricsScrollViewLeftMargin.constant = fontSize
             self.displayLyrics(animation: false)
         }
+        observeDefaults(keys: [.preferBilingualLyrics, .translationLanguage]) { [unowned self] in
+            self.lyricsChanged()
+        }
         
         AppController.shared.$currentLyrics
             .receive(on: DispatchQueue.main)

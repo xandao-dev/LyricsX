@@ -29,9 +29,11 @@ extension Lyrics {
     func recognizeLanguage() {
         var lyricsContent = ""
         var translationContent = ""
+        // Only an untagged "tr" translation needs its language guessed. translation()
+        // would also return tr:pt-BR lines and copy them into a second tr:pt.
         for line in lines {
             lyricsContent += line.content
-            if let trans = line.attachments.translation() {
+            if let trans = line.attachments[.translation()] {
                 translationContent += trans
             }
         }
@@ -42,7 +44,7 @@ extension Lyrics {
                 return
             }
             for idx in lines.indices {
-                if let trans = lines[idx].attachments.translation() {
+                if let trans = lines[idx].attachments[.translation()] {
                     lines[idx].attachments[.translation()] = nil
                     lines[idx].attachments[.translation(languageCode: transLan)] = trans
                 }

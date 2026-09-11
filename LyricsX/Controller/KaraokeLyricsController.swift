@@ -57,7 +57,7 @@ class KaraokeLyricsWindowController: NSWindowController {
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in self?.handleLyricsDisplay() }
                 .store(in: &self.cancelBag)
-            defaults.publisher(for: [.desktopLyricsOneLineMode])
+            defaults.publisher(for: [.desktopLyricsOneLineMode, .preferBilingualLyrics, .translationLanguage])
                 .prepend()
                 .sink { [weak self] in self?.handleLyricsDisplay() }
                 .store(in: &self.cancelBag)
@@ -123,14 +123,13 @@ class KaraokeLyricsWindowController: NSWindowController {
         let next = lyrics.lines[(index + 1)...].first { $0.enabled }
         
         let firstLine = lrc.content
-        let secondLine: String
-        if defaults[.desktopLyricsOneLineMode] {
-            secondLine = ""
+        // The translation takes the second line, in one-line mode too.
+        if let translation = lyrics.translationToDisplay(on: lrc) {
+            lyricsView.displayLrc(firstLine, secondLine: translation, secondLineIsTranslation: true)
         } else {
-            secondLine = next?.content ?? ""
+            let secondLine = defaults[.desktopLyricsOneLineMode] ? "" : next?.content ?? ""
+            lyricsView.displayLrc(firstLine, secondLine: secondLine)
         }
-        
-        lyricsView.displayLrc(firstLine, secondLine: secondLine)
         if let upperTextField = lyricsView.displayLine1,
             let timetag = lrc.attachments.timetag {
             let position = selectedPlayer.playbackTime

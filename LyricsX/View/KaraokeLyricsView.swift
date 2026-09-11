@@ -16,8 +16,15 @@ class KaraokeLyricsView: NSView {
     /// Top, leading, bottom, trailing.
     private var stackInsets: [NSLayoutConstraint] = []
     
-    @objc dynamic var font = NSFont.labelFont(ofSize: 24) { didSet { updateFontSize() } }
-    @objc dynamic var textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    @objc dynamic var font = NSFont.labelFont(ofSize: 24) {
+        didSet {
+            updateFontSize()
+            styleLines()
+        }
+    }
+    @objc dynamic var textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) {
+        didSet { styleLines() }
+    }
     @objc dynamic var shadowColor = #colorLiteral(red: 0, green: 1, blue: 0.8333333333, alpha: 1)
     @objc dynamic var progressColor = #colorLiteral(red: 0, green: 1, blue: 0.8333333333, alpha: 1)
     @objc dynamic var backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.6018835616) {
@@ -34,6 +41,16 @@ class KaraokeLyricsView: NSView {
     
     var displayLine1: KaraokeLabel?
     var displayLine2: KaraokeLabel?
+    private var secondLineIsTranslation = false
+    
+    /// Keeps the font fallbacks, which live in the descriptor's cascade list.
+    private var translationFont: NSFont {
+        NSFont(descriptor: font.fontDescriptor, size: font.pointSize * 0.75) ?? font
+    }
+    
+    private var translationColor: NSColor {
+        textColor.withAlphaComponent(textColor.alphaComponent * 0.65)
+    }
     
     override init(frame frameRect: NSRect) {
         stackView = NSStackView(frame: frameRect)
@@ -83,15 +100,22 @@ class KaraokeLyricsView: NSView {
             return view
         }
         return KaraokeLabel(labelWithString: content).then {
-            $0.bind(\.font, to: self, withKeyPath: \.font)
-            $0.bind(\.textColor, to: self, withKeyPath: \.textColor)
             $0.bind(\.progressColor, to: self, withKeyPath: \.progressColor)
             $0.bind(\._shadowColor, to: self, withKeyPath: \.shadowColor)
             $0.alphaValue = 0
         }
     }
     
-    func displayLrc(_ firstLine: String, secondLine: String = "") {
+    /// Labels are recycled, and one that showed a translation can show a lyric next.
+    private func styleLines() {
+        displayLine1?.font = font
+        displayLine1?.textColor = textColor
+        displayLine2?.font = secondLineIsTranslation ? translationFont : font
+        displayLine2?.textColor = secondLineIsTranslation ? translationColor : textColor
+    }
+    
+    func displayLrc(_ firstLine: String, secondLine: String = "", secondLineIsTranslation: Bool = false) {
+        self.secondLineIsTranslation = secondLineIsTranslation
         var toBeHide = stackView.arrangedSubviews.compactMap { $0 as? KaraokeLabel }
         var toBeShow: [NSTextField] = []
         var shouldHideAll = false
@@ -115,6 +139,7 @@ class KaraokeLyricsView: NSView {
         } else {
             displayLine2 = nil
         }
+        styleLines()
         
         NSAnimationContext.runAnimationGroup({ context in
             context.duration = 0.25

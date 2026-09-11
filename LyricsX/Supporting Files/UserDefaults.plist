@@ -59,6 +59,10 @@
 		<string>SoundTrack</string>
 		<string>アニメ</string>
 	</array>
+	<key>PreferBilingualLyrics</key>
+	<true/>
+	<key>TranslationLanguage</key>
+	<string>pt-BR</string>
 	<key>GlobalLyricsOffset</key>
 	<integer>0</integer>
 	<key>NSApplicationCrashOnExceptions</key>

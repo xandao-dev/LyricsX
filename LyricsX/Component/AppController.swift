@@ -26,6 +26,7 @@ class AppController: NSObject {
         didSet {
             didChangeValue(forKey: "lyricsOffset")
             scheduleCurrentLineCheck()
+            currentLyrics.map(LyricsTranslator.translateIfNeeded)
         }
     }
     
@@ -57,6 +58,9 @@ class AppController: NSObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in self?.scheduleCurrentLineCheck() }
             .store(in: &cancelBag)
+        observeDefaults(keys: [.preferBilingualLyrics, .translationLanguage]) { [weak self] in
+            self?.currentLyrics.map(LyricsTranslator.translateIfNeeded)
+        }
         currentTrackChanged()
     }
     

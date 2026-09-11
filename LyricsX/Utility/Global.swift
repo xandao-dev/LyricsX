@@ -68,6 +68,7 @@ extension UserDefaults.DefaultsKeys {
     
     static let strictSearchEnabled = Key<Bool>("StrictSearchEnabled")
     static let preferBilingualLyrics = Key<Bool>("PreferBilingualLyrics")
+    static let translationLanguage = Key<String>("TranslationLanguage")
     
     static let combinedMenubarLyrics = Key<Bool>("CombinedMenubarLyrics")
     

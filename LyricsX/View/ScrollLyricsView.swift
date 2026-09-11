@@ -30,8 +30,7 @@ class ScrollLyricsView: NSScrollView {
     @objc dynamic var textColor = #colorLiteral(red: 0.7540688515, green: 0.7540867925, blue: 0.7540771365, alpha: 1) {
         didSet {
             DispatchQueue.main.async {
-                let range = self.textView.string.fullRange
-                self.textView.textStorage?.addAttribute(.foregroundColor, value: self.textColor, range: range)
+                self.paintNormal(self.textView.string.fullRange)
                 if let highlightedRange = self.highlightedRange {
                     self.textView.textStorage?.addAttribute(.foregroundColor, value: self.highlightColor, range: highlightedRange)
                 }
@@ -57,11 +56,21 @@ class ScrollLyricsView: NSScrollView {
     }
     
     private var ranges: [(TimeInterval, NSRange)] = []
+    private var translationRanges: [NSRange] = []
     private var highlightedRange: NSRange?
+    
+    private var translationFont: NSFont {
+        NSFont(name: fontName, size: fontSize * 0.75) ?? .systemFont(ofSize: fontSize * 0.75)
+    }
+    
+    private var translationColor: NSColor {
+        textColor.withAlphaComponent(textColor.alphaComponent * 0.65)
+    }
     
     func setupTextContents(lyrics: Lyrics?) {
         guard let lyrics = lyrics else {
             ranges = []
+            translationRanges = []
             textView.string = ""
             highlightedRange = nil
             return
@@ -69,10 +78,16 @@ class ScrollLyricsView: NSScrollView {
         
         var lrcContent = ""
         var newRanges: [(TimeInterval, NSRange)] = []
+        var newTranslationRanges: [NSRange] = []
         let enabledLrc = lyrics.lines.filter({ $0.enabled && !$0.content.isEmpty })
         
         for line in enabledLrc {
-            let lineStr = line.content
+            var lineStr = line.content
+            if let translation = lyrics.translationToDisplay(on: line) {
+                let transStart = lrcContent.utf16.count + line.content.utf16.count + 1
+                lineStr += "\n" + translation
+                newTranslationRanges.append(NSRange(location: transStart, length: translation.utf16.count))
+            }
             let range = NSRange(location: lrcContent.utf16.count, length: lineStr.utf16.count)
             newRanges.append((line.position, range))
             lrcContent += lineStr
@@ -81,6 +96,7 @@ class ScrollLyricsView: NSScrollView {
             }
         }
         ranges = newRanges
+        translationRanges = newTranslationRanges
         textView.string = lrcContent
         highlightedRange = nil
         let range = textView.string.fullRange
@@ -93,6 +109,9 @@ class ScrollLyricsView: NSScrollView {
             .paragraphStyle: style,
             .font: font
             ], range: range)
+        for translation in translationRanges {
+            textView.textStorage?.addAttributes([.font: translationFont, .foregroundColor: translationColor], range: translation)
+        }
         needsLayout = true
     }
     
@@ -181,7 +200,7 @@ class ScrollLyricsView: NSScrollView {
             return
         }
         
-        highlightedRange.map { textView.textStorage?.addAttribute(.foregroundColor, value: textColor, range: $0) }
+        highlightedRange.map(paintNormal)
         textView.textStorage?.addAttribute(.foregroundColor, value: highlightColor, range: range)
         
         highlightedRange = range
@@ -214,6 +233,17 @@ class ScrollLyricsView: NSScrollView {
         let range = textView.string.fullRange
         let font = NSFont(name: fontName, size: fontSize)!
         textView.textStorage?.addAttribute(.font, value: font, range: range)
+        for translation in translationRanges {
+            textView.textStorage?.addAttribute(.font, value: translationFont, range: translation)
+        }
+    }
+    
+    /// Colors a range the way an unhighlighted line looks: translations dimmer.
+    private func paintNormal(_ range: NSRange) {
+        textView.textStorage?.addAttribute(.foregroundColor, value: textColor, range: range)
+        for translation in translationRanges where NSIntersectionRange(translation, range).length > 0 {
+            textView.textStorage?.addAttribute(.foregroundColor, value: translationColor, range: translation)
+        }
     }
     
 }
