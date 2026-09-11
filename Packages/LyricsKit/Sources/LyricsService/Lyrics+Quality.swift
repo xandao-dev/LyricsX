@@ -91,7 +91,8 @@ extension Lyrics {
         guard dt < 10 else {
             return minimalDurationQuality
         }
-        return 1 - pow(1 - (dt / 10), 2) * (1 - minimalDurationQuality)
+        // 1 for an exact match, down to minimalDurationQuality at 10 s off.
+        return 1 - pow(dt / 10, 2) * (1 - minimalDurationQuality)
     }
 }
 
