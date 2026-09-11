@@ -22,7 +22,8 @@ opt_in_rules:
   - untyped_error_in_catch
   - yoda_condition
 excluded:
-  - Carthage
+  - .build
+  - Product
   - LyricsKit
   - MusicPlayer
 
