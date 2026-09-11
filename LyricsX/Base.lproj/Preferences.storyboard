@@ -36,7 +36,6 @@
                         <tabViewItem identifier="" image="NSFontPanel" id="8VI-6O-0Rn" userLabel="Display"/>
                         <tabViewItem image="toolbar_shortcut" id="bJe-2l-VWO" userLabel="Shortcut"/>
                         <tabViewItem image="toolbar_filter" id="xcA-tm-q8A" userLabel="Filter"/>
-                        <tabViewItem image="toolbar_lab" id="uj7-lo-QuS" userLabel="Lab"/>
                     </tabViewItems>
                     <viewControllerTransitionOptions key="transitionOptions"/>
                     <tabView key="tabView" type="noTabsNoBorder" id="ufX-Bl-B8D">
@@ -53,7 +52,6 @@
                         <segue destination="8JF-Og-z6E" kind="relationship" relationship="tabItems" id="ybT-iY-287"/>
                         <segue destination="ppx-ob-WJc" kind="relationship" relationship="tabItems" id="UNQ-1s-Cez"/>
                         <segue destination="lN1-gG-AVq" kind="relationship" relationship="tabItems" id="wPI-VX-th7"/>
-                        <segue destination="bFk-1g-XeL" kind="relationship" relationship="tabItems" id="OQC-tQ-r62"/>
                     </connections>
                 </tabViewController>
                 <customObject id="n2u-iM-pje" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -947,49 +945,6 @@
             </objects>
             <point key="canvasLocation" x="1969" y="540"/>
         </scene>
-        <!--Lab-->
-        <scene sceneID="SoK-6E-AMw">
-            <objects>
-                <viewController title="Lab" id="bFk-1g-XeL" userLabel="Lab" sceneMemberID="viewController">
-                    <view key="view" id="uY5-7S-zG1">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="116"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GqQ-7c-IhI">
-                                <rect key="frame" x="76" y="60" width="449" height="32"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Here are some experimental features that may not be stable enough, and may be removed in the future." id="g2u-8D-dln">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Dt8-Tg-5JV">
-                                <rect key="frame" x="234" y="23" width="288" height="18"/>
-                                <buttonCell key="cell" type="check" title="Combine menubar icon with menubar lyrics" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bbd-ra-rSF">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="MQW-nm-dXS" name="value" keyPath="values.CombinedMenubarLyrics" id="P5p-VX-SXH"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="GqQ-7c-IhI" firstAttribute="centerX" secondItem="uY5-7S-zG1" secondAttribute="centerX" id="B45-c6-kKm"/>
-                            <constraint firstItem="Dt8-Tg-5JV" firstAttribute="top" secondItem="GqQ-7c-IhI" secondAttribute="bottom" constant="20" id="c3L-tp-20a"/>
-                            <constraint firstItem="Dt8-Tg-5JV" firstAttribute="leading" secondItem="uY5-7S-zG1" secondAttribute="centerX" constant="-64" id="c3L-ld-64a"/>
-                            <constraint firstAttribute="bottom" secondItem="Dt8-Tg-5JV" secondAttribute="bottom" constant="24" id="FKR-Kz-0Dz"/>
-                            <constraint firstItem="GqQ-7c-IhI" firstAttribute="top" secondItem="uY5-7S-zG1" secondAttribute="top" constant="24" id="OTp-XT-yZH"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Dt8-Tg-5JV" secondAttribute="trailing" constant="20" id="QIl-HG-7l1"/>
-                            <constraint firstItem="GqQ-7c-IhI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uY5-7S-zG1" secondAttribute="leading" constant="75" id="tiw-jZ-dmo"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <customObject id="hIA-Hp-BDR" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <userDefaultsController id="MQW-nm-dXS"/>
-            </objects>
-            <point key="canvasLocation" x="1969" y="1390"/>
-        </scene>
     </scenes>
     <resources>
         <image name="NSAddTemplate" width="14" height="13"/>
@@ -999,7 +954,6 @@
         <image name="NSStopProgressFreestandingTemplate" width="15" height="15"/>
         <image name="folder" width="21" height="18"/>
         <image name="toolbar_filter" width="32" height="32"/>
-        <image name="toolbar_lab" width="32" height="32"/>
         <image name="toolbar_shortcut" width="32" height="32"/>
     </resources>
 </document>

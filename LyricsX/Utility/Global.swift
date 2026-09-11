@@ -69,8 +69,6 @@ extension UserDefaults.DefaultsKeys {
     static let preferBilingualLyrics = Key<Bool>("PreferBilingualLyrics")
     static let translationLanguage = Key<String>("TranslationLanguage")
     
-    static let combinedMenubarLyrics = Key<Bool>("CombinedMenubarLyrics")
-    
     static let hideLyricsWhenMousePassingBy = Key<Bool>("HideLyricsWhenMousePassingBy")
     static let disableLyricsWhenPaused = Key<Bool>("DisableLyricsWhenPaused")
     static let disableLyricsWhenSreenShot = Key<Bool>("DisableLyricsWhenSreenShot")
@@ -112,7 +110,7 @@ extension UserDefaults.DefaultsKeys {
     static let lyricsSmartFilterEnabled = Key<Bool>("LyricsSmartFilterEnabled")
     static let lyricsFilterKeys = Key<[String]>("LyricsFilterKeys")
     
-    // Lab
+    // Global timing
     static let globalLyricsOffset = Key<Int>("GlobalLyricsOffset")
 }
 

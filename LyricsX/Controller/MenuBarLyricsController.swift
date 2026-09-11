@@ -13,14 +13,12 @@ import GenericID
 import LyricsCore
 import MusicPlayer
 import SwiftCF
-import AccessibilityExt
 
 class MenuBarLyricsController {
     
     static let shared = MenuBarLyricsController()
     
     let statusItem: NSStatusItem
-    var lyricsItem: NSStatusItem?
     var buttonImage = #imageLiteral(resourceName: "status_bar_icon")
     var buttonlength: CGFloat = 30
     
@@ -45,9 +43,9 @@ class MenuBarLyricsController {
             .publisher(for: NSWorkspace.didActivateApplicationNotification)
             .sink { [weak self] _ in self?.updateStatusItem() }
             .store(in: &cancelBag)
-        defaults.publisher(for: [.menuBarLyricsEnabled, .combinedMenubarLyrics])
+        defaults.publisher(for: .menuBarLyricsEnabled)
             .prepend()
-            .sink { [weak self] in self?.updateStatusItem() }
+            .sink { [weak self] _ in self?.updateStatusItem() }
             .store(in: &cancelBag)
     }
     
@@ -68,90 +66,36 @@ class MenuBarLyricsController {
     @objc private func updateStatusItem() {
         guard defaults[.menuBarLyricsEnabled], !screenLyrics.isEmpty else {
             setImageStatusItem()
-            lyricsItem = nil
             return
         }
-        
-        if defaults[.combinedMenubarLyrics] {
-            updateCombinedStatusLyrics()
-        } else {
-            updateSeparateStatusLyrics()
-        }
-    }
-    
-    private func updateSeparateStatusLyrics() {
-        setImageStatusItem()
-        
-        if lyricsItem == nil {
-            lyricsItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-            (lyricsItem?.button?.cell as? NSButtonCell)?.highlightsBy = []
-        }
-        lyricsItem?.button?.title = screenLyrics
+        updateCombinedStatusLyrics()
     }
     
     private func updateCombinedStatusLyrics() {
-        lyricsItem = nil
-        
-        setTextStatusItem(string: screenLyrics)
-        if statusItem.isVisibe {
-            return
-        }
-        
-        // truncation
-        var components = screenLyrics.components(options: [.byWords])
-        while !components.isEmpty, !statusItem.isVisibe {
-            components.removeLast()
-            let proposed = components.joined() + "..."
-            setTextStatusItem(string: proposed)
-        }
-    }
-    
-    private func setTextStatusItem(string: String) {
-        statusItem.button?.title = string
-        statusItem.button?.image = nil
-        statusItem.length = NSStatusItem.variableLength
+        configureLyricsButton(statusItem.button, title: screenLyrics, showIcon: true)
+        statusItem.length = lyricsWidth(for: screenLyrics, showIcon: true)
     }
     
     private func setImageStatusItem() {
         statusItem.button?.title = ""
         statusItem.button?.image = buttonImage
+        statusItem.button?.imagePosition = .imageOnly
         statusItem.length = buttonlength
     }
-}
-
-// MARK: - Status Item Visibility
-
-private extension NSStatusItem {
     
-    var isVisibe: Bool {
-        guard let buttonFrame = button?.frame,
-            let frame = button?.window?.convertToScreen(buttonFrame) else {
-                return false
-        }
-        
-        let point = CGPoint(x: frame.midX, y: frame.midY)
-        guard let screen = NSScreen.screens.first(where: { $0.frame.contains(point) }) else {
-            return false
-        }
-        let carbonPoint = CGPoint(x: point.x, y: screen.frame.height - point.y - 1)
-        
-        guard let element = try? AXUIElement.systemWide().element(at: carbonPoint),
-            let pid = try? element.pid() else {
-            return false
-        }
-        
-        return getpid() == pid
+    private func configureLyricsButton(_ button: NSStatusBarButton?, title: String, showIcon: Bool) {
+        button?.title = title
+        button?.image = showIcon ? buttonImage : nil
+        button?.imagePosition = showIcon ? .imageLeading : .noImage
+        button?.cell?.lineBreakMode = .byTruncatingTail
     }
-}
-
-private extension String {
     
-    func components(options: String.EnumerationOptions) -> [String] {
-        var components: [String] = []
-        let range = Range(uncheckedBounds: (startIndex, endIndex))
-        enumerateSubstrings(in: range, options: options) { _, _, range, _ in
-            components.append(String(self[range]))
-        }
-        return components
+    private func lyricsWidth(for title: String, showIcon: Bool) -> CGFloat {
+        let font = statusItem.button?.font ?? .menuBarFont(ofSize: 0)
+        let textWidth = (title as NSString).size(withAttributes: [.font: font]).width
+        let iconWidth = showIcon ? buttonlength : 0
+        let availableWidth = NSScreen.main.map { $0.visibleFrame.width * 0.25 } ?? 280
+        let maximumWidth = min(320, max(180, availableWidth))
+        return min(maximumWidth, ceil(textWidth + iconWidth + 16))
     }
 }
