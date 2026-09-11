@@ -53,6 +53,26 @@ enum LyricsTranslator {
         if activeLyrics === lyrics, activeTargetCode == targetCode, translationTask != nil {
             return
         }
+        // Translate what the listener needs now first, then wrap around to the
+        // beginning. Repeated chorus lines share one request.
+        let currentIndex = AppController.shared.currentLineIndex ?? 0
+        let prioritizedLines = missingLines.filter { $0.index >= currentIndex }
+            + missingLines.filter { $0.index < currentIndex }
+        var representativeByText: [String: Int] = [:]
+        var duplicateIndices: [Int: [Int]] = [:]
+        var requests: [(index: Int, text: String)] = []
+        for line in prioritizedLines {
+            let key = line.text.trimmingCharacters(in: .whitespacesAndNewlines)
+                .folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
+            if let representative = representativeByText[key] {
+                duplicateIndices[representative, default: []].append(line.index)
+            } else {
+                representativeByText[key] = line.index
+                duplicateIndices[line.index] = [line.index]
+                requests.append(line)
+            }
+        }
+        
         translationTask?.cancel()
         activeLyrics = lyrics
         activeTargetCode = targetCode
@@ -66,43 +86,56 @@ enum LyricsTranslator {
                 return
             }
             
-            var remaining = missingLines
+            var remaining = requests
             let tag = LyricsLine.Attachments.Tag.translation(languageCode: targetCode)
             
-            // Retry transient failures. The helper first tries one fast batch,
-            // then falls back to small batches so one bad line cannot lose a song.
+            // Always use progressive batches. The first small batch makes the
+            // current overlay update quickly; later batches favor throughput.
             for attempt in 0..<3 where !remaining.isEmpty {
-                guard !Task.isCancelled,
-                      defaults[.preferBilingualLyrics],
-                      defaults[.translationLanguage] == targetCode,
-                      AppController.shared.currentLyrics === lyrics else {
-                    finishTask(for: lyrics, targetCode: targetCode)
-                    return
+                var failed: [(index: Int, text: String)] = []
+                var start = 0
+                var isFirstBatch = attempt == 0
+                while start < remaining.count {
+                    guard !Task.isCancelled,
+                          defaults[.preferBilingualLyrics],
+                          defaults[.translationLanguage] == targetCode,
+                          AppController.shared.currentLyrics === lyrics else {
+                        finishTask(for: lyrics, targetCode: targetCode)
+                        return
+                    }
+                    
+                    let batchSize = isFirstBatch ? 8 : 24
+                    let end = min(start + batchSize, remaining.count)
+                    let batch = Array(remaining[start..<end])
+                    let results = await translations(of: batch, from: source, to: target)
+                    let translatedIndices = Set(results.map(\.index))
+                    failed += batch.filter { !translatedIndices.contains($0.index) }
+                    
+                    for result in results {
+                        for index in duplicateIndices[result.index] ?? [result.index]
+                            where lyrics.lines.indices.contains(index) {
+                            lyrics.lines[index].attachments[tag] = result.text
+                        }
+                    }
+                    
+                    if !results.isEmpty {
+                        lyrics.metadata.attachmentTags.insert(tag)
+                        lyrics.metadata.needsPersist = true
+                        AppController.shared.currentLyrics = lyrics
+                        // A crash or track change cannot discard completed work.
+                        lyrics.persist()
+                    }
+                    
+                    start = end
+                    isFirstBatch = false
                 }
-                
-                let results = await translations(of: remaining, from: source, to: target)
-                let translatedIndices = Set(results.map(\.index))
-                for result in results where lyrics.lines.indices.contains(result.index) {
-                    lyrics.lines[result.index].attachments[tag] = result.text
-                }
-                remaining.removeAll { translatedIndices.contains($0.index) }
-                
-                if !results.isEmpty {
-                    lyrics.metadata.attachmentTags.insert(tag)
-                    lyrics.metadata.needsPersist = true
-                    AppController.shared.currentLyrics = lyrics
-                }
-                
+                remaining = failed
                 if !remaining.isEmpty, attempt < 2 {
-                    try? await Task.sleep(for: .seconds(attempt + 1))
+                    try? await Task.sleep(for: .milliseconds(250 * (attempt + 1)))
                 }
             }
             
-            // Save successful translations immediately. Track changes and app
-            // termination remain backup persistence paths.
-            if remaining.isEmpty, lyrics.metadata.needsPersist {
-                lyrics.persist()
-            } else if !remaining.isEmpty {
+            if !remaining.isEmpty {
                 log("Translation incomplete: \(remaining.count) line(s) still missing")
             }
             finishTask(for: lyrics, targetCode: targetCode)
@@ -124,8 +157,8 @@ enum LyricsTranslator {
         activeTargetCode = nil
     }
     
-    /// Try the whole song first for speed. If that fails, isolate failures in
-    /// smaller batches and retry each batch once.
+    /// Translate one bounded batch. The caller applies successful batches
+    /// immediately and retries only the lines that did not return.
     nonisolated private static func translations(
         of lines: [(index: Int, text: String)],
         from source: Locale.Language,
@@ -136,28 +169,7 @@ enum LyricsTranslator {
         } catch is CancellationError {
             return []
         } catch {
-            var translated: [TranslatedLine] = []
-            let batchSize = 24
-            for start in stride(from: 0, to: lines.count, by: batchSize) {
-                guard !Task.isCancelled else { return translated }
-                let batch = Array(lines[start..<min(start + batchSize, lines.count)])
-                for retry in 0..<2 {
-                    do {
-                        translated += try await translationBatch(batch, from: source, to: target)
-                        break
-                    } catch is CancellationError {
-                        return translated
-                    } catch {
-                        if retry == 0 {
-                            try? await Task.sleep(for: .milliseconds(250))
-                        } else {
-                            let message = "Translation batch failed: \(error)"
-                            await MainActor.run { log(message) }
-                        }
-                    }
-                }
-            }
-            return translated
+            return []
         }
     }
     
