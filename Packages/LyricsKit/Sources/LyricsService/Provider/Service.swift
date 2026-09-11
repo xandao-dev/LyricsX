@@ -15,6 +15,7 @@ extension LyricsProviders {
         case netease = "163"
         case qq = "QQMusic"
         case kugou = "Kugou"
+        case lrclib = "LRCLIB"
     }
 }
 
@@ -25,6 +26,7 @@ extension LyricsProviders.Service {
         case .netease:  return LyricsProviders.NetEase()
         case .qq:       return LyricsProviders.QQMusic()
         case .kugou:    return LyricsProviders.Kugou()
+        case .lrclib:   return LyricsProviders.LRCLIB()
         }
     }
 }
