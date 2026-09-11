@@ -34,6 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
     }()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        registerValueTransformers()
         registerUserDefaults()
         
         let controller = AppController.shared

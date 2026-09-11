@@ -84,9 +84,9 @@ class MenuBarLyricsController {
         
         if lyricsItem == nil {
             lyricsItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-            lyricsItem?.highlightMode = false
+            (lyricsItem?.button?.cell as? NSButtonCell)?.highlightsBy = []
         }
-        lyricsItem?.title = screenLyrics
+        lyricsItem?.button?.title = screenLyrics
     }
     
     private func updateCombinedStatusLyrics() {
@@ -107,14 +107,14 @@ class MenuBarLyricsController {
     }
     
     private func setTextStatusItem(string: String) {
-        statusItem.title = string
-        statusItem.image = nil
+        statusItem.button?.title = string
+        statusItem.button?.image = nil
         statusItem.length = NSStatusItem.variableLength
     }
     
     private func setImageStatusItem() {
-        statusItem.title = ""
-        statusItem.image = buttonImage
+        statusItem.button?.title = ""
+        statusItem.button?.image = buttonImage
         statusItem.length = buttonlength
     }
 }

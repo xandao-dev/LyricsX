@@ -107,7 +107,9 @@ class PreferenceDisplayViewController: NSViewController, FontSelectTextFieldDele
         popup.action = #selector(translationLanguageChanged(_:))
         popup.bind(.enabled, withDefaultName: .preferBilingualLyrics)
         
-        let tip = NSTextField(wrappingLabelWithString: "Download both languages in System Settings > General > Language & Region > Translation Languages.")
+        let tip = NSTextField(
+            wrappingLabelWithString: "Download both languages in System Settings\u{00A0}> General\u{00A0}> Language & Region\u{00A0}> Translation Languages."
+        )
         let hint = NSTextField(wrappingLabelWithString: "")
         for label in [tip, hint] {
             label.font = .systemFont(ofSize: NSFont.smallSystemFontSize)

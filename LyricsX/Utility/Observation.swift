@@ -10,6 +10,35 @@
 import AppKit
 import GenericID
 
+private extension NSValueTransformerName {
+    static let lyricsXColorArchive = NSValueTransformerName("LyricsXColorArchive")
+}
+
+nonisolated private final class ColorArchiveValueTransformer: ValueTransformer {
+    
+    override class func transformedValueClass() -> AnyClass {
+        NSColor.self
+    }
+    
+    override class func allowsReverseTransformation() -> Bool {
+        true
+    }
+    
+    override func transformedValue(_ value: Any?) -> Any? {
+        guard let data = value as? Data else { return nil }
+        return try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSColor.self, from: data)
+    }
+    
+    override func reverseTransformedValue(_ value: Any?) -> Any? {
+        guard let color = value as? NSColor else { return nil }
+        return try? NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: true)
+    }
+}
+
+func registerValueTransformers() {
+    ValueTransformer.setValueTransformer(ColorArchiveValueTransformer(), forName: .lyricsXColorArchive)
+}
+
 nonisolated private class NotificationObservationToken {
     
     var center: NotificationCenter?
@@ -109,7 +138,7 @@ extension NSObject {
               options: [NSBindingOption: Any] = [:]) {
         var options = options
         if defaultName.valueTransformer != nil {
-            options[.valueTransformerName] = NSValueTransformerName.keyedUnarchiveFromDataTransformerName
+            options[.valueTransformerName] = NSValueTransformerName.lyricsXColorArchive
         }
         bind(binding, to: observable, withKeyPath: defaultName.key, options: options)
     }

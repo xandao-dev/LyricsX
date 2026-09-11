@@ -2,3 +2,5 @@ Product
 Packages/**/.build
 Packages/**/.swiftpm
 xcuserdata/
+.build/
+.claude/

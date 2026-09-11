@@ -64,7 +64,6 @@ extension UserDefaults.DefaultsKeys {
     // General
     static let lyricsSavingPathPopUpIndex = Key<Int>("LyricsSavingPathPopUpIndex")
     static let lyricsCustomSavingPathBookmark = Key<Data?>("LyricsCustomSavingPathBookmark")
-    static let loadLyricsBesideTrack = Key<Bool>("LoadLyricsBesideTrack")
     
     static let strictSearchEnabled = Key<Bool>("StrictSearchEnabled")
     static let preferBilingualLyrics = Key<Bool>("PreferBilingualLyrics")
@@ -117,4 +116,4 @@ extension UserDefaults.DefaultsKeys {
     static let globalLyricsOffset = Key<Int>("GlobalLyricsOffset")
 }
 
-extension CGFloat: DefaultConstructible {}
+extension CGFloat: @retroactive DefaultConstructible {}

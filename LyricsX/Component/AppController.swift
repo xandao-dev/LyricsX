@@ -105,14 +105,6 @@ class AppController: NSObject {
         
         var candidateLyricsURL: [(URL, Bool, Bool)] = []  // (fileURL, isSecurityScoped, needsSearching)
         
-        if defaults[.loadLyricsBesideTrack] {
-            if let fileName = track.fileURL?.deletingPathExtension() {
-                candidateLyricsURL += [
-                    (fileName.appendingPathExtension("lrcx"), false, false),
-                    (fileName.appendingPathExtension("lrc"), false, false)
-                ]
-            }
-        }
         let (url, security) = defaults.lyricsSavingPath()
         let titleForReading = title.replacingOccurrences(of: "/", with: ":")
         let artistForReading = artist.replacingOccurrences(of: "/", with: ":")

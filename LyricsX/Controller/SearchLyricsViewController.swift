@@ -12,7 +12,8 @@ import Combine
 import LyricsService
 import MusicPlayer
 
-class SearchLyricsViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate {
+class SearchLyricsViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource, NSTextFieldDelegate,
+                                  NSFilePromiseProviderDelegate {
     
     var imageCache = NSCache<NSURL, NSImage>()
     
@@ -167,29 +168,36 @@ class SearchLyricsViewController: NSViewController, NSTableViewDelegate, NSTable
         self.updateImage()
     }
     
-    func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
-        let lrcContent = searchResult[rowIndexes.first!].description
-        pboard.declareTypes([.string, .filePromise], owner: self)
-        pboard.setString(lrcContent, forType: .string)
-        pboard.setPropertyList(["lrc"], forType: .filePromise)
-        return true
+    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+        let lyrics = searchResult[row]
+        let promise = NSFilePromiseProvider(fileType: "public.utf8-plain-text", delegate: self)
+        promise.userInfo = PromisedLyricsFile(
+            name: lyrics.fileName ?? "Unknown.lrc",
+            contents: lyrics.description
+        )
+        return promise
     }
     
-    func tableView(_ tableView: NSTableView, namesOfPromisedFilesDroppedAtDestination dropDestination: URL, forDraggedRowsWith indexSet: IndexSet) -> [String] {
-        return indexSet.compactMap { index -> String? in
-            let fileName = searchResult[index].fileName ?? "Unknown"
-            
-            let destURL = dropDestination.appendingPathComponent(fileName)
-            let lrcStr = searchResult[index].description
-            
-            do {
-                try lrcStr.write(to: destURL, atomically: true, encoding: .utf8)
-            } catch {
-                log(error.localizedDescription)
-                return nil
-            }
-            
-            return fileName
+    func filePromiseProvider(_ filePromiseProvider: NSFilePromiseProvider,
+                             fileNameForType fileType: String) -> String {
+        guard let file = filePromiseProvider.userInfo as? PromisedLyricsFile else {
+            return "Unknown.lrc"
+        }
+        return file.name
+    }
+    
+    func filePromiseProvider(_ filePromiseProvider: NSFilePromiseProvider,
+                             writePromiseTo url: URL,
+                             completionHandler: @escaping (Error?) -> Void) {
+        guard let file = filePromiseProvider.userInfo as? PromisedLyricsFile else {
+            completionHandler(CocoaError(.fileWriteUnknown))
+            return
+        }
+        do {
+            try file.contents.write(to: url, atomically: true, encoding: .utf8)
+            completionHandler(nil)
+        } catch {
+            completionHandler(error)
         }
     }
     
@@ -252,4 +260,9 @@ class SearchLyricsViewController: NSViewController, NSTableViewDelegate, NSTable
         }
     }
     
+}
+
+private struct PromisedLyricsFile {
+    let name: String
+    let contents: String
 }

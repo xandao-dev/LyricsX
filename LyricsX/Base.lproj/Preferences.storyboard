@@ -113,20 +113,6 @@
                             <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="UQR-mH-y4R">
                                 <rect key="frame" x="20" y="82" width="560" height="5"/>
                             </box>
-                            <button verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="uiE-OU-NWP">
-                                <rect key="frame" x="234" y="138" width="197" height="18"/>
-                                <buttonCell key="cell" type="check" title="Load lyrics beside music file" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="EDv-ax-0hI">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="hHn-Lo-CwP" name="value" keyPath="values.LoadLyricsBesideTrack" id="ZXD-fu-9Il">
-                                        <dictionary key="options">
-                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                        </dictionary>
-                                    </binding>
-                                </connections>
-                            </button>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="HqA-iJ-lec">
                                 <rect key="frame" x="406" y="164" width="21" height="18"/>
                                 <constraints>
@@ -197,17 +183,15 @@
                             <constraint firstItem="UQR-mH-y4R" firstAttribute="top" secondItem="xmp-V1-Dn6" secondAttribute="bottom" constant="16" id="3bx-9G-RDz"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ydZ-SE-AM3" secondAttribute="trailing" constant="40" id="5qc-4a-zut"/>
                             <constraint firstAttribute="trailing" secondItem="UQR-mH-y4R" secondAttribute="trailing" constant="20" id="AqF-h8-heh"/>
-                            <constraint firstItem="uiE-OU-NWP" firstAttribute="top" secondItem="ydZ-SE-AM3" secondAttribute="bottom" constant="8" id="FC2-c7-SOn"/>
                             <constraint firstItem="xmp-V1-Dn6" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="leading" id="Fwu-8p-Lsf"/>
                             <constraint firstItem="ydZ-SE-AM3" firstAttribute="leading" secondItem="you-yu-77c" secondAttribute="trailing" constant="16" id="Hmq-iV-ozM"/>
                             <constraint firstItem="you-yu-77c" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ium-Ya-ZzT" secondAttribute="leading" constant="20" id="LoW-h0-G1D"/>
                             <constraint firstItem="you-yu-77c" firstAttribute="trailing" secondItem="Ium-Ya-ZzT" secondAttribute="centerX" constant="-80" id="OMR-7Z-L5p"/>
-                            <constraint firstItem="uiE-OU-NWP" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="leading" id="Tq8-F5-8ZX"/>
                             <constraint firstItem="2Yv-tb-pyE" firstAttribute="top" secondItem="tAC-g5-B2n" secondAttribute="bottom" constant="8" id="Y74-GG-e8t"/>
                             <constraint firstAttribute="bottom" secondItem="2Yv-tb-pyE" secondAttribute="bottom" constant="28" id="Zk7-jw-Cov"/>
                             <constraint firstItem="xmp-V1-Dn6" firstAttribute="centerY" secondItem="g0L-A1-o0L" secondAttribute="centerY" id="aTz-f7-vjT"/>
                             <constraint firstItem="HqA-iJ-lec" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="trailing" constant="10" id="aan-F0-PIg"/>
-                            <constraint firstItem="xmp-V1-Dn6" firstAttribute="top" secondItem="uiE-OU-NWP" secondAttribute="bottom" constant="16" id="bDY-BS-EKC"/>
+                            <constraint firstItem="xmp-V1-Dn6" firstAttribute="top" secondItem="ydZ-SE-AM3" secondAttribute="bottom" constant="16" id="bDY-BS-EKC"/>
                             <constraint firstItem="tAC-g5-B2n" firstAttribute="leading" secondItem="ydZ-SE-AM3" secondAttribute="leading" id="bNO-xe-6OV"/>
                             <constraint firstItem="tAC-g5-B2n" firstAttribute="top" secondItem="UQR-mH-y4R" secondAttribute="bottom" constant="16" id="fAG-gP-mk9"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uiE-OU-NWP" secondAttribute="trailing" constant="20" id="jN3-X8-xdL"/>
@@ -318,7 +302,7 @@
                                                             <connections>
                                                                 <binding destination="Nm6-oq-wpY" name="value" keyPath="values.DesktopLyricsBackgroundColor" id="jsB-V5-Kpy">
                                                                     <dictionary key="options">
-                                                                        <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                                                        <string key="NSValueTransformerName">LyricsXColorArchive</string>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
@@ -329,7 +313,7 @@
                                                             <connections>
                                                                 <binding destination="Nm6-oq-wpY" name="value" keyPath="values.DesktopLyricsColor" id="4j3-XC-g9Q">
                                                                     <dictionary key="options">
-                                                                        <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                                                        <string key="NSValueTransformerName">LyricsXColorArchive</string>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
@@ -340,7 +324,7 @@
                                                             <connections>
                                                                 <binding destination="Nm6-oq-wpY" name="value" keyPath="values.DesktopLyricsProgressColor" id="0l4-H1-ez5">
                                                                     <dictionary key="options">
-                                                                        <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                                                        <string key="NSValueTransformerName">LyricsXColorArchive</string>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
@@ -351,7 +335,7 @@
                                                             <connections>
                                                                 <binding destination="Nm6-oq-wpY" name="value" keyPath="values.DesktopLyricsShadowColor" id="RMb-tR-oEG">
                                                                     <dictionary key="options">
-                                                                        <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                                                        <string key="NSValueTransformerName">LyricsXColorArchive</string>
                                                                     </dictionary>
                                                                 </binding>
                                                             </connections>
@@ -551,7 +535,7 @@
                                                     <connections>
                                                         <binding destination="Nm6-oq-wpY" name="value" keyPath="values.LyricsWindowTextColor" id="k39-9D-0Sh">
                                                             <dictionary key="options">
-                                                                <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                                                <string key="NSValueTransformerName">LyricsXColorArchive</string>
                                                             </dictionary>
                                                         </binding>
                                                     </connections>
@@ -574,7 +558,7 @@
                                                     <connections>
                                                         <binding destination="Nm6-oq-wpY" name="value" keyPath="values.LyricsWindowHighlightColor" id="QMd-GF-gyP">
                                                             <dictionary key="options">
-                                                                <string key="NSValueTransformerName">NSKeyedUnarchiveFromData</string>
+                                                                <string key="NSValueTransformerName">LyricsXColorArchive</string>
                                                             </dictionary>
                                                         </binding>
                                                     </connections>

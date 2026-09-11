@@ -8,17 +8,16 @@ let searchReq = LyricsSearchRequest(searchTerm: .info(title: testSong, artist: t
 
 final class LyricsKitTests: XCTestCase {
     
-    func _test(provider: LyricsProvider) {
-        var searchResultEx: XCTestExpectation? = expectation(description: "Search result: \(provider)")
-        let token = provider.lyricsPublisher(request: searchReq).sink { lrc in
-            searchResultEx?.fulfill()
-            searchResultEx = nil
+    func _test(provider: LyricsProvider) async {
+        let searchResult = expectation(description: "Search result: \(provider)")
+        let token = provider.lyricsPublisher(request: searchReq).sink { _ in
+            searchResult.fulfill()
         }
-        waitForExpectations(timeout: 10)
+        await fulfillment(of: [searchResult], timeout: 10)
         token.cancel()
     }
     
-    func testManager() {
-        _test(provider: LyricsProviders.Group())
+    func testManager() async {
+        await _test(provider: LyricsProviders.Group())
     }
 }

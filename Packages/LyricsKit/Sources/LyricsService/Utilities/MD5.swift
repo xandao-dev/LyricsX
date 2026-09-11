@@ -15,24 +15,8 @@
 
 import Foundation
 
-#if canImport(CommonCrypto)
-import CommonCrypto
-#endif
-
 func md5(_ string: String) -> Data {
-    #if canImport(CommonCrypto)
-    let messageData = string.data(using:.utf8)!
-    var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
-    digestData.withUnsafeMutableBytes { digestBytes in
-        let digestBytes = digestBytes.bindMemory(to: UInt8.self)
-        messageData.withUnsafeBytes { messageBytes in
-            _ = CC_MD5(messageBytes.baseAddress, CC_LONG(messageBytes.count), digestBytes.baseAddress)
-        }
-    }
-    return digestData
-    #else
     return Data(rstr_md5(str2rstr_utf8(string)))
-    #endif
 }
 
 // MARK: - Functions
