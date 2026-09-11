@@ -114,12 +114,17 @@ class KaraokeLyricsWindowController: NSWindowController {
         let next = lyrics.lines[(index + 1)...].first { $0.enabled }
         
         let firstLine = lrc.content
-        // The translation takes the second line, in one-line mode too.
+        let nextLine = defaults[.desktopLyricsOneLineMode] ? "" : next?.content ?? ""
+        // Translation uses the second line; the upcoming lyric can then use a third.
         if let translation = lyrics.translationToDisplay(on: lrc) {
-            lyricsView.displayLrc(firstLine, secondLine: translation, secondLineIsTranslation: true)
+            lyricsView.displayLrc(
+                firstLine,
+                secondLine: translation,
+                thirdLine: nextLine,
+                secondLineIsTranslation: true
+            )
         } else {
-            let secondLine = defaults[.desktopLyricsOneLineMode] ? "" : next?.content ?? ""
-            lyricsView.displayLrc(firstLine, secondLine: secondLine)
+            lyricsView.displayLrc(firstLine, secondLine: nextLine)
         }
         if let upperTextField = lyricsView.displayLine1,
             let timetag = lrc.attachments.timetag {

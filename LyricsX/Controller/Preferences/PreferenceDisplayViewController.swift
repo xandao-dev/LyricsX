@@ -33,6 +33,7 @@ class PreferenceDisplayViewController: NSViewController, FontSelectTextFieldDele
         hudFontSelectField.fontChangeDelegate = self
         updateScreenFontFallback()
         addTranslationTab()
+        configureKaraokeOptions()
         super.viewDidLoad()
     }
     
@@ -133,6 +134,33 @@ class PreferenceDisplayViewController: NSViewController, FontSelectTextFieldDele
         item.label = "Translation"
         item.view = content
         tabView.addTabViewItem(item)
+    }
+    
+    private func configureKaraokeOptions() {
+        guard let button = firstButton(titled: "One line mode", in: view) else {
+            return
+        }
+        
+        button.unbind(.value)
+        button.title = "Show next line"
+        button.bind(
+            .value,
+            withDefaultName: .desktopLyricsOneLineMode,
+            options: [.valueTransformerName: NSValueTransformerName.negateBooleanTransformerName]
+        )
+        button.toolTip = "Keep the upcoming lyric visible below the current line"
+    }
+    
+    private func firstButton(titled title: String, in parent: NSView) -> NSButton? {
+        for subview in parent.subviews {
+            if let button = subview as? NSButton, button.title == title {
+                return button
+            }
+            if let button = firstButton(titled: title, in: subview) {
+                return button
+            }
+        }
+        return nil
     }
     
     @objc private func translationLanguageChanged(_ sender: NSPopUpButton) {

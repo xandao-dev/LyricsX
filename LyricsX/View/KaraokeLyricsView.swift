@@ -32,6 +32,7 @@ class KaraokeLyricsView: NSView {
     
     var displayLine1: KaraokeLabel?
     var displayLine2: KaraokeLabel?
+    var displayLine3: KaraokeLabel?
     private var secondLineIsTranslation = false
     
     /// Keeps the font fallbacks, which live in the descriptor's cascade list.
@@ -41,6 +42,14 @@ class KaraokeLyricsView: NSView {
     
     private var translationColor: NSColor {
         textColor.withAlphaComponent(textColor.alphaComponent * 0.65)
+    }
+    
+    private var upcomingFont: NSFont {
+        NSFont(descriptor: font.fontDescriptor, size: font.pointSize * 0.85) ?? font
+    }
+    
+    private var upcomingColor: NSColor {
+        textColor.withAlphaComponent(textColor.alphaComponent * 0.72)
     }
     
     override init(frame frameRect: NSRect) {
@@ -101,9 +110,16 @@ class KaraokeLyricsView: NSView {
         displayLine1?.textColor = textColor
         displayLine2?.font = secondLineIsTranslation ? translationFont : font
         displayLine2?.textColor = secondLineIsTranslation ? translationColor : textColor
+        displayLine3?.font = upcomingFont
+        displayLine3?.textColor = upcomingColor
     }
     
-    func displayLrc(_ firstLine: String, secondLine: String = "", secondLineIsTranslation: Bool = false) {
+    func displayLrc(
+        _ firstLine: String,
+        secondLine: String = "",
+        thirdLine: String = "",
+        secondLineIsTranslation: Bool = false
+    ) {
         self.secondLineIsTranslation = secondLineIsTranslation
         var toBeHide = stackView.arrangedSubviews.compactMap { $0 as? KaraokeLabel }
         var toBeShow: [NSTextField] = []
@@ -112,9 +128,11 @@ class KaraokeLyricsView: NSView {
         if firstLine.trimmingCharacters(in: .whitespaces).isEmpty {
             displayLine1 = nil
             shouldHideAll = true
-        } else if toBeHide.count == 2, toBeHide[1].stringValue == firstLine {
-            displayLine1 = toBeHide[1]
-            toBeHide.remove(at: 1)
+        } else if let existingIndex = toBeHide.indices.dropFirst().first(where: {
+            toBeHide[$0].stringValue == firstLine
+        }) {
+            displayLine1 = toBeHide[existingIndex]
+            toBeHide.remove(at: existingIndex)
         } else {
             let label = lyricsLabel(firstLine)
             displayLine1 = label
@@ -127,6 +145,14 @@ class KaraokeLyricsView: NSView {
             toBeShow.append(label)
         } else {
             displayLine2 = nil
+        }
+        
+        if !thirdLine.trimmingCharacters(in: .whitespaces).isEmpty {
+            let label = lyricsLabel(thirdLine)
+            displayLine3 = label
+            toBeShow.append(label)
+        } else {
+            displayLine3 = nil
         }
         styleLines()
         
