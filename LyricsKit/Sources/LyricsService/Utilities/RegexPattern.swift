@@ -30,12 +30,3 @@ nonisolated(unsafe) let krcLineRegex = #/^\[(\d+),(\d+)\](.*)/#.anchorsMatchLine
 nonisolated(unsafe) let netEaseInlineTagRegex = #/\(0,(\d+)\)([^(]+)(\(0,1\) )?/#.matchingSemantics(.unicodeScalar)
 
 nonisolated(unsafe) let kugouInlineTagRegex = #/<(\d+),(\d+),0>([^<]*)/#.matchingSemantics(.unicodeScalar)
-
-nonisolated(unsafe) let ttpodXtrcLineRegex = #/^((?:\[[+-]?\d+:\d+(?:\.\d+)?\])+)(?:((?:<\d+>[^<\r\n]+)+)|(.*))$(?:[\r\n]+\[x\-trans\](.*))?/#
-    .anchorsMatchLineEndings().matchingSemantics(.unicodeScalar)
-
-nonisolated(unsafe) let ttpodXtrcInlineTagRegex = #/<(\d+)>([^<\r\n]*)/#.matchingSemantics(.unicodeScalar)
-
-nonisolated(unsafe) let syairSearchResultRegex = #/<div class="title"><a href="([^"]+)">/#.matchingSemantics(.unicodeScalar)
-
-nonisolated(unsafe) let syairLyricsContentRegex = #/<div class="entry">(.+?)<div/#.dotMatchesNewlines().matchingSemantics(.unicodeScalar)

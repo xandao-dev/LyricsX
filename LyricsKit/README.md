@@ -7,11 +7,7 @@ Lyrics submodule for [LyricsX](https://github.com/ddddxxx/LyricsX).
 - NetEase Music
 - QQ Music
 - Kugou Music
-- TTPod
-- Gecimi
-- Syair
-- <del>Xiami Music</del> (discontinued)
-- <del>ViewLyrics</del> (not working anymore)
+- LRCLIB
 
 ## Usage
 
