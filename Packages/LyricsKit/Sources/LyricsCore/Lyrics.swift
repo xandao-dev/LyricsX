@@ -160,7 +160,8 @@ extension Lyrics {
                     return nil
             }
             let min = match.output.1.flatMap { Double($0) } ?? 0
-            let sec = Double(match.output.2) ?? 0
+            // Files saved under a comma-decimal locale say "267,85".
+            let sec = Double(match.output.2.replacing(",", with: ".")) ?? 0
             return min * 60 + sec
         }
         set {
@@ -169,6 +170,7 @@ extension Lyrics {
                 return
             }
             let fmt = NumberFormatter()
+            fmt.locale = Locale(identifier: "en_US_POSIX")
             fmt.minimumFractionDigits = 0
             fmt.maximumFractionDigits = 2
             let str = fmt.string(from: newValue as NSNumber)
