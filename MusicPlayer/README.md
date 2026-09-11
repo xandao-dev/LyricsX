@@ -4,7 +4,6 @@ Track detection for LyricsX, vendored from [ddddxxx/MusicPlayer](https://github.
 
 - `SystemMedia` reads macOS Now Playing, which browsers publish too. It goes through [mediaremote-adapter](https://github.com/ungive/mediaremote-adapter), so the app has to embed `MediaRemoteAdapter.framework` in `Contents/Frameworks` (the `MediaRemoteAdapter` target in the Xcode project does that). Without the framework, `SystemMedia()` returns nil.
 - `Agent` forwards another player's state and commands.
-- `Virtual` is a player whose state you set yourself.
 
 The AppleScript players (Music, Spotify, Vox, Audirvana, Swinsian), the iOS players and MPRIS are gone.
 
