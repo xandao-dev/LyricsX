@@ -15,8 +15,6 @@ extension LyricsProviders {
         case netease = "163"
         case qq = "QQMusic"
         case kugou = "Kugou"
-        case gecimi = "Gecimi"
-        case syair = "Syair"
     }
 }
 
@@ -27,11 +25,6 @@ extension LyricsProviders.Service {
         case .netease:  return LyricsProviders.NetEase()
         case .qq:       return LyricsProviders.QQMusic()
         case .kugou:    return LyricsProviders.Kugou()
-        case .gecimi:   return LyricsProviders.Gecimi()
-        #if canImport(Darwin)
-        case .syair:    return LyricsProviders.Syair()
-        #endif
-        default:        return LyricsProviders.Unsupported()
         }
     }
 }

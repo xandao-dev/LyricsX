@@ -24,7 +24,7 @@ extension LyricsProviders {
 
 extension LyricsProviders.Syair: _LyricsProvider {
     
-    public static let service: LyricsProviders.Service? = .syair
+    public static let service: LyricsProviders.Service? = nil
     
     public func lyricsSearchPublisher(request: LyricsSearchRequest) -> AnyPublisher<String, Never> {
         var parameter: [String: Any] = ["page": 1]
