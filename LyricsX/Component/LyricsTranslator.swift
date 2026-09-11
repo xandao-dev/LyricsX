@@ -135,6 +135,11 @@ enum LyricsTranslator {
         tag: LyricsLine.Attachments.Tag,
         duplicateIndices: [Int: [Int]]
     ) {
+        // The service finishes a batch even after its task is cancelled, so one
+        // can land after a track change or after a better search result replaced
+        // these lyrics. Showing it brings the old lyrics back, and saving it
+        // overwrites the file with the replaced version.
+        guard AppController.shared.currentLyrics === lyrics else { return }
         for result in results {
             for index in duplicateIndices[result.index] ?? [result.index]
                 where lyrics.lines.indices.contains(index) {

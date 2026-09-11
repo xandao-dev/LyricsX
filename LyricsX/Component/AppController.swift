@@ -17,7 +17,7 @@ class AppController: NSObject {
         didSet {
             didChangeValue(forKey: "lyricsOffset")
             scheduleCurrentLineCheck()
-            currentLyrics.map(LyricsTranslator.translateIfNeeded)
+            translateCurrentLyrics()
         }
     }
     
@@ -51,13 +51,21 @@ class AppController: NSObject {
             .sink { [weak self] _ in self?.scheduleCurrentLineCheck() }
             .store(in: &cancelBag)
         observeDefaults(keys: [.preferBilingualLyrics, .translationLanguage]) { [weak self] in
-            self?.currentLyrics.map(LyricsTranslator.translateIfNeeded)
+            self?.translateCurrentLyrics()
         }
         // Retry after returning from System Settings (for newly downloaded
         // language packs) and after transient Translation service failures.
         observeNotification(name: NSApplication.didBecomeActiveNotification, queue: .main) { [weak self] in
-            self?.currentLyrics.map(LyricsTranslator.translateIfNeeded)
+            self?.translateCurrentLyrics()
         }
+    }
+    
+    /// While a search runs, better results keep replacing the lyrics, and the
+    /// service would finish a batch for every replaced version before the one
+    /// on screen. The search translates its final pick when it ends.
+    private func translateCurrentLyrics() {
+        guard searchRequest == nil else { return }
+        currentLyrics.map(LyricsTranslator.translateIfNeeded)
     }
     
     var currentLineCheckSchedule: Cancellable?
@@ -122,6 +130,15 @@ class AppController: NSObject {
         searchTrack = track
         searchCanceller = lyricsManager.lyricsPublisher(request: req)
             .timeout(.seconds(10), scheduler: DispatchQueue.main)
+            // When the search ends, translate its final pick. A cancelled search
+            // never completes, so clear it on cancel too, or lyrics picked after
+            // "Wrong Lyrics" never translate.
+            .handleEvents(receiveCompletion: { [unowned self] _ in
+                self.searchRequest = nil
+                self.translateCurrentLyrics()
+            }, receiveCancel: { [unowned self] in
+                self.searchRequest = nil
+            })
             .sink(receiveValue: { [unowned self] lyrics in
                 self.lyricsReceived(lyrics: lyrics)
             })
