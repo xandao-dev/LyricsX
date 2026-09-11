@@ -33,8 +33,15 @@ extension LyricsProviders.Kugou: _LyricsProvider {
     public static let service: LyricsProviders.Service? = .kugou
     
     public func lyricsSearchPublisher(request: LyricsSearchRequest) -> AnyPublisher<LyricsToken, Never> {
+        let keyword: String
+        switch request.searchTerm {
+        case .keyword(let value):
+            keyword = value
+        case .info(let title, let artist):
+            keyword = "\(artist) - \(title)"
+        }
         let parameter: [String: Any] = [
-            "keyword": request.searchTerm.description,
+            "keyword": keyword,
             "duration": Int(request.duration * 1000),
             "client": "pc",
             "ver": 1,
