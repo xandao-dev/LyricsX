@@ -74,8 +74,12 @@ class AppController: NSObject {
         }
         if let next = next, playbackState.isPlaying {
             let dt = lyrics.lines[next].position - playbackTime - lyrics.adjustedTimeDelay
-            let q = DispatchQueue.main
-            currentLineCheckSchedule = q.schedule(after: q.now.advanced(by: .seconds(dt)), interval: .seconds(42), tolerance: .milliseconds(20)) { [unowned self] in
+            let queue = DispatchQueue.main
+            currentLineCheckSchedule = queue.schedule(
+                after: queue.now.advanced(by: .seconds(dt)),
+                interval: .seconds(42),
+                tolerance: .milliseconds(20)
+            ) { [unowned self] in
                 self.scheduleCurrentLineCheck()
             }
         }

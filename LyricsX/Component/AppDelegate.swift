@@ -119,7 +119,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation, NSMenu
     
     @IBAction func searchLyrics(_ sender: Any?) {
         searchLyricsWC.window?.makeKeyAndOrderFront(nil)
-        (searchLyricsWC.contentViewController as! SearchLyricsViewController?)?.reloadKeyword()
+        (searchLyricsWC.contentViewController as? SearchLyricsViewController)?.reloadKeyword()
         NSApp.activate(ignoringOtherApps: true)
     }
     
