@@ -23,7 +23,8 @@ opt_in_rules:
   - yoda_condition
 excluded:
   - Carthage
-  - Packages
+  - LyricsKit
+  - MusicPlayer
 
 line_length: 150
 identifier_name:

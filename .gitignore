@@ -1,6 +1,5 @@
 Product
-Packages/**/.build
-Packages/**/.swiftpm
+.swiftpm/
 xcuserdata/
 .build/
 .claude/

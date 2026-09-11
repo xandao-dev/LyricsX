@@ -460,8 +460,8 @@
 			mainGroup = BB4141A11E458BA800A51775;
 			packageReferences = (
 				BBB03F2B232FB3AF00A3879E /* XCRemoteSwiftPackageReference "GenericID" */,
-				BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "Packages/LyricsKit" */,
-				BB9C3D8123435A5700860698 /* XCLocalSwiftPackageReference "Packages/MusicPlayer" */,
+				BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "LyricsKit" */,
+				BB9C3D8123435A5700860698 /* XCLocalSwiftPackageReference "MusicPlayer" */,
 				BB22681A234C9085008FAFED /* XCRemoteSwiftPackageReference "SwiftCF" */,
 				BB911C68EDE2BC816E3F9579 /* XCRemoteSwiftPackageReference "MASShortcut" */,
 			);
@@ -851,13 +851,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		BB9C3D8123435A5700860698 /* XCLocalSwiftPackageReference "Packages/MusicPlayer" */ = {
+		BB9C3D8123435A5700860698 /* XCLocalSwiftPackageReference "MusicPlayer" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/MusicPlayer;
+			relativePath = MusicPlayer;
 		};
-		BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "Packages/LyricsKit" */ = {
+		BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "LyricsKit" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/LyricsKit;
+			relativePath = LyricsKit;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -896,7 +896,7 @@
 		};
 		BB9C3D8223435A5700860698 /* MusicPlayer */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BB9C3D8123435A5700860698 /* XCLocalSwiftPackageReference "Packages/MusicPlayer" */;
+			package = BB9C3D8123435A5700860698 /* XCLocalSwiftPackageReference "MusicPlayer" */;
 			productName = MusicPlayer;
 		};
 		BBB03F2C232FB3AF00A3879E /* GenericID */ = {
@@ -906,7 +906,7 @@
 		};
 		BBB03F3C2331DACD00A3879E /* LyricsKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "Packages/LyricsKit" */;
+			package = BBB03F3B2331DACD00A3879E /* XCLocalSwiftPackageReference "LyricsKit" */;
 			productName = LyricsKit;
 		};
 		BBF4ED4FCE3071A3AD7C22FA /* MASShortcut */ = {

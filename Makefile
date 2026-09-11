@@ -35,7 +35,7 @@ run: build
 	open "$(DEBUG_APP)"
 
 test:
-	swift test --package-path Packages/LyricsKit
+	swift test --package-path LyricsKit
 
 lint:
 	@command -v swiftlint >/dev/null || { \
