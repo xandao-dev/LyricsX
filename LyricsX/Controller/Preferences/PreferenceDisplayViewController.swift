@@ -34,6 +34,7 @@ class PreferenceDisplayViewController: NSViewController, FontSelectTextFieldDele
         updateScreenFontFallback()
         addTranslationTab()
         configureKaraokeOptions()
+        addWindowPlaybackControlsOption()
         super.viewDidLoad()
     }
     
@@ -149,6 +150,42 @@ class PreferenceDisplayViewController: NSViewController, FontSelectTextFieldDele
             options: [.valueTransformerName: NSValueTransformerName.negateBooleanTransformerName]
         )
         button.toolTip = "Keep the upcoming lyric visible below the current line"
+    }
+    
+    private func addWindowPlaybackControlsOption() {
+        guard let tabView = view.subviews.lazy.compactMap({ $0 as? NSTabView }).first,
+              tabView.tabViewItems.count > 1,
+              let windowView = tabView.tabViewItems[1].view else {
+            return
+        }
+        
+        let separator = NSBox()
+        separator.boxType = .separator
+        let checkbox = NSButton(checkboxWithTitle: "Show playback controls", target: nil, action: nil)
+        checkbox.bind(.value, withDefaultName: .lyricsWindowPlaybackControlsEnabled)
+        let detail = NSTextField(
+            wrappingLabelWithString: "Show previous, play or pause, and next controls in the bottom-right corner."
+        )
+        detail.font = .systemFont(ofSize: NSFont.smallSystemFontSize)
+        detail.textColor = .secondaryLabelColor
+        
+        for subview in [separator, checkbox, detail] {
+            subview.translatesAutoresizingMaskIntoConstraints = false
+            windowView.addSubview(subview)
+        }
+        
+        NSLayoutConstraint.activate([
+            separator.leadingAnchor.constraint(equalTo: windowView.leadingAnchor, constant: 20),
+            separator.trailingAnchor.constraint(equalTo: windowView.trailingAnchor, constant: -20),
+            separator.topAnchor.constraint(equalTo: windowView.topAnchor, constant: 136),
+            
+            checkbox.leadingAnchor.constraint(equalTo: windowView.centerXAnchor, constant: -40),
+            checkbox.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 16),
+            
+            detail.leadingAnchor.constraint(equalTo: checkbox.leadingAnchor, constant: 18),
+            detail.trailingAnchor.constraint(lessThanOrEqualTo: windowView.trailingAnchor, constant: -20),
+            detail.topAnchor.constraint(equalTo: checkbox.bottomAnchor, constant: 6),
+        ])
     }
     
     private func firstButton(titled title: String, in parent: NSView) -> NSButton? {

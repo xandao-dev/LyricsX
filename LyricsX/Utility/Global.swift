@@ -85,6 +85,7 @@ extension UserDefaults.DefaultsKeys {
     
     static let lyricsWindowTextColor = Key<NSColor>("LyricsWindowTextColor", transformer: .keyedArchive)
     static let lyricsWindowHighlightColor = Key<NSColor>("LyricsWindowHighlightColor", transformer: .keyedArchive)
+    static let lyricsWindowPlaybackControlsEnabled = Key<Bool>("LyricsWindowPlaybackControlsEnabled")
     
     // Shortcut
     static let shortcutToggleMenuBarLyrics = Key<String>("ShortcutToggleMenuBarLyrics")
