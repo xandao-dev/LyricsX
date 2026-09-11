@@ -33,6 +33,7 @@ class PreferenceDisplayViewController: NSViewController, FontSelectTextFieldDele
         hudFontSelectField.fontChangeDelegate = self
         updateScreenFontFallback()
         addTranslationTab()
+        configureLyricsSections()
         configureKaraokeOptions()
         addWindowPlaybackControlsOption()
         super.viewDidLoad()
@@ -135,6 +136,22 @@ class PreferenceDisplayViewController: NSViewController, FontSelectTextFieldDele
         item.label = "Translation"
         item.view = content
         tabView.addTabViewItem(item)
+    }
+    
+    private func configureLyricsSections() {
+        guard let tabView = view.subviews.lazy.compactMap({ $0 as? NSTabView }).first else {
+            return
+        }
+        
+        let sections = [
+            ("Desktop", "Floating karaoke lyrics"),
+            ("Window", "Lyrics window appearance"),
+            ("Translation", "Bilingual lyrics"),
+        ]
+        for (item, section) in zip(tabView.tabViewItems, sections) {
+            item.label = section.0
+            item.toolTip = section.1
+        }
     }
     
     private func configureKaraokeOptions() {

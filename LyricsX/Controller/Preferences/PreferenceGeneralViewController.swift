@@ -7,12 +7,27 @@ class PreferenceGeneralViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureSavingPathMenu()
         
         if let url = defaults.lyricsCustomSavingPath {
             userPathMenuItem.title = url.lastPathComponent
             userPathMenuItem.toolTip = url.path
         } else {
             userPathMenuItem.isHidden = true
+        }
+    }
+    
+    private func configureSavingPathMenu() {
+        if let defaultItem = savingPathPopUp.item(at: 0) {
+            defaultItem.title = "LyricsX Folder"
+            defaultItem.image = NSImage(systemSymbolName: "folder", accessibilityDescription: nil)
+        }
+        
+        userPathMenuItem.image = NSImage(systemSymbolName: "folder.fill", accessibilityDescription: nil)
+        
+        if let chooseItem = savingPathPopUp.itemArray.last {
+            chooseItem.title = "Choose Folder…"
+            chooseItem.image = NSImage(systemSymbolName: "folder.badge.plus", accessibilityDescription: nil)
         }
     }
     
