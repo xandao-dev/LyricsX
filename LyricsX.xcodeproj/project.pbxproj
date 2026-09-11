@@ -38,8 +38,6 @@
 		BB58B07F1E82901800598D4F /* AutoActivateWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB58B07E1E82901800598D4F /* AutoActivateWindowController.swift */; };
 		BB58B0821E82971400598D4F /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB58B0811E82971400598D4F /* UserDefaults.plist */; };
 		BB58B0891E82CA9B00598D4F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = BB58B0881E82CA9B00598D4F /* Credits.rtf */; };
-		BB58D8BF248636900047E3C6 /* DonateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB58D8BE248636900047E3C6 /* DonateViewController.swift */; };
-		BB58D8C2248638950047E3C6 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB58D8C1248638950047E3C6 /* DebugViewController.swift */; };
 		BB5D4B2D2094A1D700844D9F /* FontSelectTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5D4B2C2094A1D700844D9F /* FontSelectTextField.swift */; };
 		BB6139741FCCFA6700CBD808 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB6139761FCCFA6700CBD808 /* Preferences.storyboard */; };
 		BB7EC7B21E4E018C00A0AC3F /* LyricsHUDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7EC7B11E4E018C00A0AC3F /* LyricsHUDViewController.swift */; };
@@ -122,8 +120,6 @@
 		BB58B07E1E82901800598D4F /* AutoActivateWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoActivateWindowController.swift; sourceTree = "<group>"; };
 		BB58B0811E82971400598D4F /* UserDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserDefaults.plist; sourceTree = "<group>"; };
 		BB58B0881E82CA9B00598D4F /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
-		BB58D8BE248636900047E3C6 /* DonateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateViewController.swift; sourceTree = "<group>"; };
-		BB58D8C1248638950047E3C6 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		BB5D4B2C2094A1D700844D9F /* FontSelectTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectTextField.swift; sourceTree = "<group>"; };
 		BB6139751FCCFA6700CBD808 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Preferences.storyboard; sourceTree = "<group>"; };
 		BB7EC7B11E4E018C00A0AC3F /* LyricsHUDViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LyricsHUDViewController.swift; sourceTree = "<group>"; };
@@ -260,8 +256,6 @@
 				BB58B07E1E82901800598D4F /* AutoActivateWindowController.swift */,
 				BB7EC7B11E4E018C00A0AC3F /* LyricsHUDViewController.swift */,
 				BBB9AAE21E57EE880078F91A /* SearchLyricsViewController.swift */,
-				BB58D8BE248636900047E3C6 /* DonateViewController.swift */,
-				BB58D8C1248638950047E3C6 /* DebugViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -572,7 +566,6 @@
 				BB458C63201C5F4500740C3B /* LyricsMetadata+Extension.swift in Sources */,
 				BBC7C5551E6AE28600E3EC4F /* PreferenceGeneralViewController.swift in Sources */,
 				BBE8FC751F6BEA6200122AFA /* Then.swift in Sources */,
-				BB58D8C2248638950047E3C6 /* DebugViewController.swift in Sources */,
 				BBC1D35F1E499A6D002538A2 /* Global.swift in Sources */,
 				BB1B300320E878AE002F1AF8 /* StdExtension.swift in Sources */,
 				BB947DFB23B4C60000C43BF2 /* SelectedPlayer.swift in Sources */,
@@ -581,7 +574,6 @@
 				E91F76EB21211B8D00755698 /* PreferenceViewController.swift in Sources */,
 				BB063B2E1E8A93C900A25C3E /* KaraokeLyricsView.swift in Sources */,
 				BBC1D5801E4AE3B9008869EC /* MenuBarLyricsController.swift in Sources */,
-				BB58D8BF248636900047E3C6 /* DonateViewController.swift in Sources */,
 				BB5D4B2D2094A1D700844D9F /* FontSelectTextField.swift in Sources */,
 				BB9BCEBA1E843157001BC54B /* Extension.swift in Sources */,
 				BBE2A79824041E36004A7E93 /* CombineExtension.swift in Sources */,
