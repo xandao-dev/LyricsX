@@ -45,20 +45,18 @@ extension LyricsProviders.NetEase: _LyricsProvider {
         req.setValue("http://music.163.com/", forHTTPHeaderField: "Referer")
         req.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15", forHTTPHeaderField: "User-Agent")
 
+        // A search without the NMTID cookie is refused, and the refusal sets the cookie.
+        // The session keeps it, so later searches succeed the first time and get no Set-Cookie.
         return sharedURLSession.dataTaskPublisher(for: req)
-            .compactMap { data, response -> String? in
+            .flatMap { data, response -> AnyPublisher<Data, URLError> in
                 guard let httpResp = response as? HTTPURLResponse,
                       let setCookie = httpResp.allHeaderFields["Set-Cookie"] as? String,
                       let cookieIdx = setCookie.firstIndex(of: ";") else {
-                    return nil
+                    return Just(data).setFailureType(to: URLError.self).eraseToAnyPublisher()
                 }
-                return String(setCookie[..<cookieIdx])
+                req.setValue(String(setCookie[..<cookieIdx]), forHTTPHeaderField: "Cookie")
+                return sharedURLSession.dataTaskPublisher(for: req).map(\.data).eraseToAnyPublisher()
             }
-            .flatMap { cookie -> URLSession.DataTaskPublisher in
-                req.setValue(cookie, forHTTPHeaderField: "Cookie")
-                return sharedURLSession.dataTaskPublisher(for: req)
-            }
-            .map(\.data)
             .decode(type: NetEaseResponseSearchResult.self, decoder: JSONDecoder())
             .map(\.songs)
             .replaceError(with: [])
